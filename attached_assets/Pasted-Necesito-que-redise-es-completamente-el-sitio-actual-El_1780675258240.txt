@@ -1,0 +1,235 @@
+Necesito que rediseñes completamente el sitio actual. El resultado se ve genérico y amateur. 
+Aplica TODAS estas correcciones para que quede a nivel de agencia profesional de primer nivel:
+
+---
+
+## 1. TIPOGRAFÍA — El problema más visible
+
+PROBLEMA: Las fuentes se ven planas y sin personalidad.
+CORRECCIÓN:
+- Importa desde Google Fonts: 
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital@1&display=swap');
+- Headings principales (H1, H2): "Bebas Neue", tamaño mínimo 80px en desktop
+- Body y párrafos: "Inter" weight 300 o 400, line-height: 1.8
+- Detalles en cursiva o citas: "Playfair Display" italic
+- NUNCA uses font-weight bold en Bebas Neue (ya es pesada por diseño)
+- Espaciado de letras en headings: letter-spacing: 0.02em
+- El H1 del hero debe tener mínimo 10vw de tamaño (gigante, que ocupe toda la pantalla)
+
+---
+
+## 2. HERO SECTION — Debe impactar en 2 segundos
+
+PROBLEMA: El hero se ve como un template básico de Bootstrap.
+CORRECCIÓN:
+- Altura: 100vh exacto, sin scrollbar visible al cargar
+- Fondo: NO uses un color sólido simple. Usa este gradiente con ruido animado:
+  background: #0a0a0a;
+  Agrega un elemento ::before con:
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.4; mix-blend-mode: overlay;
+- El texto principal debe aparecer con esta animación de entrada:
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  Aplícalo con delays escalonados: 0.2s, 0.5s, 0.8s para cada línea de texto
+- Agrega una línea decorativa horizontal animada encima del título (width que crece de 0 a 60px)
+- El botón CTA: borde 1px solid #c8f000, fondo transparente, texto #c8f000
+  En hover: background #c8f000, color #000, transition 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+- Agrega un scroll indicator animado abajo al centro:
+  Un pequeño texto "SCROLL" rotado 90deg + una línea que se anima hacia abajo
+
+---
+
+## 3. NAVBAR — Debe verse flotante y premium
+
+PROBLEMA: La nav se ve pegada y sin refinamiento.
+CORRECCIÓN:
+- Position: fixed, top: 0, width: 100%, z-index: 1000
+- Fondo inicial: completamente transparente
+- Al hacer scroll más de 50px, agregar con JS:
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.4s ease;
+- Links del nav: font-family Inter, font-size 13px, letter-spacing 0.15em, text-transform uppercase, color #888
+- En hover de cada link: color #ffffff con una línea de 1px debajo que crece desde la izquierda (transform: scaleX)
+- Logo: usa solo texto, "STUDIO" en Bebas Neue 24px blanco + un punto o símbolo en color acento
+
+---
+
+## 4. COLORES Y CONTRASTE — La paleta debe ser consistente
+
+PROBLEMA: Los colores parecen elegidos al azar.
+CORRECCIÓN — usa SOLO esta paleta:
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #161616;
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
+  --text-muted: #444444;
+  --accent: #c8f000;
+  --accent-dark: #a8cc00;
+  --border: rgba(255,255,255,0.06);
+
+- NUNCA uses grises medios (#999, #aaa) para texto importante
+- NUNCA uses fondos blancos o claros en ninguna sección
+- Las líneas divisoras entre secciones: border-top: 1px solid var(--border)
+
+---
+
+## 5. SECCIÓN DE SERVICIOS — El elemento más importante visualmente
+
+PROBLEMA: Se ve como una lista o cards genéricas.
+CORRECCIÓN — implementa el estilo "accordion horizontal con imagen fantasma":
+- Cada servicio es una fila completa con border-bottom: 1px solid var(--border)
+- Padding: 32px 0
+- Layout: CSS Grid con columnas [60px] [1fr] [auto]
+  - Columna 1: número "01", "02"... en color var(--text-muted), font-size 13px
+  - Columna 2: nombre del servicio en Bebas Neue 48px, color blanco
+  - Columna 3: una flecha diagonal "→" en color muted
+- En hover de cada fila:
+  - El número cambia a color acento
+  - El nombre se mueve 8px a la derecha (transform: translateX(8px))
+  - La flecha rota 45deg (apunta arriba-derecha)
+  - Aparece una imagen de fondo con opacity 0.15 (position absolute, object-fit cover)
+  - Todo con transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+- cursor: pointer en cada fila
+
+---
+
+## 6. CARRUSEL DE PROYECTOS — El corazón del home
+
+PROBLEMA: El carrusel se ve básico o con estilos por defecto.
+CORRECCIÓN:
+- El carrusel ocupa el 100% del ancho de la pantalla (full-bleed)
+- Cada slide: imagen a la izquierda (65% del ancho) + panel de texto a la derecha (35%)
+- El panel de texto contiene:
+  - Número de slide: "01 / 05" en color muted, font-size 12px, letter-spacing 0.2em
+  - Categoría: etiqueta pequeña con borde, color acento
+  - Título del proyecto: Bebas Neue 52px
+  - Comentario/descripción: Inter 15px, color secondary, line-height 1.7
+  - Un botón "Ver proyecto →" minimalista
+- Las imágenes tienen un overlay gradient: linear-gradient(to right, transparent 60%, #0a0a0a)
+- Transición entre slides: clip-path reveal animado:
+  clip-path: inset(0 100% 0 0) → clip-path: inset(0 0% 0 0), duration 0.8s ease
+- Los dots de navegación: líneas horizontales, no círculos
+  La línea activa se llena con animación de izquierda a derecha sincronizada con el autoplay
+- Flechas de navegación: solo con borde circular, sin fondo sólido
+
+---
+
+## 7. SECCIÓN "SOBRE NOSOTROS" — Debe sentirse editorial
+
+PROBLEMA: Se ve como texto simple en dos columnas.
+CORRECCIÓN:
+- Layout asimétrico: columna izquierda 40%, columna derecha 60%
+- Columna izquierda (texto):
+  - Label pequeño en mayúsculas con guión: "— SOBRE NOSOTROS", color acento, font-size 11px
+  - Título en Bebas Neue 72px, con un salto de línea intencional
+  - Una línea de 40px en color acento debajo del título
+  - Párrafo en Inter Light
+  - Los contadores: números grandes en Bebas Neue 80px color acento + texto descriptivo abajo
+- Columna derecha (imagen):
+  - La imagen tiene un borde decorativo: box-shadow 20px 20px 0 var(--accent) (sombra desplazada)
+  - La imagen tiene un ligero filtro: filter grayscale(20%) contrast(1.1)
+  - En hover: filter grayscale(0%), transición suave
+
+---
+
+## 8. PORTAFOLIO GRID — Debe verse como revista
+
+PROBLEMA: Las cards se ven todas iguales y aburridas.
+CORRECCIÓN:
+- Usa CSS Grid con esta distribución (no columnas iguales):
+  grid-template-columns: 1fr 1fr 1fr;
+  La primera card ocupa 2 columnas (grid-column: span 2)
+  La cuarta card ocupa 2 columnas también
+- Cada card:
+  - Aspect ratio: 4/3 (o 16/9 para las grandes)
+  - overflow: hidden
+  - La imagen hace scale(1.05) en hover con transition 0.6s ease
+  - Overlay: gradiente desde transparente hasta rgba(0,0,0,0.85) en la parte inferior
+  - El texto del overlay (título + categoría) está abajo y sube 10px en hover
+  - Un pequeño "+" o "→" aparece en la esquina superior derecha en hover
+- Los filtros de categoría:
+  - Texto simple sin fondos de botón exagerados
+  - El activo tiene una línea debajo en color acento
+  - Transición suave entre filtros (fade out / fade in)
+
+---
+
+## 9. FOOTER — Debe verse como cierre profesional
+
+PROBLEMA: El footer se ve copiado de un template gratuito.
+CORRECCIÓN:
+- Fondo: #080808 (más oscuro que el resto)
+- Padding: 80px arriba, 40px abajo
+- Layout superior: 3 columnas
+  - Col 1: Logo grande + tagline
+  - Col 2: Links de navegación en lista vertical, estilo minimalista
+  - Col 3: Datos de contacto (email, teléfono, ciudad)
+- Una línea divisora fina antes de la fila inferior
+- Fila inferior: copyright a la izquierda + íconos sociales a la derecha
+- Los íconos sociales: solo SVG o unicode, sin librerías externas, 20x20px, color muted → blanco en hover
+
+---
+
+## 10. ANIMACIONES GLOBALES — Lo que separa un sitio amateur de uno profesional
+
+PROBLEMA: No hay animaciones de scroll o son bruscas.
+CORRECCIÓN — implementa con IntersectionObserver:
+
+```javascript
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+```
+
+CSS base:
+```css
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+```
+
+- Agrega la clase .animate-on-scroll a: títulos de sección, cards de portafolio, filas de servicios, contadores
+- Los elementos hijos dentro de una sección deben tener delays escalonados:
+  .animate-on-scroll:nth-child(1) { transition-delay: 0s; }
+  .animate-on-scroll:nth-child(2) { transition-delay: 0.1s; }
+  .animate-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+
+---
+
+## 11. DETALLES MICRO QUE MARCAN LA DIFERENCIA
+
+- Agrega a todos los links y botones: transition: all 0.3s ease; (si no está)
+- El cursor en elementos interactivos: cursor: pointer siempre
+- Imágenes: siempre con object-fit: cover y un aspect-ratio definido
+- NUNCA uses margin: auto en contenedores — usa CSS Grid o Flexbox siempre
+- El max-width del contenido interior: 1280px, centrado con margin: 0 auto y padding: 0 48px
+- En mobile (max-width 768px): padding lateral mínimo de 24px en todos los contenedores
+- Agrega smooth scroll: html { scroll-behavior: smooth; }
+- Agrega una barra de progreso de lectura arriba de la página (línea fina en color acento que crece con el scroll)
+
+---
+
+## RESULTADO ESPERADO
+Al terminar estas correcciones, el sitio debe:
+- Verse comparable a los portafolios de awwwards.com
+- Cargar sin saltos ni layout shifts
+- Tener animaciones fluidas en todos los elementos interactivos
+- Sentirse coherente en tipografía, espaciado y color de principio a fin
