@@ -1,0 +1,108 @@
+Build a complete single-page website for a graphic design and signage (señalética) studio. 
+The design must be inspired by the "Darkyn" dark creative agency theme: bold dark aesthetic, 
+smooth animations, minimal and modern UI, high-end visuals.
+
+## TECH STACK
+- HTML5, CSS3, Vanilla JavaScript (no frameworks needed)
+- Use Google Fonts: "Inter" for body, "Bebas Neue" or "Outfit" for headings
+- All in a single index.html file with embedded CSS and JS
+
+## GLOBAL STYLE
+- Background: #0a0a0a (near black)
+- Primary accent: #c8f000 (electric lime/yellow-green) for highlights and hover effects
+- Text: #ffffff and #888888 for secondary
+- Smooth scroll behavior
+- Subtle fade-in animations on scroll (use IntersectionObserver)
+- Cursor: custom dot follower effect
+
+## NAVIGATION (fixed top)
+- Logo text on the left: "STUDIO [your name]" in bold uppercase
+- Nav links: Inicio | Servicios | Portafolio | Nosotros | Contacto
+- Hamburger menu for mobile
+- Nav background becomes dark/blurred on scroll
+
+## SECTION 1 — HERO
+- Full screen height
+- Large heading split into two lines:
+  Line 1 (small, accent color): "Diseño que comunica."
+  Line 2 (huge, white, 10vw): "CREAMOS MARCAS / SEÑALES / IDENTIDADES"
+  (text rotates between the 3 words with a typing/sliding animation)
+- Subtext: "Estudio de diseño gráfico y señalética en [Ciudad]"
+- CTA button: "Ver Proyectos" (outlined, accent color, hover fills with accent)
+- Background: dark with subtle animated noise texture or floating geometric shapes
+
+## SECTION 2 — MARQUEE / CLIENTS BAR
+- Infinite horizontal scrolling marquee
+- Contains logos or text labels of brand/client names
+- Separator: small star or diamond symbol (★) between each name
+- Background slightly lighter dark (#111111)
+
+## SECTION 3 — SERVICES (numbered list style)
+- Title: "Nuestros Servicios"
+- 4 services in a vertical accordion/hover list:
+  01 — Diseño de Marca e Identidad (with an image that appears on hover)
+  02 — Señalética y Wayfinding
+  03 — Diseño Editorial y Print
+  04 — Motion & Digital Design
+- Each row has a thin border-bottom, number on left, title in center, arrow on right
+- On hover: background turns to accent color (#c8f000), text turns black, image slides in from right
+
+## SECTION 4 — IMAGE CAROUSEL WITH COMMENTS ⭐ (key feature)
+- Section title: "Proyectos Destacados"
+- A full-width image carousel with 5 slides
+- Each slide contains:
+  - A large project image (use placeholder images from https://picsum.photos/1200/700 with different seed numbers)
+  - Below the image: project name in bold, and a short one-line comment/description in smaller gray text
+  Example:
+    Image → [picsum.photos/seed/1/1200/700]
+    Title: "Señalética Corporativa — Hotel Bellavista"
+    Comment: "Sistema completo de wayfinding para hotel 5 estrellas en Santiago."
+- Navigation: left/right arrows + dot indicators below
+- Auto-advances every 4 seconds
+- Smooth CSS transition (slide or crossfade)
+- Carousel is touch/swipe enabled on mobile
+
+## SECTION 5 — ABOUT / WHO WE ARE
+- Two-column layout (text left, image right)
+- Left: 
+  - Small label: "Sobre Nosotros"
+  - Large heading: "Donde la creatividad encuentra la estrategia."
+  - Paragraph about the studio
+  - Two stat counters animated on scroll: "80+ Proyectos" | "12+ Años"
+- Right: a tall image placeholder (picsum.photos/seed/studio/600/800)
+
+## SECTION 6 — PORTFOLIO GRID
+- Title: "Nuestro Trabajo"
+- Filter tabs: Todos | Señalética | Branding | Editorial
+- Masonry or 3-column CSS grid of project thumbnails
+- Each card: image + overlay on hover with project name and category
+- Use picsum.photos with different seeds for placeholder images
+
+## SECTION 7 — TESTIMONIALS CAROUSEL
+- Title: "Lo que dicen nuestros clientes"
+- Cards with: quote icon, testimonial text, client name, client role/company
+- Auto-rotating, 3 testimonials minimum
+
+## SECTION 8 — CONTACT SECTION
+- Dark background with accent color details
+- Left side: large text "¿Hablamos?" + email and phone
+- Right side: simple contact form (Name, Email, Message, Send button)
+- Form styled dark with accent color focus states
+
+## FOOTER
+- Logo + tagline
+- Navigation links
+- Social icons (Instagram, Behance, LinkedIn)
+- Copyright: "© 2025 Studio [Name]. Todos los derechos reservados."
+
+## RESPONSIVE
+- Fully responsive for mobile, tablet, desktop
+- Stack columns to single column on mobile
+- Carousel must work with touch swipe on mobile
+
+## IMPORTANT NOTES
+- DO NOT use any external JS libraries except for the carousel (you can use a minimal vanilla JS implementation)
+- All animations must be CSS-based or minimal vanilla JS
+- The site must load fast — no unnecessary dependencies
+- Use placeholder images from picsum.photos throughout
+- Make it look premium, editorial, and professional — not generic
