@@ -1,25 +1,98 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, Quote } from 'lucide-react';
 import { SiInstagram, SiBehance } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
 
+interface Spark {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  color: string;
+  angle: number;
+  distance: number;
+}
+
+const SPARK_COLORS = ['#ff5a1f', '#ff7a3d', '#ff9f6b', '#ffbfa0', '#ffffff', '#ff3a00', '#ffcc99'];
+
 const Cursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: -100, y: -100 });
+  const [sparks, setSparks] = useState<Spark[]>([]);
+  const sparkIdRef = useRef(0);
+  const lastSparkTime = useRef(0);
+
+  const addSparks = useCallback((x: number, y: number) => {
+    const now = Date.now();
+    if (now - lastSparkTime.current < 40) return;
+    lastSparkTime.current = now;
+
+    const count = Math.floor(Math.random() * 3) + 2;
+    const newSparks: Spark[] = Array.from({ length: count }, () => ({
+      id: sparkIdRef.current++,
+      x,
+      y,
+      size: Math.random() * 5 + 2,
+      color: SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)],
+      angle: Math.random() * 360,
+      distance: Math.random() * 28 + 8,
+    }));
+
+    setSparks(prev => [...prev.slice(-30), ...newSparks]);
+    setTimeout(() => {
+      setSparks(prev => prev.filter(s => !newSparks.find(n => n.id === s.id)));
+    }, 600);
+  }, []);
 
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
+      addSparks(e.clientX, e.clientY);
     };
     window.addEventListener('mousemove', onMouseMove);
     return () => window.removeEventListener('mousemove', onMouseMove);
-  }, []);
+  }, [addSparks]);
 
   return (
-    <div
-      className="fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 ease-out"
-      style={{ left: `${position.x}px`, top: `${position.y}px` }}
-    />
+    <>
+      <div
+        className="fixed top-0 left-0 pointer-events-none z-[9999]"
+        style={{ left: `${position.x}px`, top: `${position.y}px`, transform: 'translate(-50%, -50%)' }}
+      >
+        <div className="w-3 h-3 rounded-full border border-white/60 bg-white/20 backdrop-blur-sm" />
+      </div>
+      {sparks.map(spark => (
+        <div
+          key={spark.id}
+          className="fixed pointer-events-none z-[9998]"
+          style={{
+            left: `${spark.x}px`,
+            top: `${spark.y}px`,
+            transform: `translate(-50%, -50%) rotate(${spark.angle}deg)`,
+            animation: 'sparkle-out 0.6s ease-out forwards',
+          }}
+        >
+          <div
+            style={{
+              width: `${spark.size}px`,
+              height: `${spark.size}px`,
+              borderRadius: spark.size > 5 ? '50%' : '1px',
+              background: spark.color,
+              boxShadow: `0 0 ${spark.size * 2}px ${spark.color}`,
+              transform: `translateY(-${spark.distance}px)`,
+              opacity: 0.9,
+            }}
+          />
+        </div>
+      ))}
+      <style>{`
+        @keyframes sparkle-out {
+          0%   { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(var(--r, 0deg)); }
+          60%  { opacity: 0.6; }
+          100% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(var(--r, 0deg)); }
+        }
+      `}</style>
+    </>
   );
 };
 
