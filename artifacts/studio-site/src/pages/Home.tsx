@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, Quote } from 'lucide-react';
 import { SiInstagram, SiBehance } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
+import { useSubmitContact } from '@workspace/api-client-react';
 
 interface Spark {
   id: number;
@@ -111,6 +112,17 @@ const Cursor = () => {
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+  const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const submitContact = useSubmitContact({
+    mutation: {
+      onSuccess: () => {
+        setFormStatus('success');
+        setContactForm({ name: '', email: '', message: '' });
+      },
+      onError: () => setFormStatus('error'),
+    },
+  });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroTextIndex, setHeroTextIndex] = useState(0);
   const heroTexts = ["MARCAS", "SEÑALES", "IDENTIDADES"];
@@ -683,24 +695,61 @@ export default function Home() {
               </p>
             </div>
             
-            <form className="space-y-6" onSubmit={e => e.preventDefault()}>
-              <input 
-                type="text" 
-                placeholder="Nombre" 
-                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors" 
+            <form
+              className="space-y-6"
+              onSubmit={e => {
+                e.preventDefault();
+                if (!contactForm.name || !contactForm.email || !contactForm.message) return;
+                setFormStatus('idle');
+                submitContact.mutate({ data: contactForm });
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Nombre"
+                value={contactForm.name}
+                onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))}
+                required
+                data-testid="input-contact-name"
+                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors"
               />
-              <input 
-                type="email" 
-                placeholder="Email" 
-                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors" 
+              <input
+                type="email"
+                placeholder="Email"
+                value={contactForm.email}
+                onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))}
+                required
+                data-testid="input-contact-email"
+                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors"
               />
-              <textarea 
-                placeholder="Mensaje" 
-                rows={4} 
-                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors resize-none" 
+              <textarea
+                placeholder="Mensaje"
+                rows={4}
+                value={contactForm.message}
+                onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))}
+                required
+                data-testid="input-contact-message"
+                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors resize-none"
               />
-              <button className="mt-8 border border-[#ff5a1f] text-[#ff5a1f] bg-transparent px-8 py-4 uppercase tracking-[0.2em] text-[12px] hover:bg-[#ff5a1f] hover:text-[#000] transition-colors duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">
-                Enviar Mensaje
+
+              {formStatus === 'success' && (
+                <p className="text-[#ff5a1f] text-[13px] tracking-[0.1em] uppercase">
+                  Mensaje enviado — te contactaremos pronto.
+                </p>
+              )}
+              {formStatus === 'error' && (
+                <p className="text-red-400 text-[13px] tracking-[0.1em] uppercase">
+                  Error al enviar. Por favor intenta de nuevo.
+                </p>
+              )}
+
+              <button
+                type="submit"
+                disabled={submitContact.isPending}
+                data-testid="button-contact-submit"
+                className="mt-8 border border-[#ff5a1f] text-[#ff5a1f] bg-transparent px-8 py-4 uppercase tracking-[0.2em] text-[12px] hover:bg-[#ff5a1f] hover:text-[#000] transition-all duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+              >
+                {submitContact.isPending ? 'Enviando...' : 'Enviar Mensaje'}
               </button>
             </form>
           </div>
