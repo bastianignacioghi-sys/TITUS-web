@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useListContactMessages } from '@workspace/api-client-react';
-import { Mail, Calendar, User, RefreshCw, Inbox } from 'lucide-react';
+import { Mail, Calendar, RefreshCw, Inbox, Lock } from 'lucide-react';
+
+const SESSION_KEY = 'km_admin_auth';
 
 function formatDate(iso: string) {
   return new Intl.DateTimeFormat('es-CL', {
@@ -12,9 +14,105 @@ function formatDate(iso: string) {
   }).format(new Date(iso));
 }
 
+function LoginGate({ onAuth }: { onAuth: () => void }) {
+  const [value, setValue] = useState('');
+  const [error, setError] = useState(false);
+  const [shaking, setShaking] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => { inputRef.current?.focus(); }, []);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (value === import.meta.env.VITE_ADMIN_PASSWORD) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      onAuth();
+    } else {
+      setError(true);
+      setShaking(true);
+      setValue('');
+      setTimeout(() => setShaking(false), 500);
+      setTimeout(() => setError(false), 2500);
+    }
+  }
+
+  return (
+    <div style={{
+      background: '#0a0a0a', minHeight: '100vh', display: 'flex',
+      alignItems: 'center', justifyContent: 'center',
+      fontFamily: 'Inter, sans-serif',
+    }}>
+      <div style={{ width: 360, textAlign: 'center' }}>
+        <div style={{ marginBottom: 40 }}>
+          <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, color: '#fff', letterSpacing: '0.05em' }}>
+            STUDIO<span style={{ color: '#ff5a1f' }}>·KM</span>
+          </span>
+          <p style={{ fontSize: 11, color: '#444', textTransform: 'uppercase', letterSpacing: '0.2em', marginTop: 8 }}>
+            Panel de administración
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} style={{ animation: shaking ? 'shake 0.4s ease' : 'none' }}>
+          <div style={{ position: 'relative', marginBottom: 16 }}>
+            <Lock size={14} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: error ? '#ff4444' : '#333', transition: 'color 0.2s' }} />
+            <input
+              ref={inputRef}
+              type="password"
+              value={value}
+              onChange={e => setValue(e.target.value)}
+              placeholder="Contraseña"
+              style={{
+                width: '100%', padding: '14px 16px 14px 44px',
+                background: '#111', border: `1px solid ${error ? '#ff444466' : 'rgba(255,255,255,0.08)'}`,
+                color: '#fff', fontSize: 15, outline: 'none',
+                letterSpacing: '0.05em', transition: 'border-color 0.2s',
+                boxSizing: 'border-box',
+              }}
+            />
+          </div>
+
+          {error && (
+            <p style={{ fontSize: 12, color: '#ff4444', marginBottom: 16, letterSpacing: '0.05em' }}>
+              Contraseña incorrecta
+            </p>
+          )}
+
+          <button
+            type="submit"
+            style={{
+              width: '100%', padding: '14px', background: '#ff5a1f', border: 'none',
+              color: '#000', fontSize: 12, fontWeight: 600, letterSpacing: '0.2em',
+              textTransform: 'uppercase', cursor: 'pointer', transition: 'opacity 0.2s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.85')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+          >
+            Ingresar
+          </button>
+        </form>
+      </div>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap');
+        * { box-sizing: border-box; }
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          20% { transform: translateX(-8px); }
+          40% { transform: translateX(8px); }
+          60% { transform: translateX(-6px); }
+          80% { transform: translateX(6px); }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 export default function Admin() {
+  const [authed, setAuthed] = useState(() => sessionStorage.getItem(SESSION_KEY) === '1');
   const [selected, setSelected] = useState<number | null>(null);
   const { data: messages, isLoading, isError, refetch, isFetching } = useListContactMessages();
+
+  if (!authed) return <LoginGate onAuth={() => setAuthed(true)} />;
 
   const selectedMsg = messages?.find(m => m.id === selected) ?? null;
 
