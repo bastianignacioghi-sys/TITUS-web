@@ -91,10 +91,12 @@ const Cursor = () => {
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [quickForm, setQuickForm] = useState({ email: '', phone: '', description: '' });
+  const [quickForm, setQuickForm] = useState({ name: '', email: '', need: '', message: '' });
   const [quickStatus, setQuickStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const heroImgMainRef = useRef<HTMLImageElement>(null);
+  const heroImgSecRef = useRef<HTMLImageElement>(null);
   const submitContact = useSubmitContact({
     mutation: {
       onSuccess: () => {
@@ -112,14 +114,14 @@ export default function Home() {
     try {
       await submitContact.mutateAsync({
         data: {
-          name: quickForm.email,
+          name: quickForm.name || quickForm.email,
           email: quickForm.email,
-          message: `Tel: ${quickForm.phone || 'No indicado'}\n\n${quickForm.description}`,
+          message: `¿Qué necesita?: ${quickForm.need || 'No indicado'}\n\n${quickForm.message}`,
         },
       });
       setQuickStatus('success');
-      setQuickForm({ email: '', phone: '', description: '' });
-      setTimeout(() => setQuickStatus('idle'), 4000);
+      setQuickForm({ name: '', email: '', need: '', message: '' });
+      setTimeout(() => setQuickStatus('idle'), 5000);
     } catch {
       setQuickStatus('error');
       setTimeout(() => setQuickStatus('idle'), 3000);
@@ -279,121 +281,251 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* Hero Section */}
-      <section id="inicio" className="h-[100vh] flex items-center justify-center relative overflow-hidden bg-[#0a0a0a]">
-        <div 
-          className="absolute inset-0 opacity-40 mix-blend-overlay pointer-events-none z-0"
-          style={{ 
-            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E\")"
-          }} 
+      {/* Hero Section — two columns */}
+      <section
+        id="inicio"
+        className="h-[100vh] relative overflow-hidden bg-[#0a0a0a]"
+        onMouseMove={e => {
+          const x = (e.clientX / window.innerWidth - 0.5) * 15;
+          const y = (e.clientY / window.innerHeight - 0.5) * 15;
+          if (heroImgMainRef.current)
+            heroImgMainRef.current.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
+          if (heroImgSecRef.current)
+            heroImgSecRef.current.style.transform = `translate(${x * 1.2}px, ${y * 1.2}px)`;
+        }}
+      >
+        {/* noise texture */}
+        <div
+          className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none z-0"
+          style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E\")" }}
         />
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 relative z-10 text-center flex flex-col items-center">
-          <motion.div 
-            initial={{ width: 0 }}
-            animate={{ width: 60 }}
-            transition={{ delay: 0, duration: 0.8, ease: "easeOut" }}
-            className="h-[2px] bg-[#ff5a1f] mx-auto mb-8"
-          />
-          <motion.p 
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-[#ff5a1f] tracking-[0.3em] text-[11px] uppercase mb-8"
-          >
-            Diseño que comunica.
-          </motion.p>
-          <div className="h-[clamp(60px,10vw,140px)] overflow-hidden mb-6 flex justify-center">
-            <AnimatePresence mode="wait">
-              <motion.h1
-                key={heroTextIndex}
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: "-100%", opacity: 0 }}
-                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className="font-display text-[clamp(60px,10vw,140px)] text-white leading-none tracking-wide"
-              >
-                {heroTexts[heroTextIndex]}
-              </motion.h1>
-            </AnimatePresence>
+
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-full grid grid-cols-1 md:grid-cols-[60fr_40fr] gap-0 relative z-10">
+
+          {/* LEFT COLUMN */}
+          <div className="flex flex-col justify-center pt-24 pb-20">
+            {/* Label */}
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              className="block text-[11px] tracking-[0.25em] uppercase mb-8"
+              style={{ color: '#ff5a1f' }}
+            >
+              — Estudio de Diseño &amp; Señalética
+            </motion.span>
+
+            {/* Animated word */}
+            <div className="h-[clamp(60px,9vw,130px)] overflow-hidden mb-4">
+              <AnimatePresence mode="wait">
+                <motion.h1
+                  key={heroTextIndex}
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "-100%", opacity: 0 }}
+                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="font-display text-[clamp(60px,9vw,130px)] text-white leading-none tracking-wide"
+                >
+                  {heroTexts[heroTextIndex]}
+                </motion.h1>
+              </AnimatePresence>
+            </div>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="text-[#888] text-[16px] font-light max-w-md mb-10 leading-relaxed"
+            >
+              Estudio de diseño gráfico y señalética en Santiago, Chile
+            </motion.p>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="flex items-center gap-6 mb-10"
+            >
+              <div>
+                <p className="text-white text-[22px] font-display tracking-wide leading-none">120+</p>
+                <p className="text-[#666] text-[12px] tracking-[0.1em] mt-1">Proyectos</p>
+              </div>
+              <div className="w-[1px] h-10 bg-[rgba(255,255,255,0.1)]" />
+              <div>
+                <p className="text-white text-[22px] font-display tracking-wide leading-none">12</p>
+                <p className="text-[#666] text-[12px] tracking-[0.1em] mt-1">Años de experiencia</p>
+              </div>
+            </motion.div>
+
+            {/* CTA */}
+            <motion.a
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              href="#portafolio"
+              className="self-start inline-block text-[13px] uppercase tracking-[0.2em] px-8 py-4 transition-all duration-400"
+              style={{ border: '1px solid #ff5a1f', color: '#ff5a1f' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#ff5a1f'; (e.currentTarget as HTMLAnchorElement).style.color = '#000'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.color = '#ff5a1f'; }}
+            >
+              Ver Proyectos →
+            </motion.a>
+
+            {/* Scroll indicator */}
+            <div className="absolute bottom-10 left-6 md:left-12 flex flex-col items-center gap-3">
+              <span className="text-[10px] text-[#444] tracking-[0.3em] [writing-mode:vertical-rl] uppercase">SCROLL</span>
+              <div className="h-[40px] w-[1px] bg-[rgba(255,255,255,0.08)] relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1/2 bg-[#444]" style={{ animation: 'scroll-line 1.5s infinite' }} />
+              </div>
+            </div>
           </div>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 1 }}
-            className="text-[#888] text-[16px] font-light max-w-xl mx-auto mb-16"
-          >
-            Estudio de diseño gráfico y señalética en Santiago, Chile
-          </motion.p>
-          <motion.a 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            href="#portafolio"
-            className="inline-block border border-[#ff5a1f] text-[#ff5a1f] bg-transparent hover:bg-[#ff5a1f] hover:text-black transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] px-10 py-4 uppercase tracking-[0.2em] text-[13px]"
-          >
-            Ver Proyectos
-          </motion.a>
-        </div>
-        
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-          <span className="text-[10px] text-[#444] tracking-[0.2em] [writing-mode:vertical-rl] uppercase">SCROLL</span>
-          <div className="h-[40px] w-[1px] bg-[rgba(255,255,255,0.1)] relative overflow-hidden">
-            <div 
-              className="absolute top-0 left-0 w-full h-1/2 bg-[#444]"
-              style={{ animation: 'scroll-line 1.5s infinite' }}
+
+          {/* RIGHT COLUMN — image stack */}
+          <div className="hidden md:flex items-center justify-center relative">
+            {/* Secondary image */}
+            <img
+              ref={heroImgSecRef}
+              src="https://picsum.photos/seed/studio2/400/300"
+              alt="Studio KM proyecto"
+              className="absolute z-10 object-cover"
+              style={{
+                width: '45%', aspectRatio: '4/3',
+                top: '10%', left: '-10%',
+                border: '2px solid rgba(255,255,255,0.06)',
+                boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+                animation: 'slideInRight 0.9s ease 0.5s both',
+                transition: 'transform 0.15s ease-out',
+              }}
             />
+
+            {/* Main image */}
+            <img
+              ref={heroImgMainRef}
+              src="https://picsum.photos/seed/studio1/600/800"
+              alt="Studio KM diseño"
+              className="relative z-20 object-cover"
+              style={{
+                width: '75%', aspectRatio: '3/4',
+                boxShadow: '0 40px 80px rgba(0,0,0,0.6)',
+                animation: 'slideInRight 0.9s ease 0.3s both',
+                transition: 'transform 0.15s ease-out',
+              }}
+            />
+
+            {/* Floating label */}
+            <div
+              className="absolute z-30"
+              style={{
+                bottom: '15%', right: '-5%',
+                background: '#161616',
+                padding: '16px 20px',
+                border: '1px solid rgba(255,255,255,0.06)',
+                animation: 'slideInRight 0.9s ease 0.7s both',
+              }}
+            >
+              <p className="text-[10px] text-[#888] mb-1 tracking-wide">Último proyecto</p>
+              <p className="text-white text-[14px] font-medium">Señalética Corporativa</p>
+              <p className="text-[12px] mt-1" style={{ color: '#ff5a1f' }}>2025</p>
+            </div>
           </div>
         </div>
+
+        <style>{`
+          @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+          }
+        `}</style>
       </section>
 
-      {/* Quick contact strip */}
-      <div className="bg-[#0d0d0d] border-b border-[rgba(255,255,255,0.05)] py-10">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12">
-          <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
-            <p className="text-[10px] uppercase tracking-[0.25em] text-[#ff5a1f] whitespace-nowrap md:w-40 shrink-0">
-              Cuéntanos tu proyecto
+      {/* Sección Conversemos */}
+      <section className="bg-[#0f0f0f] py-20 border-b border-[rgba(255,255,255,0.04)]">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+
+          {/* Left info */}
+          <div>
+            <p className="text-[11px] tracking-[0.25em] uppercase mb-4" style={{ color: '#ff5a1f' }}>— Conversemos</p>
+            <h2 className="font-display text-[clamp(40px,5vw,64px)] text-white leading-none mb-6">
+              ¿Tienes un proyecto<br />en mente?
+            </h2>
+            <p className="text-[#666] text-[15px] leading-relaxed mb-8 max-w-sm">
+              Cuéntanos qué necesitas. Respondemos en menos de 24 horas.
             </p>
+            <div className="flex flex-col gap-3">
+              <a href="mailto:hola@estudiostudiokm.cl" style={{ color: '#ff5a1f' }} className="text-[14px] tracking-wide hover:opacity-80 transition-opacity">
+                hola@estudiostudiokm.cl
+              </a>
+              <a href="tel:+56912345678" className="text-[14px] text-[#666] tracking-wide hover:text-white transition-colors">
+                +56 9 XXXX XXXX
+              </a>
+            </div>
+          </div>
+
+          {/* Right form */}
+          <div>
             {quickStatus === 'success' ? (
-              <p className="text-[13px] text-[#888] tracking-wide">¡Listo! Te contactamos pronto.</p>
+              <div className="py-12">
+                <p className="text-white text-[18px] font-display tracking-wide mb-2">¡Mensaje enviado!</p>
+                <p className="text-[#666] text-[14px]">Te contactaremos pronto.</p>
+              </div>
             ) : (
-              <form onSubmit={handleQuickSubmit} className="flex flex-col md:flex-row gap-3 flex-1">
-                <input
-                  type="email"
-                  required
-                  placeholder="tu@correo.cl"
-                  value={quickForm.email}
-                  onChange={e => setQuickForm(f => ({ ...f, email: e.target.value }))}
-                  className="bg-transparent border border-[rgba(255,255,255,0.08)] text-white text-[13px] px-4 py-3 outline-none placeholder-[#444] focus:border-[rgba(255,90,31,0.6)] transition-colors duration-200 flex-1"
-                />
-                <input
-                  type="tel"
-                  placeholder="+56 9 1234 5678"
-                  value={quickForm.phone}
-                  onChange={e => setQuickForm(f => ({ ...f, phone: e.target.value }))}
-                  className="bg-transparent border border-[rgba(255,255,255,0.08)] text-white text-[13px] px-4 py-3 outline-none placeholder-[#444] focus:border-[rgba(255,90,31,0.6)] transition-colors duration-200 flex-1"
-                />
-                <input
-                  type="text"
-                  placeholder="Cuéntanos brevemente tu idea…"
-                  value={quickForm.description}
-                  onChange={e => setQuickForm(f => ({ ...f, description: e.target.value }))}
-                  className="bg-transparent border border-[rgba(255,255,255,0.08)] text-white text-[13px] px-4 py-3 outline-none placeholder-[#444] focus:border-[rgba(255,90,31,0.6)] transition-colors duration-200 flex-[2]"
-                />
+              <form onSubmit={handleQuickSubmit} className="flex flex-col gap-6">
+                {[
+                  { label: 'Nombre', key: 'name', type: 'text', placeholder: 'Tu nombre' },
+                  { label: 'Email', key: 'email', type: 'email', placeholder: 'tu@correo.cl', required: true },
+                  { label: '¿Qué necesitas?', key: 'need', type: 'text', placeholder: 'Ej: Señalética para oficina, diseño de logo...' },
+                ].map(({ label, key, type, placeholder, required }) => (
+                  <div key={key}>
+                    <label className="block text-[11px] tracking-[0.2em] uppercase text-[#666] mb-2">{label}</label>
+                    <input
+                      type={type}
+                      required={required}
+                      placeholder={placeholder}
+                      value={quickForm[key as keyof typeof quickForm]}
+                      onChange={e => setQuickForm(f => ({ ...f, [key]: e.target.value }))}
+                      className="w-full bg-transparent border-b border-[rgba(255,255,255,0.12)] pb-3 text-white text-[15px] outline-none placeholder-[#333] transition-colors duration-300"
+                      style={{ fontFamily: 'Inter, sans-serif' }}
+                      onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
+                      onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)')}
+                    />
+                  </div>
+                ))}
+
+                <div>
+                  <label className="block text-[11px] tracking-[0.2em] uppercase text-[#666] mb-2">Mensaje</label>
+                  <textarea
+                    placeholder="Cuéntanos más detalles... (opcional)"
+                    value={quickForm.message}
+                    onChange={e => setQuickForm(f => ({ ...f, message: e.target.value }))}
+                    rows={3}
+                    className="w-full bg-transparent border-b border-[rgba(255,255,255,0.12)] pb-3 text-white text-[15px] outline-none placeholder-[#333] resize-none transition-colors duration-300"
+                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
+                    onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)')}
+                  />
+                </div>
+
+                {quickStatus === 'error' && (
+                  <p className="text-red-400 text-[12px] tracking-wide -mt-2">Error al enviar. Intenta de nuevo.</p>
+                )}
+
                 <button
                   type="submit"
                   disabled={quickStatus === 'sending'}
-                  className="px-8 py-3 bg-[#ff5a1f] text-black text-[11px] uppercase tracking-[0.2em] font-semibold hover:opacity-90 transition-opacity disabled:opacity-40 whitespace-nowrap shrink-0"
+                  className="self-start px-10 py-4 text-[12px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-40"
+                  style={{ background: '#ff5a1f', color: '#000', borderRadius: 0 }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#e04800'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(4px)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#ff5a1f'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(0)'; }}
                 >
-                  {quickStatus === 'sending' ? '…' : 'Enviar'}
+                  {quickStatus === 'sending' ? 'Enviando…' : 'Enviar mensaje →'}
                 </button>
               </form>
             )}
           </div>
-          {quickStatus === 'error' && (
-            <p className="text-[11px] text-red-400 mt-2 tracking-wide">Error al enviar. Intenta de nuevo.</p>
-          )}
         </div>
-      </div>
+      </section>
 
       {/* Marquee — logos */}
       {(() => {

@@ -1,0 +1,160 @@
+Rediseña ÚNICAMENTE la sección hero manteniendo la animación de palabras que ya existe. 
+NO toques ninguna otra sección del sitio.
+
+## ESTRUCTURA NUEVA DEL HERO
+
+El hero debe dividirse en DOS columnas lado a lado, altura 100vh:
+
+### COLUMNA IZQUIERDA (60% del ancho)
+- Mantén el texto principal y la animación de palabras que ya existe
+- Agrega encima del título un label pequeño así:
+  <span style="font-size:11px; letter-spacing:0.25em; color:#c8f000; text-transform:uppercase">
+  — Estudio de Diseño & Señalética
+  </span>
+- Debajo del subtítulo, agrega una fila horizontal con 2 stats pequeños:
+  "120+ Proyectos" separado por una línea vertical de "12 años de experiencia"
+  En color #888, font-size 13px, Inter
+- Debajo de los stats: botón CTA "Ver Proyectos →"
+  Estilo: borde 1px solid #c8f000, fondo transparente, color #c8f000, padding 14px 32px
+  Hover: fondo #c8f000, color #000, transition 0.4s ease
+- En la parte inferior izquierda del hero (position absolute, bottom 40px):
+  Texto "SCROLL" en vertical (writing-mode: vertical-rl), font-size 10px, 
+  letter-spacing 0.3em, color #444 + una línea de 40px debajo animada
+
+### COLUMNA DERECHA (40% del ancho)
+Implementa un stack de imágenes superpuestas con efecto parallax leve:
+
+```css
+.hero-image-stack {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+- IMAGEN PRINCIPAL (centro): 
+  width: 75%, aspect-ratio: 3/4, object-fit: cover
+  Usa: https://picsum.photos/seed/studio1/600/800
+  Borde: ninguno. Sombra: 0 40px 80px rgba(0,0,0,0.6)
+  Animación de entrada: slideInRight 0.9s ease 0.3s both
+
+- IMAGEN SECUNDARIA (esquina superior izquierda, parcialmente solapada):
+  width: 45%, aspect-ratio: 4/3, object-fit: cover
+  position: absolute, top: 10%, left: -10%
+  Usa: https://picsum.photos/seed/studio2/400/300
+  Borde: 2px solid rgba(255,255,255,0.06)
+  Animación de entrada: slideInRight 0.9s ease 0.5s both
+
+- ETIQUETA FLOTANTE sobre la imagen principal (position absolute):
+  bottom: 15%, right: -5%
+  background: #161616, padding: 16px 20px, border: 1px solid rgba(255,255,255,0.06)
+  Contenido:
+    Texto pequeño: "Último proyecto" en color #888, 10px
+    Nombre: "Señalética Corporativa" en blanco, 14px, Inter 500
+    Año: "2025" en color #c8f000, 12px
+
+- Todo el stack tiene un leve movimiento parallax con JS al mover el mouse:
+```javascript
+document.addEventListener('mousemove', (e) => {
+  const x = (e.clientX / window.innerWidth - 0.5) * 15;
+  const y = (e.clientY / window.innerHeight - 0.5) * 15;
+  document.querySelector('.hero-img-main').style.transform = 
+    `translate(${x * 0.5}px, ${y * 0.5}px)`;
+  document.querySelector('.hero-img-secondary').style.transform = 
+    `translate(${x * 1.2}px, ${y * 1.2}px)`;
+});
+```
+
+## FORMULARIO — Reemplaza el actual completamente
+
+Elimina el formulario actual. En su lugar, agrega una sección separada DEBAJO del hero 
+(no dentro de él) con este diseño:
+
+### SECCIÓN CONTACTO RÁPIDO
+- Fondo: #0f0f0f (ligeramente diferente al hero)
+- Padding: 80px 0
+- Layout: dos columnas
+
+COLUMNA IZQUIERDA:
+  - Label: "— Conversemos"
+  - Título grande: "¿Tienes un proyecto en mente?" en Bebas Neue 64px
+  - Párrafo: "Cuéntanos qué necesitas. Respondemos en menos de 24 horas."
+  - Email directo clickeable: hola@estudiostudio.cl en color acento
+  - Teléfono: +56 9 XXXX XXXX
+
+COLUMNA DERECHA — El formulario rediseñado:
+```css
+.form-group {
+  margin-bottom: 24px;
+}
+.form-group label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 8px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  padding: 12px 0;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-bottom-color: #c8f000;
+}
+.form-group textarea {
+  resize: none;
+  height: 80px;
+}
+```
+
+Campos del formulario (en este orden):
+1. Nombre — input tipo text
+2. Email — input tipo email  
+3. ¿Qué necesitas? — input tipo text (placeholder: "Ej: Señalética para oficina, diseño de logo...")
+4. Mensaje — textarea (opcional, placeholder: "Cuéntanos más detalles...")
+
+Botón enviar:
+- Texto: "Enviar mensaje →"
+- Estilo: fondo #c8f000, color #000, font-weight 600, padding 16px 40px
+- Sin bordes redondeados (border-radius: 0)
+- Hover: background #a8cc00, transform: translateX(4px)
+- Action del formulario: https://formspree.io/f/REEMPLAZAR
+
+## ANIMACIONES DE ENTRADA DEL HERO
+
+Asegúrate de que los elementos entren en este orden con CSS animations:
+1. Label superior: fadeIn 0.6s ease 0.1s
+2. Título + animación de palabras: fadeInUp 0.8s ease 0.3s  
+3. Stats: fadeInUp 0.6s ease 0.6s
+4. Botón CTA: fadeInUp 0.6s ease 0.8s
+5. Stack de imágenes: slideInRight 0.9s ease 0.4s
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+Todos los elementos empiezan con opacity: 0 y animation-fill-mode: both
+
+## RESULTADO ESPERADO
+- Hero: impactante, con imágenes apiladas a la derecha y texto poderoso a la izquierda
+- Formulario: minimalista, con líneas en lugar de cajas, fácil de llenar
+- Todo coherente con la paleta #0a0a0a / #ffffff / #c8f000
+- La animación de palabras existente se mantiene intacta
