@@ -499,14 +499,14 @@ export default function Home() {
       })()}
 
       {/* Services */}
-      <section id="servicios" className="py-32 relative">
+      <section id="servicios" className="py-16 relative">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.7 }}
-            className="text-[72px] font-display mb-16"
+            className="text-[72px] font-display mb-8"
           >
             Nuestros Servicios
           </motion.h2>
@@ -636,7 +636,7 @@ export default function Home() {
       </section>
 
       {/* Sección Cotizar / Conversemos */}
-      <section id="cotizar" className="py-20 relative overflow-hidden" style={{ background: '#0d0d0d' }}>
+      <section id="cotizar" className="py-14 relative overflow-hidden" style={{ background: '#0d0d0d' }}>
         {/* faint radial glow behind form */}
         <div className="absolute right-0 top-0 w-[600px] h-full pointer-events-none"
           style={{ background: 'radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,90,31,0.06) 0%, transparent 70%)' }} />
@@ -752,8 +752,8 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="nosotros" className="py-32">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid md:grid-cols-[40%_60%] gap-16 items-center">
+      <section id="nosotros" className="py-16">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid md:grid-cols-[40%_60%] gap-10 items-center">
           <div>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -784,7 +784,7 @@ export default function Home() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.7 }}
-              className="text-[16px] font-light leading-[1.8] text-[#888] mb-12"
+              className="text-[16px] font-light leading-[1.8] text-[#888] mb-6"
             >
               En Studio KM transformamos ideas en sistemas visuales que trascienden. Nos especializamos en diseño editorial, branding y señalética para marcas que buscan dejar huella. Nuestro enfoque es preciso, audaz y rigurosamente elaborado.
             </motion.p>
@@ -829,7 +829,7 @@ export default function Home() {
       </section>
 
       {/* Portfolio Grid */}
-      <section id="portafolio" className="py-32">
+      <section id="portafolio" className="py-16">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
@@ -840,7 +840,7 @@ export default function Home() {
             Nuestro Trabajo
           </motion.h2>
           
-          <div className="flex flex-wrap gap-8 mb-12">
+          <div className="flex flex-wrap gap-6 mb-8">
             {['Todos', 'Señalética', 'Branding', 'Editorial'].map(tab => (
               <button 
                 key={tab}
@@ -891,13 +891,13 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-32 bg-[#0d0d0d]">
+      <section className="py-16 bg-[#0d0d0d]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-[72px] font-display mb-16 text-center"
+            className="text-[72px] font-display mb-8 text-center"
           >
             Voces
           </motion.h2>
@@ -931,18 +931,18 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section id="contacto" className="py-32 bg-[#0a0a0a] border-t border-[rgba(255,255,255,0.06)]">
+      <section id="contacto" className="py-16 bg-[#0a0a0a] border-t border-[rgba(255,255,255,0.06)]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-[clamp(80px,10vw,140px)] font-display text-white mb-16 leading-none"
+            className="text-[clamp(80px,10vw,140px)] font-display text-white mb-8 leading-none"
           >
             ¿Hablamos?
           </motion.h2>
           
-          <div className="grid md:grid-cols-2 gap-16">
+          <div className="grid md:grid-cols-2 gap-10">
             <div className="flex flex-col justify-between">
               <div className="space-y-4">
                 <a href="mailto:hola@studiokm.cl" className="block text-[18px] text-[#888] hover:text-white transition-colors">hola@studiokm.cl</a>
@@ -1015,9 +1015,9 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="pt-20 pb-10 bg-[#080808] border-t border-[rgba(255,255,255,0.05)]">
+      <footer className="pt-12 pb-8 bg-[#080808] border-t border-[rgba(255,255,255,0.05)]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
-          <div className="grid md:grid-cols-3 gap-16 mb-16">
+          <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
               <a href="#" className="font-display text-[28px] tracking-wider text-white">
                 STUDIO<span style={{ color: '#ff5a1f' }}>·KM</span>
