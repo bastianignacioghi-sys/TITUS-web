@@ -1,97 +1,76 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, Quote } from 'lucide-react';
 import { SiInstagram, SiBehance } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
 import { useSubmitContact } from '@workspace/api-client-react';
 
-interface Spark {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  color: string;
-  angle: number;
-  distance: number;
-}
-
-const SPARK_COLORS = ['#ff5a1f', '#ff7a3d', '#ff9f6b', '#ffbfa0', '#ffffff', '#ff3a00', '#ffcc99'];
+const TRAIL_COUNT = 8;
 
 const Cursor = () => {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
-  const [sparks, setSparks] = useState<Spark[]>([]);
-  const sparkIdRef = useRef(0);
-  const lastSparkTime = useRef(0);
-
-  const addSparks = useCallback((x: number, y: number) => {
-    const now = Date.now();
-    if (now - lastSparkTime.current < 40) return;
-    lastSparkTime.current = now;
-
-    const count = Math.floor(Math.random() * 3) + 2;
-    const newSparks: Spark[] = Array.from({ length: count }, () => ({
-      id: sparkIdRef.current++,
-      x,
-      y,
-      size: Math.random() * 5 + 2,
-      color: SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)],
-      angle: Math.random() * 360,
-      distance: Math.random() * 28 + 8,
-    }));
-
-    setSparks(prev => [...prev.slice(-30), ...newSparks]);
-    setTimeout(() => {
-      setSparks(prev => prev.filter(s => !newSparks.find(n => n.id === s.id)));
-    }, 600);
-  }, []);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const trailRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const mouse = useRef({ x: -200, y: -200 });
+  const history = useRef<Array<{ x: number; y: number }>>(
+    Array.from({ length: TRAIL_COUNT }, () => ({ x: -200, y: -200 }))
+  );
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      addSparks(e.clientX, e.clientY);
+    const onMove = (e: MouseEvent) => {
+      mouse.current = { x: e.clientX, y: e.clientY };
     };
-    window.addEventListener('mousemove', onMouseMove);
-    return () => window.removeEventListener('mousemove', onMouseMove);
-  }, [addSparks]);
+    window.addEventListener('mousemove', onMove, { passive: true });
+
+    let tick = 0;
+    const loop = () => {
+      tick++;
+      const { x, y } = mouse.current;
+
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate(${x - 4}px, ${y - 4}px)`;
+      }
+
+      if (tick % 2 === 0) {
+        history.current = [{ x, y }, ...history.current.slice(0, TRAIL_COUNT - 1)];
+        trailRefs.current.forEach((el, i) => {
+          if (!el) return;
+          const p = history.current[i];
+          const t = 1 - i / TRAIL_COUNT;
+          const size = 3 + t * 3;
+          el.style.transform = `translate(${p.x - size / 2}px, ${p.y - size / 2}px)`;
+          el.style.opacity = String(t * 0.55);
+          el.style.width = `${size}px`;
+          el.style.height = `${size}px`;
+        });
+      }
+
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   return (
     <>
-      <div
-        className="fixed top-0 left-0 pointer-events-none z-[9999]"
-        style={{ left: `${position.x}px`, top: `${position.y}px`, transform: 'translate(-50%, -50%)' }}
-      >
-        <div className="w-3 h-3 rounded-full border border-white/60 bg-white/20 backdrop-blur-sm" />
-      </div>
-      {sparks.map(spark => (
+      {Array.from({ length: TRAIL_COUNT }, (_, i) => (
         <div
-          key={spark.id}
-          className="fixed pointer-events-none z-[9998]"
-          style={{
-            left: `${spark.x}px`,
-            top: `${spark.y}px`,
-            transform: `translate(-50%, -50%) rotate(${spark.angle}deg)`,
-            animation: 'sparkle-out 0.6s ease-out forwards',
-          }}
-        >
-          <div
-            style={{
-              width: `${spark.size}px`,
-              height: `${spark.size}px`,
-              borderRadius: spark.size > 5 ? '50%' : '1px',
-              background: spark.color,
-              boxShadow: `0 0 ${spark.size * 2}px ${spark.color}`,
-              transform: `translateY(-${spark.distance}px)`,
-              opacity: 0.9,
-            }}
-          />
-        </div>
+          key={i}
+          ref={el => { trailRefs.current[i] = el; }}
+          className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full bg-[#ff5a1f]"
+          style={{ opacity: 0, willChange: 'transform, opacity, width, height' }}
+        />
       ))}
+      <div
+        ref={dotRef}
+        className="fixed top-0 left-0 pointer-events-none z-[9999] w-[8px] h-[8px] rounded-full bg-white"
+        style={{ willChange: 'transform' }}
+      />
       <style>{`
-        @keyframes sparkle-out {
-          0%   { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(var(--r, 0deg)); }
-          60%  { opacity: 0.6; }
-          100% { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(var(--r, 0deg)); }
-        }
         @keyframes marquee-scroll {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
@@ -112,6 +91,8 @@ const Cursor = () => {
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [quickForm, setQuickForm] = useState({ email: '', phone: '', description: '' });
+  const [quickStatus, setQuickStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const submitContact = useSubmitContact({
@@ -123,6 +104,27 @@ export default function Home() {
       onError: () => setFormStatus('error'),
     },
   });
+
+  const handleQuickSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!quickForm.email) return;
+    setQuickStatus('sending');
+    try {
+      await submitContact.mutateAsync({
+        data: {
+          name: quickForm.email,
+          email: quickForm.email,
+          message: `Tel: ${quickForm.phone || 'No indicado'}\n\n${quickForm.description}`,
+        },
+      });
+      setQuickStatus('success');
+      setQuickForm({ email: '', phone: '', description: '' });
+      setTimeout(() => setQuickStatus('idle'), 4000);
+    } catch {
+      setQuickStatus('error');
+      setTimeout(() => setQuickStatus('idle'), 3000);
+    }
+  };
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroTextIndex, setHeroTextIndex] = useState(0);
   const heroTexts = ["MARCAS", "SEÑALES", "IDENTIDADES"];
@@ -344,17 +346,99 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Marquee */}
-      <div className="bg-[#111111] py-5 overflow-hidden flex whitespace-nowrap border-y border-[rgba(255,255,255,0.03)]">
-        <div 
-          className="flex gap-0 text-[13px] uppercase tracking-[0.15em] text-[#555]"
-          style={{ animation: 'marquee-scroll 20s linear infinite', width: 'max-content' }}
-        >
-          {Array(2).fill("MARRIOTT — ADOBE — FALABELLA — PLAZA OESTE — ENTEL — LATAM — COPEC — SODIMAC — ").map((text, i) => (
-            <span key={i} className="pr-4">{text}</span>
-          ))}
+      {/* Quick contact strip */}
+      <div className="bg-[#0d0d0d] border-b border-[rgba(255,255,255,0.05)] py-10">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12">
+          <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-[#ff5a1f] whitespace-nowrap md:w-40 shrink-0">
+              Cuéntanos tu proyecto
+            </p>
+            {quickStatus === 'success' ? (
+              <p className="text-[13px] text-[#888] tracking-wide">¡Listo! Te contactamos pronto.</p>
+            ) : (
+              <form onSubmit={handleQuickSubmit} className="flex flex-col md:flex-row gap-3 flex-1">
+                <input
+                  type="email"
+                  required
+                  placeholder="tu@correo.cl"
+                  value={quickForm.email}
+                  onChange={e => setQuickForm(f => ({ ...f, email: e.target.value }))}
+                  className="bg-transparent border border-[rgba(255,255,255,0.08)] text-white text-[13px] px-4 py-3 outline-none placeholder-[#444] focus:border-[rgba(255,90,31,0.6)] transition-colors duration-200 flex-1"
+                />
+                <input
+                  type="tel"
+                  placeholder="+56 9 1234 5678"
+                  value={quickForm.phone}
+                  onChange={e => setQuickForm(f => ({ ...f, phone: e.target.value }))}
+                  className="bg-transparent border border-[rgba(255,255,255,0.08)] text-white text-[13px] px-4 py-3 outline-none placeholder-[#444] focus:border-[rgba(255,90,31,0.6)] transition-colors duration-200 flex-1"
+                />
+                <input
+                  type="text"
+                  placeholder="Cuéntanos brevemente tu idea…"
+                  value={quickForm.description}
+                  onChange={e => setQuickForm(f => ({ ...f, description: e.target.value }))}
+                  className="bg-transparent border border-[rgba(255,255,255,0.08)] text-white text-[13px] px-4 py-3 outline-none placeholder-[#444] focus:border-[rgba(255,90,31,0.6)] transition-colors duration-200 flex-[2]"
+                />
+                <button
+                  type="submit"
+                  disabled={quickStatus === 'sending'}
+                  className="px-8 py-3 bg-[#ff5a1f] text-black text-[11px] uppercase tracking-[0.2em] font-semibold hover:opacity-90 transition-opacity disabled:opacity-40 whitespace-nowrap shrink-0"
+                >
+                  {quickStatus === 'sending' ? '…' : 'Enviar'}
+                </button>
+              </form>
+            )}
+          </div>
+          {quickStatus === 'error' && (
+            <p className="text-[11px] text-red-400 mt-2 tracking-wide">Error al enviar. Intenta de nuevo.</p>
+          )}
         </div>
       </div>
+
+      {/* Marquee — logos */}
+      {(() => {
+        const logos = [
+          { name: 'Marriott',  src: 'https://logo.clearbit.com/marriott.com' },
+          { name: 'Adobe',     src: 'https://logo.clearbit.com/adobe.com' },
+          { name: 'Falabella', src: 'https://logo.clearbit.com/falabella.com' },
+          { name: 'Entel',     src: 'https://logo.clearbit.com/entel.cl' },
+          { name: 'LATAM',     src: 'https://logo.clearbit.com/latam.com' },
+          { name: 'Copec',     src: 'https://logo.clearbit.com/copec.cl' },
+          { name: 'Sodimac',   src: 'https://logo.clearbit.com/sodimac.com' },
+          { name: 'Mall Plaza',src: 'https://logo.clearbit.com/mallplaza.cl' },
+        ];
+        const items = [...logos, ...logos];
+        return (
+          <div className="bg-[#111111] py-6 overflow-hidden border-y border-[rgba(255,255,255,0.03)]" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+            <div
+              className="flex items-center gap-16"
+              style={{ animation: 'marquee-scroll 28s linear infinite', width: 'max-content' }}
+            >
+              {items.map((logo, i) => (
+                <div key={i} className="flex items-center gap-16 flex-shrink-0">
+                  <img
+                    src={logo.src}
+                    alt={logo.name}
+                    className="h-7 w-auto object-contain"
+                    style={{ filter: 'grayscale(1) brightness(0.45)', transition: 'filter 0.3s' }}
+                    onMouseEnter={e => (e.currentTarget.style.filter = 'grayscale(0) brightness(1)')}
+                    onMouseLeave={e => (e.currentTarget.style.filter = 'grayscale(1) brightness(0.45)')}
+                    onError={e => {
+                      const t = e.currentTarget;
+                      t.style.display = 'none';
+                      const span = document.createElement('span');
+                      span.textContent = logo.name.toUpperCase();
+                      span.style.cssText = 'font-size:11px;letter-spacing:0.2em;color:#444;font-family:Inter,sans-serif';
+                      t.parentNode?.insertBefore(span, t);
+                    }}
+                  />
+                  <span style={{ color: '#222', fontSize: 18, userSelect: 'none' }}>·</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Services */}
       <section id="servicios" className="py-32 relative">
