@@ -129,7 +129,7 @@ export default function Home() {
   };
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroTextIndex, setHeroTextIndex] = useState(0);
-  const heroTexts = ["MARCAS", "SEÑALES", "IDENTIDADES"];
+  const heroTexts = ["MARCAS", "SEÑALES", "ESPACIOS"];
   const [hoveredService, setHoveredService] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState("Todos");
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -281,42 +281,32 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* Hero Section — two columns */}
-      <section
-        id="inicio"
-        className="h-[100vh] relative overflow-hidden bg-[#0a0a0a]"
-        onMouseMove={e => {
-          const x = (e.clientX / window.innerWidth - 0.5) * 15;
-          const y = (e.clientY / window.innerHeight - 0.5) * 15;
-          if (heroImgMainRef.current)
-            heroImgMainRef.current.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
-          if (heroImgSecRef.current)
-            heroImgSecRef.current.style.transform = `translate(${x * 1.2}px, ${y * 1.2}px)`;
-        }}
-      >
+      {/* Hero Section */}
+      <section id="inicio" className="h-[100vh] relative overflow-hidden bg-[#0a0a0a]">
         {/* noise texture */}
         <div
           className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none z-0"
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E\")" }}
         />
 
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-full grid grid-cols-1 md:grid-cols-[60fr_40fr] gap-0 relative z-10">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-full grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-8 relative z-10">
 
-          {/* LEFT COLUMN */}
-          <div className="flex flex-col justify-center pt-24 pb-20">
+          {/* ── LEFT COLUMN ── */}
+          <div className="flex flex-col justify-center gap-5 pt-28 pb-16">
+
             {/* Label */}
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="block text-[11px] tracking-[0.25em] uppercase mb-8"
+              className="text-[11px] tracking-[0.25em] uppercase"
               style={{ color: '#ff5a1f' }}
             >
               — Estudio de Diseño &amp; Señalética
             </motion.span>
 
             {/* Animated word */}
-            <div className="h-[clamp(60px,9vw,130px)] overflow-hidden mb-4">
+            <div className="h-[clamp(72px,10vw,140px)] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.h1
                   key={heroTextIndex}
@@ -324,7 +314,7 @@ export default function Home() {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: "-100%", opacity: 0 }}
                   transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="font-display text-[clamp(60px,9vw,130px)] text-white leading-none tracking-wide"
+                  className="font-display text-[clamp(72px,10vw,140px)] text-white leading-none tracking-wide"
                 >
                   {heroTexts[heroTextIndex]}
                 </motion.h1>
@@ -333,57 +323,85 @@ export default function Home() {
 
             {/* Subtitle */}
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-[#888] text-[16px] font-light max-w-md mb-10 leading-relaxed"
+              transition={{ delay: 0.3, duration: 0.7 }}
+              className="text-[#888] text-[16px] leading-[1.7] max-w-[420px]"
             >
-              Estudio de diseño gráfico y señalética en Santiago, Chile
+              Creamos identidades visuales y sistemas de señalética que comunican, orientan y conectan.
             </motion.p>
 
-            {/* Stats */}
+            {/* Stats — no divider, big accent numbers */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="flex items-center gap-6 mb-10"
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="flex items-start gap-10"
             >
-              <div>
-                <p className="text-white text-[22px] font-display tracking-wide leading-none">120+</p>
-                <p className="text-[#666] text-[12px] tracking-[0.1em] mt-1">Proyectos</p>
-              </div>
-              <div className="w-[1px] h-10 bg-[rgba(255,255,255,0.1)]" />
-              <div>
-                <p className="text-white text-[22px] font-display tracking-wide leading-none">12</p>
-                <p className="text-[#666] text-[12px] tracking-[0.1em] mt-1">Años de experiencia</p>
-              </div>
+              {[{ n: '120+', label: 'Proyectos realizados' }, { n: '12', label: 'Años de experiencia' }].map(s => (
+                <div key={s.n}>
+                  <p className="font-display leading-none" style={{ fontSize: 48, color: '#ff5a1f' }}>{s.n}</p>
+                  <p className="text-[#666] text-[12px] mt-1">{s.label}</p>
+                </div>
+              ))}
             </motion.div>
 
-            {/* CTAs */}
+            {/* CTA block — stacked */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="flex flex-wrap items-center gap-4"
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="flex flex-col gap-3 max-w-[400px]"
             >
+              {/* CTA 1 — WhatsApp */}
               <a
-                href="#portafolio"
-                className="inline-block text-[13px] uppercase tracking-[0.2em] px-8 py-4 transition-all duration-300"
-                style={{ border: '1px solid #ff5a1f', color: '#ff5a1f' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#ff5a1f'; (e.currentTarget as HTMLAnchorElement).style.color = '#000'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.color = '#ff5a1f'; }}
+                href="https://wa.me/56912345678?text=Hola%2C+quiero+cotizar+un+proyecto"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 text-[14px] font-semibold uppercase tracking-[0.1em] py-[18px] px-9 transition-all duration-300"
+                style={{ background: '#ff5a1f', color: '#000', borderRadius: 0 }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#e04800'; el.style.transform = 'translateX(6px)'; }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#ff5a1f'; el.style.transform = 'translateX(0)'; }}
               >
-                Ver Proyectos →
+                <span>💬</span> Cotizar por WhatsApp
               </a>
+
+              {/* CTA 2 — Phone */}
               <a
-                href="#cotizar"
-                className="inline-block text-[13px] uppercase tracking-[0.2em] px-8 py-4 transition-all duration-300"
-                style={{ background: '#ff5a1f', color: '#000' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#e04800'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#ff5a1f'; }}
+                href="tel:+56912345678"
+                className="flex items-center justify-center gap-2 text-[14px] py-4 px-9 text-white transition-all duration-300"
+                style={{ border: '1px solid rgba(255,255,255,0.15)', borderRadius: 0 }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.4)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.15)'; }}
               >
-                Quiero cotizar
+                <span>📞</span> +56 9 XXXX XXXX — Llamar ahora
               </a>
+
+              {/* CTA 3 — text link */}
+              <a
+                href="#contacto"
+                className="text-[13px] text-center transition-colors duration-200 py-1"
+                style={{ color: '#888', textDecoration: 'none' }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.color = '#fff'; el.style.textDecoration = 'underline'; }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.color = '#888'; el.style.textDecoration = 'none'; }}
+              >
+                o déjanos tus datos →
+              </a>
+            </motion.div>
+
+            {/* Availability indicator */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 0.6 }}
+              className="flex items-center gap-2"
+            >
+              <span style={{
+                display: 'inline-block', width: 8, height: 8,
+                background: '#22c55e', borderRadius: '50%',
+                animation: 'pulse-green 2s infinite',
+              }} />
+              <span className="text-[12px] text-[#666]">Disponible para nuevos proyectos</span>
             </motion.div>
 
             {/* Scroll indicator */}
@@ -395,52 +413,57 @@ export default function Home() {
             </div>
           </div>
 
-          {/* RIGHT COLUMN — image stack */}
-          <div className="hidden md:flex items-center justify-center relative">
-            {/* Secondary image */}
-            <img
-              ref={heroImgSecRef}
-              src="https://picsum.photos/seed/studio2/400/300"
-              alt="Studio KM proyecto"
-              className="absolute z-10 object-cover"
-              style={{
-                width: '45%', aspectRatio: '4/3',
-                top: '10%', left: '-10%',
-                border: '2px solid rgba(255,255,255,0.06)',
-                boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
-                animation: 'slideInRight 0.9s ease 0.5s both',
-                transition: 'transform 0.15s ease-out',
-              }}
-            />
+          {/* ── RIGHT COLUMN — gallery grid ── */}
+          <div className="hidden md:block relative py-20">
 
-            {/* Main image */}
-            <img
-              ref={heroImgMainRef}
-              src="https://picsum.photos/seed/studio1/600/800"
-              alt="Studio KM diseño"
-              className="relative z-20 object-cover"
-              style={{
-                width: '75%', aspectRatio: '3/4',
-                boxShadow: '0 40px 80px rgba(0,0,0,0.6)',
-                animation: 'slideInRight 0.9s ease 0.3s both',
-                transition: 'transform 0.15s ease-out',
-              }}
-            />
-
-            {/* Floating label */}
+            {/* Badge */}
             <div
-              className="absolute z-30"
-              style={{
-                bottom: '15%', right: '-5%',
-                background: '#161616',
-                padding: '16px 20px',
-                border: '1px solid rgba(255,255,255,0.06)',
-                animation: 'slideInRight 0.9s ease 0.7s both',
-              }}
+              className="absolute top-16 right-0 z-20 text-right"
+              style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.08)', padding: '10px 16px' }}
             >
-              <p className="text-[10px] text-[#888] mb-1 tracking-wide">Último proyecto</p>
-              <p className="text-white text-[14px] font-medium">Señalética Corporativa</p>
-              <p className="text-[12px] mt-1" style={{ color: '#ff5a1f' }}>2025</p>
+              <p className="text-[10px] text-[#666] mb-1">Proyectos realizados</p>
+              <p className="font-display leading-none" style={{ fontSize: 28, color: '#ff5a1f' }}>120+</p>
+            </div>
+
+            {/* 2×2 grid */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gridTemplateRows: '200px 200px',
+              gap: 8,
+              height: 420,
+              marginTop: 32,
+            }}>
+              {/* Image 1 — tall, spans both rows */}
+              {[
+                { seed: 'design1', size: '400/600', row: 'span 2', label: 'Señalética', delay: '0.3s' },
+                { seed: 'branding2', size: '300/200', row: 'auto', label: 'Branding', delay: '0.5s' },
+                { seed: 'editorial3', size: '300/200', row: 'auto', label: 'Editorial', delay: '0.7s' },
+              ].map(({ seed, size, row, label, delay }) => (
+                <div
+                  key={seed}
+                  className="overflow-hidden relative cursor-pointer group"
+                  style={{ gridRow: row, animation: `slideInRight 0.9s ease ${delay} both` }}
+                >
+                  <img
+                    src={`https://picsum.photos/seed/${seed}/${size}`}
+                    alt={label}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                  {/* overlay */}
+                  <div
+                    className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)', opacity: 0.7 }}
+                  />
+                  {/* label */}
+                  <span
+                    className="absolute bottom-3 left-3 text-[10px] uppercase tracking-[0.2em]"
+                    style={{ color: '#ff5a1f' }}
+                  >
+                    {label}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -449,6 +472,10 @@ export default function Home() {
           @keyframes slideInRight {
             from { opacity: 0; transform: translateX(50px); }
             to { opacity: 1; transform: translateX(0); }
+          }
+          @keyframes pulse-green {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(34,197,94,0); }
           }
         `}</style>
       </section>

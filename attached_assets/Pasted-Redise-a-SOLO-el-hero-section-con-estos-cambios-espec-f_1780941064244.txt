@@ -1,0 +1,160 @@
+Rediseña SOLO el hero section con estos cambios específicos. 
+NO modifiques ninguna otra sección.
+
+## PROBLEMAS A CORREGIR
+
+1. Elimina el botón naranja "QUIERO COTIZAR" — reemplázalo por algo más elegante
+2. Cambia el color de TODOS los elementos naranjas a #c8f000 (lima eléctrico)
+3. Las imágenes del stack deben mostrar trabajos de diseño/señalética, no animales
+4. Reorganiza completamente el layout de las imágenes
+
+## NUEVA ESTRUCTURA DEL HERO
+
+### COLUMNA IZQUIERDA (55% ancho) — Texto y CTAs
+
+**Jerarquía de texto (de arriba hacia abajo):**
+
+Label superior:
+  "— ESTUDIO DE DISEÑO & SEÑALÉTICA"
+  color: #c8f000, font-size: 11px, letter-spacing: 0.25em
+
+Título animado (mantén la animación de palabras que ya existe):
+  font-family: Bebas Neue, font-size: clamp(72px, 10vw, 140px)
+  color: #ffffff
+  Las palabras que rotan: MARCAS / SEÑALES / ESPACIOS
+
+Subtítulo:
+  "Creamos identidades visuales y sistemas de señalética 
+   que comunican, orientan y conectan."
+  font-family: Inter, font-size: 16px, color: #888, line-height: 1.7
+  max-width: 420px
+
+Stats (mantén los que tienes, solo cambia el estilo):
+  Quita la línea vertical divisora
+  Muéstralos como: número grande en #c8f000 (Bebas Neue 48px) 
+  + texto descriptivo abajo en Inter 12px #666
+  Ponlos en fila con gap: 40px
+
+**BLOQUE DE CTAs — Este es el corazón del hero:**
+
+Agrega este bloque con tres opciones de contacto apiladas verticalmente:
+
+CTA 1 — Principal (el más grande):
+  <a href="https://wa.me/56912345678?text=Hola, quiero cotizar un proyecto">
+  Fondo: #c8f000
+  Color texto: #000000
+  Font: Inter 600, 14px, letter-spacing: 0.1em, uppercase
+  Padding: 18px 36px
+  Border-radius: 0
+  Texto: "💬  COTIZAR POR WHATSAPP"
+  Width: 100% del contenedor izquierdo (max 400px)
+  Hover: background #a8cc00, transform: translateX(6px)
+  transition: all 0.3s ease
+
+CTA 2 — Secundario:
+  <a href="tel:+56912345678">
+  Fondo: transparent
+  Border: 1px solid rgba(255,255,255,0.15)
+  Color texto: #ffffff
+  Font: Inter 400, 14px
+  Padding: 16px 36px
+  Texto: "📞  +56 9 XXXX XXXX — Llamar ahora"
+  Width: 100% (mismo ancho que CTA 1)
+  Hover: border-color: rgba(255,255,255,0.4)
+
+CTA 3 — Terciario (solo texto link):
+  <a href="#contacto">
+  Color: #888, font-size: 13px
+  Texto: "o déjanos tus datos →"
+  Hover: color #fff
+  Underline: none, pero en hover aparece
+
+Los 3 CTAs van apilados con gap: 12px, alineados a la izquierda.
+
+**Indicador de disponibilidad (debajo de los CTAs):**
+  Un punto verde parpadeante + texto "Disponible para nuevos proyectos"
+  
+  CSS del punto:
+  .availability-dot {
+    width: 8px; height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    animation: pulse-green 2s infinite;
+  }
+  @keyframes pulse-green {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+    50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+  }
+  Texto: font-size 12px, color #666, Inter
+
+### COLUMNA DERECHA (45% ancho) — Galería de proyectos
+
+Elimina completamente las imágenes actuales (bisonte y lobo).
+Implementa este layout de galería en CSS Grid:
+
+```css
+.hero-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 200px 200px;
+  gap: 8px;
+  height: 420px;
+  position: relative;
+}
+```
+
+IMAGEN 1 — Grande, ocupa columna 1, ambas filas (grid-row: span 2):
+  https://picsum.photos/seed/design1/400/600
+  object-fit: cover, width: 100%, height: 100%
+  Overlay: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)
+  Etiqueta abajo: "Señalética" en #c8f000, 10px, uppercase, letter-spacing 0.2em
+
+IMAGEN 2 — Columna 2, fila 1:
+  https://picsum.photos/seed/branding2/300/200
+  object-fit: cover, width: 100%, height: 100%
+  Etiqueta: "Branding"
+
+IMAGEN 3 — Columna 2, fila 2:
+  https://picsum.photos/seed/editorial3/300/200
+  object-fit: cover, width: 100%, height: 100%
+  Etiqueta: "Editorial"
+
+Cada imagen:
+  overflow: hidden
+  En hover: la imagen hace scale(1.04), transition 0.6s ease
+  cursor: pointer
+  El overlay se oscurece levemente en hover
+
+Encima de toda la galería (position absolute, top: -16px, right: 0):
+  Un badge rectangular: 
+  background: #161616, border: 1px solid rgba(255,255,255,0.08)
+  padding: 10px 16px
+  Texto línea 1: "Proyectos realizados" — #666, 10px
+  Texto línea 2: "120+" — #c8f000, Bebas Neue, 28px
+
+## CORRECCIONES ADICIONALES DE ESTILO
+
+1. El label "— ESTUDIO DE DISEÑO & SEÑALÉTICA" debe estar en #c8f000, NO naranja
+2. Los números de stats (120+, 12) deben estar en #c8f000, NO naranja  
+3. El botón "VER PROYECTOS →" debe tener borde #c8f000 y texto #c8f000, NO naranja
+4. Elimina cualquier rastro de color naranja (#ff6600, #ff4500, #e85d00 o similar) 
+   en TODO el sitio y reemplázalo por #c8f000
+5. El indicador "SCROLL" vertical que ya existe: mantenlo
+
+## ESPACIADO Y ALINEACIÓN
+
+- El hero tiene padding-top suficiente para que el contenido no quede tapado por la nav (min 120px)
+- Columna izquierda: justify-content: center, flex-direction: column, gap: 24px entre bloques
+- Los CTAs empiezan alineados con el borde izquierdo del texto
+- En mobile (max 768px): columna derecha va ARRIBA, columna izquierda ABAJO
+  La galería en mobile: solo mostrar imagen 1 (la grande), height: 240px
+
+## RESULTADO ESPERADO
+El hero debe comunicar en 3 segundos:
+  ✓ Qué hace el estudio
+  ✓ Que son profesionales (galería de trabajos)
+  ✓ Cómo contactarlos AHORA (WhatsApp como CTA principal)
+  ✓ Que están disponibles
+Sin saturar visualmente, manteniendo la estética oscura y minimalista.
