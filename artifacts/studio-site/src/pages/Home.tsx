@@ -636,19 +636,23 @@ export default function Home() {
       </section>
 
       {/* Sección Cotizar / Conversemos */}
-      <section id="cotizar" className="bg-[#0f0f0f] py-16 border-y border-[rgba(255,255,255,0.04)]">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-12 items-start">
+      <section id="cotizar" className="py-20 relative overflow-hidden" style={{ background: '#0d0d0d' }}>
+        {/* faint radial glow behind form */}
+        <div className="absolute right-0 top-0 w-[600px] h-full pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,90,31,0.06) 0%, transparent 70%)' }} />
+
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-12 items-center relative z-10">
 
           {/* Left */}
-          <div className="pt-2">
-            <p className="text-[11px] tracking-[0.25em] uppercase mb-3" style={{ color: '#ff5a1f' }}>— Conversemos</p>
-            <h2 className="font-display text-[clamp(32px,3.5vw,48px)] text-white leading-none mb-4">
+          <div>
+            <p className="text-[11px] tracking-[0.25em] uppercase mb-4" style={{ color: '#ff5a1f' }}>— Conversemos</p>
+            <h2 className="font-display text-[clamp(34px,3.8vw,52px)] text-white leading-none mb-5">
               ¿Tienes un proyecto<br />en mente?
             </h2>
-            <p className="text-[#555] text-[14px] leading-relaxed mb-6 max-w-xs">
-              Respondemos en menos de 24 horas.
+            <p className="text-[#666] text-[14px] leading-relaxed mb-8 max-w-xs">
+              Cuéntanos qué necesitas.<br />Respondemos en menos de 24 horas.
             </p>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
               <a href="mailto:hola@estudiostudiokm.cl" style={{ color: '#ff5a1f' }} className="text-[13px] tracking-wide hover:opacity-70 transition-opacity">
                 hola@estudiostudiokm.cl
               </a>
@@ -656,63 +660,93 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right — compact form */}
-          <div>
-            {quickStatus === 'success' ? (
-              <div className="py-8">
-                <p className="text-white text-[16px] font-display tracking-wide mb-1">¡Mensaje enviado!</p>
-                <p className="text-[#555] text-[13px]">Te contactaremos pronto.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleQuickSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
-                {[
-                  { label: 'Nombre', key: 'name', type: 'text', placeholder: 'Tu nombre', col: 1 },
-                  { label: 'Email', key: 'email', type: 'email', placeholder: 'tu@correo.cl', required: true, col: 1 },
-                  { label: '¿Qué necesitas?', key: 'need', type: 'text', placeholder: 'Ej: Señalética, logo...', col: 2 },
-                ].map(({ label, key, type, placeholder, required }) => (
-                  <div key={key}>
-                    <label className="block text-[10px] tracking-[0.2em] uppercase text-[#555] mb-2">{label}</label>
-                    <input
-                      type={type}
-                      required={required}
-                      placeholder={placeholder}
-                      value={quickForm[key as keyof typeof quickForm]}
-                      onChange={e => setQuickForm(f => ({ ...f, [key]: e.target.value }))}
-                      className="w-full bg-transparent border-b border-[rgba(255,255,255,0.1)] pb-2 text-white text-[14px] outline-none placeholder-[#2a2a2a] transition-colors duration-300"
+          {/* Right — card form */}
+          <div
+            style={{
+              border: '1px solid rgba(255,90,31,0.25)',
+              background: 'rgba(20,10,5,0.7)',
+              backdropFilter: 'blur(4px)',
+              position: 'relative',
+            }}
+          >
+            {/* top accent bar */}
+            <div style={{ height: 3, background: 'linear-gradient(to right, #ff5a1f, #ff8c5a)', width: '100%' }} />
+
+            {/* badge */}
+            <div className="absolute -top-4 right-6">
+              <span
+                className="text-[10px] uppercase tracking-[0.2em] font-semibold px-3 py-1"
+                style={{ background: '#ff5a1f', color: '#000' }}
+              >
+                Cotización gratis
+              </span>
+            </div>
+
+            <div className="p-8">
+              {quickStatus === 'success' ? (
+                <div className="py-6 text-center">
+                  <p className="text-white text-[20px] font-display tracking-wide mb-2">¡Mensaje enviado!</p>
+                  <p className="text-[#666] text-[13px]">Te contactaremos muy pronto.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleQuickSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
+                  {[
+                    { label: 'Nombre', key: 'name', type: 'text', placeholder: 'Tu nombre' },
+                    { label: 'Email', key: 'email', type: 'email', placeholder: 'tu@correo.cl', required: true },
+                    { label: '¿Qué necesitas?', key: 'need', type: 'text', placeholder: 'Ej: Señalética, diseño de logo...' },
+                  ].map(({ label, key, type, placeholder, required }) => (
+                    <div key={key}>
+                      <label className="block text-[10px] tracking-[0.2em] uppercase mb-2" style={{ color: '#888' }}>{label}</label>
+                      <input
+                        type={type}
+                        required={required}
+                        placeholder={placeholder}
+                        value={quickForm[key as keyof typeof quickForm]}
+                        onChange={e => setQuickForm(f => ({ ...f, [key]: e.target.value }))}
+                        className="w-full pb-2 text-white text-[14px] outline-none transition-colors duration-300"
+                        style={{ background: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.12)', color: '#fff' }}
+                        onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
+                        onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)')}
+                      />
+                    </div>
+                  ))}
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-[10px] tracking-[0.2em] uppercase mb-2" style={{ color: '#888' }}>
+                      Mensaje <span className="normal-case tracking-normal text-[#444]">(opcional)</span>
+                    </label>
+                    <textarea
+                      placeholder="Cuéntanos más detalles..."
+                      value={quickForm.message}
+                      onChange={e => setQuickForm(f => ({ ...f, message: e.target.value }))}
+                      rows={2}
+                      className="w-full pb-2 text-white text-[14px] outline-none resize-none transition-colors duration-300"
+                      style={{ background: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.12)' }}
                       onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
-                      onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.1)')}
+                      onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)')}
                     />
                   </div>
-                ))}
-                <div className="sm:col-span-2">
-                  <label className="block text-[10px] tracking-[0.2em] uppercase text-[#555] mb-2">Mensaje <span className="normal-case tracking-normal text-[#333]">(opcional)</span></label>
-                  <textarea
-                    placeholder="Cuéntanos más detalles..."
-                    value={quickForm.message}
-                    onChange={e => setQuickForm(f => ({ ...f, message: e.target.value }))}
-                    rows={2}
-                    className="w-full bg-transparent border-b border-[rgba(255,255,255,0.1)] pb-2 text-white text-[14px] outline-none placeholder-[#2a2a2a] resize-none transition-colors duration-300"
-                    onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
-                    onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.1)')}
-                  />
-                </div>
-                {quickStatus === 'error' && (
-                  <p className="sm:col-span-2 text-red-400 text-[11px] tracking-wide">Error al enviar. Intenta de nuevo.</p>
-                )}
-                <div className="sm:col-span-2 mt-1">
-                  <button
-                    type="submit"
-                    disabled={quickStatus === 'sending'}
-                    className="px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-40"
-                    style={{ background: '#ff5a1f', color: '#000', borderRadius: 0 }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#e04800'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(3px)'; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#ff5a1f'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(0)'; }}
-                  >
-                    {quickStatus === 'sending' ? 'Enviando…' : 'Enviar mensaje →'}
-                  </button>
-                </div>
-              </form>
-            )}
+
+                  {quickStatus === 'error' && (
+                    <p className="sm:col-span-2 text-red-400 text-[11px] tracking-wide -mt-2">Error al enviar. Intenta de nuevo.</p>
+                  )}
+
+                  <div className="sm:col-span-2 flex items-center gap-4 mt-2">
+                    <button
+                      type="submit"
+                      disabled={quickStatus === 'sending'}
+                      className="px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-40"
+                      style={{ background: '#ff5a1f', color: '#000', borderRadius: 0 }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#e04800'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(4px)'; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#ff5a1f'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(0)'; }}
+                    >
+                      {quickStatus === 'sending' ? 'Enviando…' : 'Enviar mensaje →'}
+                    </button>
+                    <span className="text-[11px] text-[#444] tracking-wide">Sin compromiso</span>
+                  </div>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       </section>
