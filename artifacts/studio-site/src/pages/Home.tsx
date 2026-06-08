@@ -359,19 +359,32 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* CTA */}
-            <motion.a
+            {/* CTAs */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              href="#portafolio"
-              className="self-start inline-block text-[13px] uppercase tracking-[0.2em] px-8 py-4 transition-all duration-400"
-              style={{ border: '1px solid #ff5a1f', color: '#ff5a1f' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#ff5a1f'; (e.currentTarget as HTMLAnchorElement).style.color = '#000'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.color = '#ff5a1f'; }}
+              className="flex flex-wrap items-center gap-4"
             >
-              Ver Proyectos →
-            </motion.a>
+              <a
+                href="#portafolio"
+                className="inline-block text-[13px] uppercase tracking-[0.2em] px-8 py-4 transition-all duration-300"
+                style={{ border: '1px solid #ff5a1f', color: '#ff5a1f' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#ff5a1f'; (e.currentTarget as HTMLAnchorElement).style.color = '#000'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'; (e.currentTarget as HTMLAnchorElement).style.color = '#ff5a1f'; }}
+              >
+                Ver Proyectos →
+              </a>
+              <a
+                href="#cotizar"
+                className="inline-block text-[13px] uppercase tracking-[0.2em] px-8 py-4 transition-all duration-300"
+                style={{ background: '#ff5a1f', color: '#000' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#e04800'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#ff5a1f'; }}
+              >
+                Quiero cotizar
+              </a>
+            </motion.div>
 
             {/* Scroll indicator */}
             <div className="absolute bottom-10 left-6 md:left-12 flex flex-col items-center gap-3">
@@ -438,93 +451,6 @@ export default function Home() {
             to { opacity: 1; transform: translateX(0); }
           }
         `}</style>
-      </section>
-
-      {/* Sección Conversemos */}
-      <section className="bg-[#0f0f0f] py-20 border-b border-[rgba(255,255,255,0.04)]">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-
-          {/* Left info */}
-          <div>
-            <p className="text-[11px] tracking-[0.25em] uppercase mb-4" style={{ color: '#ff5a1f' }}>— Conversemos</p>
-            <h2 className="font-display text-[clamp(40px,5vw,64px)] text-white leading-none mb-6">
-              ¿Tienes un proyecto<br />en mente?
-            </h2>
-            <p className="text-[#666] text-[15px] leading-relaxed mb-8 max-w-sm">
-              Cuéntanos qué necesitas. Respondemos en menos de 24 horas.
-            </p>
-            <div className="flex flex-col gap-3">
-              <a href="mailto:hola@estudiostudiokm.cl" style={{ color: '#ff5a1f' }} className="text-[14px] tracking-wide hover:opacity-80 transition-opacity">
-                hola@estudiostudiokm.cl
-              </a>
-              <a href="tel:+56912345678" className="text-[14px] text-[#666] tracking-wide hover:text-white transition-colors">
-                +56 9 XXXX XXXX
-              </a>
-            </div>
-          </div>
-
-          {/* Right form */}
-          <div>
-            {quickStatus === 'success' ? (
-              <div className="py-12">
-                <p className="text-white text-[18px] font-display tracking-wide mb-2">¡Mensaje enviado!</p>
-                <p className="text-[#666] text-[14px]">Te contactaremos pronto.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleQuickSubmit} className="flex flex-col gap-6">
-                {[
-                  { label: 'Nombre', key: 'name', type: 'text', placeholder: 'Tu nombre' },
-                  { label: 'Email', key: 'email', type: 'email', placeholder: 'tu@correo.cl', required: true },
-                  { label: '¿Qué necesitas?', key: 'need', type: 'text', placeholder: 'Ej: Señalética para oficina, diseño de logo...' },
-                ].map(({ label, key, type, placeholder, required }) => (
-                  <div key={key}>
-                    <label className="block text-[11px] tracking-[0.2em] uppercase text-[#666] mb-2">{label}</label>
-                    <input
-                      type={type}
-                      required={required}
-                      placeholder={placeholder}
-                      value={quickForm[key as keyof typeof quickForm]}
-                      onChange={e => setQuickForm(f => ({ ...f, [key]: e.target.value }))}
-                      className="w-full bg-transparent border-b border-[rgba(255,255,255,0.12)] pb-3 text-white text-[15px] outline-none placeholder-[#333] transition-colors duration-300"
-                      style={{ fontFamily: 'Inter, sans-serif' }}
-                      onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
-                      onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)')}
-                    />
-                  </div>
-                ))}
-
-                <div>
-                  <label className="block text-[11px] tracking-[0.2em] uppercase text-[#666] mb-2">Mensaje</label>
-                  <textarea
-                    placeholder="Cuéntanos más detalles... (opcional)"
-                    value={quickForm.message}
-                    onChange={e => setQuickForm(f => ({ ...f, message: e.target.value }))}
-                    rows={3}
-                    className="w-full bg-transparent border-b border-[rgba(255,255,255,0.12)] pb-3 text-white text-[15px] outline-none placeholder-[#333] resize-none transition-colors duration-300"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
-                    onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
-                    onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)')}
-                  />
-                </div>
-
-                {quickStatus === 'error' && (
-                  <p className="text-red-400 text-[12px] tracking-wide -mt-2">Error al enviar. Intenta de nuevo.</p>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={quickStatus === 'sending'}
-                  className="self-start px-10 py-4 text-[12px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-40"
-                  style={{ background: '#ff5a1f', color: '#000', borderRadius: 0 }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#e04800'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(4px)'; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#ff5a1f'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(0)'; }}
-                >
-                  {quickStatus === 'sending' ? 'Enviando…' : 'Enviar mensaje →'}
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
       </section>
 
       {/* Marquee — logos */}
@@ -705,6 +631,88 @@ export default function Home() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sección Cotizar / Conversemos */}
+      <section id="cotizar" className="bg-[#0f0f0f] py-16 border-y border-[rgba(255,255,255,0.04)]">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-12 items-start">
+
+          {/* Left */}
+          <div className="pt-2">
+            <p className="text-[11px] tracking-[0.25em] uppercase mb-3" style={{ color: '#ff5a1f' }}>— Conversemos</p>
+            <h2 className="font-display text-[clamp(32px,3.5vw,48px)] text-white leading-none mb-4">
+              ¿Tienes un proyecto<br />en mente?
+            </h2>
+            <p className="text-[#555] text-[14px] leading-relaxed mb-6 max-w-xs">
+              Respondemos en menos de 24 horas.
+            </p>
+            <div className="flex flex-col gap-2">
+              <a href="mailto:hola@estudiostudiokm.cl" style={{ color: '#ff5a1f' }} className="text-[13px] tracking-wide hover:opacity-70 transition-opacity">
+                hola@estudiostudiokm.cl
+              </a>
+              <span className="text-[13px] text-[#555]">+56 9 XXXX XXXX</span>
+            </div>
+          </div>
+
+          {/* Right — compact form */}
+          <div>
+            {quickStatus === 'success' ? (
+              <div className="py-8">
+                <p className="text-white text-[16px] font-display tracking-wide mb-1">¡Mensaje enviado!</p>
+                <p className="text-[#555] text-[13px]">Te contactaremos pronto.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleQuickSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+                {[
+                  { label: 'Nombre', key: 'name', type: 'text', placeholder: 'Tu nombre', col: 1 },
+                  { label: 'Email', key: 'email', type: 'email', placeholder: 'tu@correo.cl', required: true, col: 1 },
+                  { label: '¿Qué necesitas?', key: 'need', type: 'text', placeholder: 'Ej: Señalética, logo...', col: 2 },
+                ].map(({ label, key, type, placeholder, required }) => (
+                  <div key={key}>
+                    <label className="block text-[10px] tracking-[0.2em] uppercase text-[#555] mb-2">{label}</label>
+                    <input
+                      type={type}
+                      required={required}
+                      placeholder={placeholder}
+                      value={quickForm[key as keyof typeof quickForm]}
+                      onChange={e => setQuickForm(f => ({ ...f, [key]: e.target.value }))}
+                      className="w-full bg-transparent border-b border-[rgba(255,255,255,0.1)] pb-2 text-white text-[14px] outline-none placeholder-[#2a2a2a] transition-colors duration-300"
+                      onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
+                      onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.1)')}
+                    />
+                  </div>
+                ))}
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] tracking-[0.2em] uppercase text-[#555] mb-2">Mensaje <span className="normal-case tracking-normal text-[#333]">(opcional)</span></label>
+                  <textarea
+                    placeholder="Cuéntanos más detalles..."
+                    value={quickForm.message}
+                    onChange={e => setQuickForm(f => ({ ...f, message: e.target.value }))}
+                    rows={2}
+                    className="w-full bg-transparent border-b border-[rgba(255,255,255,0.1)] pb-2 text-white text-[14px] outline-none placeholder-[#2a2a2a] resize-none transition-colors duration-300"
+                    onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
+                    onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.1)')}
+                  />
+                </div>
+                {quickStatus === 'error' && (
+                  <p className="sm:col-span-2 text-red-400 text-[11px] tracking-wide">Error al enviar. Intenta de nuevo.</p>
+                )}
+                <div className="sm:col-span-2 mt-1">
+                  <button
+                    type="submit"
+                    disabled={quickStatus === 'sending'}
+                    className="px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-40"
+                    style={{ background: '#ff5a1f', color: '#000', borderRadius: 0 }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#e04800'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(3px)'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#ff5a1f'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(0)'; }}
+                  >
+                    {quickStatus === 'sending' ? 'Enviando…' : 'Enviar mensaje →'}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </section>
