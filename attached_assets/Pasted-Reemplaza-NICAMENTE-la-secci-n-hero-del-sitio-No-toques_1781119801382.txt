@@ -1,0 +1,55 @@
+Reemplaza ÚNICAMENTE la sección hero del sitio. No toques el navbar, ni ninguna otra sección.
+
+---
+
+OBJETIVO DEL HERO:
+Generar leads y llamadas para un estudio de diseño gráfico y señalética. El visitante debe entender en menos de 3 segundos qué hace la empresa y tener un camino claro para contactar.
+
+---
+
+DISEÑO Y PALETA (no cambiar):
+- Fondo: negro puro #000000
+- Acento principal: #e8420a (naranja-rojo)
+- Texto: blanco #ffffff y gris claro #a0a0a0
+- Tipografía: Bebas Neue para títulos, Inter para cuerpo y botones
+
+---
+
+ESTRUCTURA DEL HERO (de arriba hacia abajo):
+
+1. EYEBROW (etiqueta pequeña sobre el título):
+   - Texto: "DISEÑO GRÁFICO & SEÑALÉTICA PROFESIONAL"
+   - Estilo: Inter uppercase, tracking muy amplio (0.25em), color #e8420a, tamaño 12px
+   - Sin fondo, sin borde, solo texto con una línea horizontal de 24px a la izquierda en #e8420a
+
+2. HEADLINE PRINCIPAL (2 líneas):
+   - Línea 1: "TRANSFORMAMOS" — Bebas Neue, 96px, color blanco, sin relleno (outline/stroke de 1px blanco)
+   - Línea 2: "TUS IDEAS" — Bebas Neue, 96px, color #e8420a, sólido
+   - Las dos líneas deben estar alineadas a la izquierda, sin centrar
+
+3. SUBTÍTULO:
+   - "Diseño, impresión y montaje de señalética para empresas que quieren destacar."
+   - Inter Regular, 17px, color #a0a0a0, máximo 480px de ancho, interlineado 1.7
+
+4. ESTADÍSTICAS (fila horizontal, sin tarjetas ni bordes):
+   - "120+" con label "Proyectos realizados"
+   - "12" con label "Años de experiencia"
+   - Número en Bebas Neue 40px blanco, label en Inter 11px #a0a0a0 uppercase
+   - Separados por una línea vertical de 1px en #333333
+   - Espaciado entre grupos: 40px
+
+5. CTAs (dos botones en fila):
+   - Botón primario: fondo #e8420a, texto blanco, "COTIZAR POR WHATSAPP" — con ícono de WhatsApp SVG inline a la izquierda — border-radius 4px, padding 16px 32px, Inter SemiBold 14px uppercase
+   - Botón secundario: sin fondo, borde 1px #444444, texto #a0a0a0, "o llámanos ahora →" — mismo alto que el primario, sin border-radius redondeado, Inter 14px
+   - Al hover del botón primario: darkens 10% el color de fondo, sin animaciones extravagantes
+
+6. DISPONIBILIDAD (fila inferior, debajo de los CTAs):
+   - Punto verde animado (pulse lento, solo opacity, sin scale) + texto "Disponible para nuevos proyectos"
+   - Inter 13px, color #a0a0a0
+
+---
+
+LAYOUT GENERAL DEL HERO:
+- Split layout: contenido a la izquierda (55%), cuadrícula de imágenes a la derecha (45%)
+- Cuadrícula de imágenes: 2 columnas × 2 filas, gap 8px, altura total ~480px
+- Cada imagen con un label en la esquina inferior izquierda en Bebas Neue 13px color #e8420a uppercase (ej: BRANDING, SEÑALÉTICA, EDITORIAL,

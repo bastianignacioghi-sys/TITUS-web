@@ -282,126 +282,134 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section id="inicio" className="h-[100vh] relative overflow-hidden bg-[#0a0a0a]">
+      <section id="inicio" className="h-[100vh] relative overflow-hidden bg-[#000000]">
         {/* noise texture */}
         <div
-          className="absolute inset-0 opacity-30 mix-blend-overlay pointer-events-none z-0"
+          className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none z-0"
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E\")" }}
         />
 
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-full grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-8 relative z-10">
 
           {/* ── LEFT COLUMN ── */}
-          <div className="flex flex-col justify-center gap-5 pt-28 pb-16">
+          <div className="flex flex-col justify-center gap-6 pt-28 pb-16">
 
-            {/* Label */}
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+            {/* Eyebrow */}
+            <motion.div
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="text-[11px] tracking-[0.25em] uppercase"
-              style={{ color: '#ff5a1f' }}
+              className="flex items-center gap-3"
             >
-              — Diseño &amp; Ejecución Profesional
-            </motion.span>
+              <span style={{ display: 'inline-block', width: 24, height: 1, background: '#e8420a', flexShrink: 0 }} />
+              <span style={{ fontSize: 12, color: '#e8420a', letterSpacing: '0.25em', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif' }}>
+                Diseño Gráfico &amp; Señalética Profesional
+              </span>
+            </motion.div>
 
-            {/* Animated word */}
-            <div className="h-[clamp(72px,10vw,140px)] overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.h1
-                  key={heroTextIndex}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: "-100%", opacity: 0 }}
-                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="font-display text-[clamp(72px,10vw,140px)] text-white leading-none tracking-wide"
-                >
-                  {heroTexts[heroTextIndex]}
-                </motion.h1>
-              </AnimatePresence>
-            </div>
+            {/* Headline — 2 lines */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.7 }}
+            >
+              <h1
+                className="font-display leading-[0.92] tracking-wide"
+                style={{
+                  fontSize: 'clamp(52px, 7.5vw, 96px)',
+                  color: 'transparent',
+                  WebkitTextStroke: '1.5px #ffffff',
+                  display: 'block',
+                }}
+              >
+                TRANSFORMAMOS
+              </h1>
+              <h1
+                className="font-display leading-[0.92] tracking-wide"
+                style={{
+                  fontSize: 'clamp(52px, 7.5vw, 96px)',
+                  color: '#e8420a',
+                  display: 'block',
+                }}
+              >
+                TUS IDEAS
+              </h1>
+            </motion.div>
 
             {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-              className="text-[#888] text-[16px] leading-[1.7] max-w-[420px]"
+              transition={{ delay: 0.35, duration: 0.7 }}
+              style={{ fontSize: 17, color: '#a0a0a0', maxWidth: 480, lineHeight: 1.7, fontFamily: 'Inter, sans-serif' }}
             >
-              Diseño y ejecución profesional para tus ideas y proyectos.
+              Diseño, impresión y montaje de señalética para empresas que quieren destacar.
             </motion.p>
 
-            {/* Stats — no divider, big accent numbers */}
+            {/* Stats */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="flex items-start gap-10"
+              className="flex items-center"
+              style={{ gap: 40 }}
             >
-              {[{ n: '120+', label: 'Proyectos realizados' }, { n: '12', label: 'Años de experiencia' }].map(s => (
-                <div key={s.n}>
-                  <p className="font-display leading-none" style={{ fontSize: 48, color: '#ff5a1f' }}>{s.n}</p>
-                  <p className="text-[#666] text-[12px] mt-1">{s.label}</p>
-                </div>
-              ))}
+              <div>
+                <p className="font-display leading-none" style={{ fontSize: 40, color: '#ffffff' }}>120+</p>
+                <p style={{ fontSize: 11, color: '#a0a0a0', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: 4, fontFamily: 'Inter, sans-serif' }}>Proyectos realizados</p>
+              </div>
+              <div style={{ width: 1, height: 40, background: '#333333', flexShrink: 0 }} />
+              <div>
+                <p className="font-display leading-none" style={{ fontSize: 40, color: '#ffffff' }}>12</p>
+                <p style={{ fontSize: 11, color: '#a0a0a0', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: 4, fontFamily: 'Inter, sans-serif' }}>Años de experiencia</p>
+              </div>
             </motion.div>
 
-            {/* CTA block — stacked */}
+            {/* CTAs — row */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-              className="flex flex-col gap-3 max-w-[400px]"
+              transition={{ delay: 0.65, duration: 0.6 }}
+              className="flex items-center gap-4 flex-wrap"
             >
-              {/* CTA 1 — WhatsApp */}
               <a
                 href="https://wa.me/56992285863?text=Hola%2C+quiero+cotizar+un+proyecto"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 text-[14px] font-semibold uppercase tracking-[0.1em] py-[18px] px-9 transition-all duration-300"
-                style={{ background: '#ff5a1f', color: '#000', borderRadius: 0 }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#e04800'; el.style.transform = 'translateX(6px)'; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#ff5a1f'; el.style.transform = 'translateX(0)'; }}
+                className="flex items-center gap-2 text-white font-semibold uppercase"
+                style={{ background: '#e8420a', borderRadius: 4, padding: '16px 32px', fontSize: 14, letterSpacing: '0.06em', fontFamily: 'Inter, sans-serif', textDecoration: 'none', transition: 'background 0.2s' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#cf3a09'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = '#e8420a'; }}
               >
-                <span>💬</span> Cotizar por WhatsApp
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Cotizar por WhatsApp
               </a>
 
-              {/* CTA 2 — Phone */}
               <a
                 href="tel:+56992285863"
-                className="flex items-center justify-center gap-2 text-[14px] py-4 px-9 text-white transition-all duration-300"
-                style={{ border: '1px solid rgba(255,255,255,0.15)', borderRadius: 0 }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.4)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.15)'; }}
+                style={{ border: '1px solid #444444', padding: '16px 24px', fontSize: 14, color: '#a0a0a0', fontFamily: 'Inter, sans-serif', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', transition: 'border-color 0.2s, color 0.2s' }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = '#888'; el.style.color = '#fff'; }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = '#444444'; el.style.color = '#a0a0a0'; }}
               >
-                <span>📞</span> +56 9 9228 5863 — Llamar ahora
-              </a>
-
-              {/* CTA 3 — text link */}
-              <a
-                href="#contacto"
-                className="text-[13px] text-center transition-colors duration-200 py-1"
-                style={{ color: '#888', textDecoration: 'none' }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.color = '#fff'; el.style.textDecoration = 'underline'; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.color = '#888'; el.style.textDecoration = 'none'; }}
-              >
-                o déjanos tus datos →
+                o llámanos ahora →
               </a>
             </motion.div>
 
-            {/* Availability indicator */}
+            {/* Availability */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 0.6 }}
+              transition={{ delay: 0.9, duration: 0.6 }}
               className="flex items-center gap-2"
             >
               <span style={{
                 display: 'inline-block', width: 8, height: 8,
                 background: '#22c55e', borderRadius: '50%',
-                animation: 'pulse-green 2s infinite',
+                animation: 'pulse-green-hero 2.5s ease-in-out infinite',
               }} />
-              <span className="text-[12px] text-[#666]">Disponible para nuevos proyectos</span>
+              <span style={{ fontSize: 13, color: '#a0a0a0', fontFamily: 'Inter, sans-serif' }}>Disponible para nuevos proyectos</span>
             </motion.div>
 
             {/* Scroll indicator */}
@@ -413,52 +421,38 @@ export default function Home() {
             </div>
           </div>
 
-          {/* ── RIGHT COLUMN — gallery grid ── */}
-          <div className="hidden md:block relative py-20">
-
-            {/* Badge */}
-            <div
-              className="absolute top-16 right-0 z-20 text-right"
-              style={{ background: '#161616', border: '1px solid rgba(255,255,255,0.08)', padding: '10px 16px' }}
-            >
-              <p className="text-[10px] text-[#666] mb-1">Proyectos realizados</p>
-              <p className="font-display leading-none" style={{ fontSize: 28, color: '#ff5a1f' }}>120+</p>
-            </div>
-
-            {/* 2×2 grid */}
+          {/* ── RIGHT COLUMN — 2×2 image grid ── */}
+          <div className="hidden md:block relative py-24">
             <div style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
-              gridTemplateRows: '200px 200px',
+              gridTemplateRows: '1fr 1fr',
               gap: 8,
-              height: 420,
-              marginTop: 32,
+              height: 480,
             }}>
-              {/* Image 1 — tall, spans both rows */}
               {[
-                { seed: 'design1', size: '400/600', row: 'span 2', label: 'Señalética', delay: '0.3s' },
-                { seed: 'branding2', size: '300/200', row: 'auto', label: 'Branding', delay: '0.5s' },
-                { seed: 'editorial3', size: '300/200', row: 'auto', label: 'Editorial', delay: '0.7s' },
-              ].map(({ seed, size, row, label, delay }) => (
+                { seed: 'senaleg1', label: 'SEÑALÉTICA' },
+                { seed: 'branding2', label: 'BRANDING' },
+                { seed: 'editorial3', label: 'EDITORIAL' },
+                { seed: 'espacios4', label: 'ESPACIOS' },
+              ].map(({ seed, label }, idx) => (
                 <div
                   key={seed}
                   className="overflow-hidden relative cursor-pointer group"
-                  style={{ gridRow: row, animation: `slideInRight 0.9s ease ${delay} both` }}
+                  style={{ animation: `slideInRight 0.9s ease ${0.3 + idx * 0.15}s both` }}
                 >
                   <img
-                    src={`https://picsum.photos/seed/${seed}/${size}`}
+                    src={`https://picsum.photos/seed/${seed}/400/300`}
                     alt={label}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   />
-                  {/* overlay */}
                   <div
-                    className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)', opacity: 0.7 }}
+                    className="absolute inset-0"
+                    style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%)' }}
                   />
-                  {/* label */}
                   <span
-                    className="absolute bottom-3 left-3 text-[10px] uppercase tracking-[0.2em]"
-                    style={{ color: '#ff5a1f' }}
+                    className="absolute bottom-3 left-3 font-display text-[13px] uppercase"
+                    style={{ color: '#e8420a', letterSpacing: '0.12em' }}
                   >
                     {label}
                   </span>
@@ -473,9 +467,9 @@ export default function Home() {
             from { opacity: 0; transform: translateX(50px); }
             to { opacity: 1; transform: translateX(0); }
           }
-          @keyframes pulse-green {
-            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
-            50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+          @keyframes pulse-green-hero {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
           }
         `}</style>
       </section>
