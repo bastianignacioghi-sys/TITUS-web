@@ -355,7 +355,7 @@ export default function Home() {
             >
               {/* CTA 1 — WhatsApp */}
               <a
-                href="https://wa.me/56912345678?text=Hola%2C+quiero+cotizar+un+proyecto"
+                href="https://wa.me/56992285863?text=Hola%2C+quiero+cotizar+un+proyecto"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 text-[14px] font-semibold uppercase tracking-[0.1em] py-[18px] px-9 transition-all duration-300"
@@ -368,13 +368,13 @@ export default function Home() {
 
               {/* CTA 2 — Phone */}
               <a
-                href="tel:+56912345678"
+                href="tel:+56992285863"
                 className="flex items-center justify-center gap-2 text-[14px] py-4 px-9 text-white transition-all duration-300"
                 style={{ border: '1px solid rgba(255,255,255,0.15)', borderRadius: 0 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.4)'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.15)'; }}
               >
-                <span>📞</span> +56 9 XXXX XXXX — Llamar ahora
+                <span>📞</span> +56 9 9228 5863 — Llamar ahora
               </a>
 
               {/* CTA 3 — text link */}
@@ -680,10 +680,10 @@ export default function Home() {
               Cuéntanos qué necesitas.<br />Respondemos en menos de 24 horas.
             </p>
             <div className="flex flex-col gap-3">
-              <a href="mailto:hola@titus.cl" style={{ color: '#ff5a1f' }} className="text-[13px] tracking-wide hover:opacity-70 transition-opacity">
-                hola@titus.cl
+              <a href="mailto:titus@titus.cl" style={{ color: '#ff5a1f' }} className="text-[13px] tracking-wide hover:opacity-70 transition-opacity">
+                titus@titus.cl
               </a>
-              <span className="text-[13px] text-[#555]">+56 9 XXXX XXXX</span>
+              <span className="text-[13px] text-[#555]">+56 9 9228 5863</span>
             </div>
           </div>
 
@@ -972,8 +972,8 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-10">
             <div className="flex flex-col justify-between">
               <div className="space-y-4">
-                <a href="mailto:hola@titus.cl" className="block text-[18px] text-[#888] hover:text-white transition-colors">hola@titus.cl</a>
-                <p className="text-[18px] text-[#888]">+56 2 2345 6789</p>
+                <a href="mailto:titus@titus.cl" className="block text-[18px] text-[#888] hover:text-white transition-colors">titus@titus.cl</a>
+                <p className="text-[18px] text-[#888]">+56 9 9228 5863</p>
               </div>
               <p className="font-[Playfair_Display] italic text-[#666] text-[20px] mt-16 md:mt-0">
                 Diseñamos con intención, construimos con propósito.
@@ -1066,8 +1066,8 @@ export default function Home() {
             <div>
               <p className="text-[11px] uppercase tracking-widest text-[#444] mb-4">Contacto</p>
               <div className="flex flex-col gap-1">
-                <a href="mailto:hola@titus.cl" className="text-[13px] text-[#666] hover:text-white transition-colors py-1">hola@titus.cl</a>
-                <p className="text-[13px] text-[#666] py-1">+56 2 2345 6789</p>
+                <a href="mailto:titus@titus.cl" className="text-[13px] text-[#666] hover:text-white transition-colors py-1">titus@titus.cl</a>
+                <p className="text-[13px] text-[#666] py-1">+56 9 9228 5863</p>
                 <p className="text-[13px] text-[#666] py-1">Santiago, Chile</p>
               </div>
             </div>
