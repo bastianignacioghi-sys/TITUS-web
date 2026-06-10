@@ -279,7 +279,7 @@ export default function Admin() {
               {/* Reply CTA */}
               <div style={{ marginTop: 56, paddingTop: 32, borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                 <a
-                  href={`mailto:${selectedMsg.email}?subject=Re: Studio KM`}
+                  href={`mailto:${selectedMsg.email}?subject=Re: TITUS`}
                   data-testid="link-reply"
                   style={{
                     display: 'inline-block',

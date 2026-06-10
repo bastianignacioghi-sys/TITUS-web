@@ -227,7 +227,7 @@ export default function Home() {
       >
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center">
           <a href="#" className="font-display text-[22px] tracking-wider text-white flex items-center">
-            STUDIO<span style={{ color: '#ff5a1f' }}>·KM</span>
+            TITU<span style={{ color: '#ff5a1f' }}>S</span>
           </a>
           
           <div className="hidden md:flex gap-8 text-[12px] uppercase tracking-[0.15em] text-[#888]">
@@ -302,7 +302,7 @@ export default function Home() {
               className="text-[11px] tracking-[0.25em] uppercase"
               style={{ color: '#ff5a1f' }}
             >
-              — Estudio de Diseño &amp; Señalética
+              — Diseño &amp; Ejecución Profesional
             </motion.span>
 
             {/* Animated word */}
@@ -328,7 +328,7 @@ export default function Home() {
               transition={{ delay: 0.3, duration: 0.7 }}
               className="text-[#888] text-[16px] leading-[1.7] max-w-[420px]"
             >
-              Creamos identidades visuales y sistemas de señalética que comunican, orientan y conectan.
+              Diseño y ejecución profesional para tus ideas y proyectos.
             </motion.p>
 
             {/* Stats — no divider, big accent numbers */}
@@ -680,8 +680,8 @@ export default function Home() {
               Cuéntanos qué necesitas.<br />Respondemos en menos de 24 horas.
             </p>
             <div className="flex flex-col gap-3">
-              <a href="mailto:hola@estudiostudiokm.cl" style={{ color: '#ff5a1f' }} className="text-[13px] tracking-wide hover:opacity-70 transition-opacity">
-                hola@estudiostudiokm.cl
+              <a href="mailto:hola@titus.cl" style={{ color: '#ff5a1f' }} className="text-[13px] tracking-wide hover:opacity-70 transition-opacity">
+                hola@titus.cl
               </a>
               <span className="text-[13px] text-[#555]">+56 9 XXXX XXXX</span>
             </div>
@@ -813,7 +813,7 @@ export default function Home() {
               transition={{ delay: 0.4, duration: 0.7 }}
               className="text-[16px] font-light leading-[1.8] text-[#888] mb-6"
             >
-              En Studio KM transformamos ideas en sistemas visuales que trascienden. Nos especializamos en diseño editorial, branding y señalética para marcas que buscan dejar huella. Nuestro enfoque es preciso, audaz y rigurosamente elaborado.
+              En TITUS convertimos ideas y proyectos en realidad. Nos especializamos en diseño gráfico, señalética e identidad visual, con una ejecución profesional que garantiza resultados concretos. Tu visión, nuestra precisión.
             </motion.p>
             <div className="flex gap-12">
               <motion.div
@@ -847,7 +847,7 @@ export default function Home() {
             >
               <img 
                 src="https://picsum.photos/seed/studiokm/1000/1200" 
-                alt="Studio KM" 
+                alt="TITUS" 
                 className="w-full h-full object-cover grayscale-[20%] contrast-110 hover:grayscale-0 transition-all duration-700" 
               />
             </motion.div>
@@ -931,7 +931,7 @@ export default function Home() {
           
           <div className="grid md:grid-cols-3">
             {[
-              { q: "El equipo de Studio KM transformó completamente nuestra señalética. El rigor en cada detalle es notable.", n: "Carlos Mendez", r: "Gerente de Operaciones, Hotel Bellavista" },
+              { q: "TITUS transformó completamente nuestra señalética. El rigor en cada detalle es notable.", n: "Carlos Mendez", r: "Gerente de Operaciones, Hotel Bellavista" },
               { q: "Profesionales, creativos y con una atención al detalle impecable. Entendieron nuestra marca desde el día uno.", n: "María González", r: "Directora de Marketing, Clínica Las Condes" },
               { q: "Nuestra identidad de marca nunca había sido tan coherente y poderosa. Un trabajo de nivel mundial.", n: "Pedro Soto", r: "CEO, Viña Montes" }
             ].map((t, i) => (
@@ -972,7 +972,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-10">
             <div className="flex flex-col justify-between">
               <div className="space-y-4">
-                <a href="mailto:hola@studiokm.cl" className="block text-[18px] text-[#888] hover:text-white transition-colors">hola@studiokm.cl</a>
+                <a href="mailto:hola@titus.cl" className="block text-[18px] text-[#888] hover:text-white transition-colors">hola@titus.cl</a>
                 <p className="text-[18px] text-[#888]">+56 2 2345 6789</p>
               </div>
               <p className="font-[Playfair_Display] italic text-[#666] text-[20px] mt-16 md:mt-0">
@@ -1047,9 +1047,9 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
               <a href="#" className="font-display text-[28px] tracking-wider text-white">
-                STUDIO<span style={{ color: '#ff5a1f' }}>·KM</span>
+                TITU<span style={{ color: '#ff5a1f' }}>S</span>
               </a>
-              <p className="text-[13px] text-[#444] mt-3">Creatividad con propósito.</p>
+              <p className="text-[13px] text-[#444] mt-3">Diseño y ejecución profesional.</p>
             </div>
             
             <div>
@@ -1066,7 +1066,7 @@ export default function Home() {
             <div>
               <p className="text-[11px] uppercase tracking-widest text-[#444] mb-4">Contacto</p>
               <div className="flex flex-col gap-1">
-                <a href="mailto:hola@studiokm.cl" className="text-[13px] text-[#666] hover:text-white transition-colors py-1">hola@studiokm.cl</a>
+                <a href="mailto:hola@titus.cl" className="text-[13px] text-[#666] hover:text-white transition-colors py-1">hola@titus.cl</a>
                 <p className="text-[13px] text-[#666] py-1">+56 2 2345 6789</p>
                 <p className="text-[13px] text-[#666] py-1">Santiago, Chile</p>
               </div>
@@ -1074,7 +1074,7 @@ export default function Home() {
           </div>
           
           <div className="flex justify-between items-center pt-8 border-t border-[rgba(255,255,255,0.04)]">
-            <p className="text-[11px] text-[#333]">© 2025 Studio KM. Todos los derechos reservados.</p>
+            <p className="text-[11px] text-[#333]">© 2025 TITUS. Todos los derechos reservados.</p>
             <div className="flex gap-4">
               <a href="#" className="text-[#444] hover:text-white transition-colors"><SiInstagram size={18} /></a>
               <a href="#" className="text-[#444] hover:text-white transition-colors"><SiBehance size={18} /></a>
