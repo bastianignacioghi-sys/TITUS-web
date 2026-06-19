@@ -224,14 +224,13 @@ export default function Home() {
             ? 'bg-[rgba(10,10,10,0.92)] backdrop-blur-[24px] border-b border-[rgba(255,255,255,0.07)]' 
             : 'bg-transparent'
         }`}
-        style={{ height: 68, overflow: 'visible' }}
       >
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center h-full overflow-visible">
-          <a href="#" className="flex items-center" style={{ marginTop: 16 }}>
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center py-3">
+          <a href="#" className="flex items-center">
             <img
               src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781899403/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_1_al0af6.png"
               alt="TITUS"
-              style={{ height: 220, width: 'auto', objectFit: 'contain' }}
+              style={{ height: 80, width: 'auto', objectFit: 'contain' }}
             />
           </a>
           
@@ -297,7 +296,7 @@ export default function Home() {
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-full grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-8 relative z-10">
 
           {/* ── LEFT COLUMN ── */}
-          <div className="flex flex-col justify-center gap-6 pt-52 pb-16">
+          <div className="flex flex-col justify-center gap-6 pt-36 pb-16">
 
             {/* Eyebrow */}
             <motion.div
@@ -426,7 +425,7 @@ export default function Home() {
           </div>
 
           {/* ── RIGHT COLUMN — 2×2 image grid ── */}
-          <div className="hidden md:block relative pt-52 pb-8">
+          <div className="hidden md:block relative pt-36 pb-8">
             <div style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
