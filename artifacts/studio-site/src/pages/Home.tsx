@@ -296,7 +296,7 @@ export default function Home() {
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-full grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-8 relative z-10">
 
           {/* ── LEFT COLUMN ── */}
-          <div className="flex flex-col justify-center gap-6 pt-28 pb-16">
+          <div className="flex flex-col justify-center gap-6 pt-52 pb-16">
 
             {/* Eyebrow */}
             <motion.div
