@@ -230,7 +230,7 @@ export default function Home() {
             <img
               src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781898235/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_zqd1wl.png"
               alt="TITUS"
-              style={{ height: 150, width: 'auto', objectFit: 'contain' }}
+              style={{ height: 220, width: 'auto', objectFit: 'contain' }}
             />
           </a>
           
@@ -1047,7 +1047,7 @@ export default function Home() {
                 <img
                   src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781898235/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_zqd1wl.png"
                   alt="TITUS"
-                  style={{ height: 72, width: 'auto', objectFit: 'contain' }}
+                  style={{ height: 130, width: 'auto', objectFit: 'contain' }}
                 />
               </a>
               <p className="text-[13px] text-[#444] mt-3">Diseño y ejecución profesional.</p>
