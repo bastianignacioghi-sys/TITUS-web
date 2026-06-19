@@ -425,7 +425,7 @@ export default function Home() {
           </div>
 
           {/* ── RIGHT COLUMN — 2×2 image grid ── */}
-          <div className="hidden md:block relative py-24">
+          <div className="hidden md:block relative pt-52 pb-8">
             <div style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
