@@ -491,7 +491,7 @@ export default function Home() {
         ];
         const items = [...logos, ...logos];
         return (
-          <div className="bg-[#111111] py-6 overflow-hidden border-y border-[rgba(255,255,255,0.03)]" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+          <div className="bg-[#111111] py-6 overflow-hidden border-y border-[rgba(255,255,255,0.03)] mt-16" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
             <div
               className="flex items-center gap-16"
               style={{ animation: 'marquee-scroll 28s linear infinite', width: 'max-content' }}
