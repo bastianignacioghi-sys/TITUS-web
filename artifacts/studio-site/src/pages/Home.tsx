@@ -221,16 +221,17 @@ export default function Home() {
       <nav 
         className={`fixed top-0 w-full z-50 transition-all duration-400 ease-out ${
           isScrolled 
-            ? 'bg-[rgba(10,10,10,0.88)] backdrop-blur-[24px] border-b border-[rgba(255,255,255,0.05)] py-0' 
-            : 'bg-transparent py-0'
+            ? 'bg-[rgba(10,10,10,0.92)] backdrop-blur-[24px] border-b border-[rgba(255,255,255,0.07)]' 
+            : 'bg-transparent'
         }`}
+        style={{ height: 68, overflow: 'visible' }}
       >
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center">
-          <a href="#" className="flex items-center">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center h-full overflow-visible">
+          <a href="#" className="flex items-center" style={{ marginTop: 16 }}>
             <img
               src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781899403/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_1_al0af6.png"
               alt="TITUS"
-              style={{ height: 180, width: 'auto', objectFit: 'contain' }}
+              style={{ height: 220, width: 'auto', objectFit: 'contain' }}
             />
           </a>
           
