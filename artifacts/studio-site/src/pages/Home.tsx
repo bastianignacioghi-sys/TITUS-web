@@ -228,7 +228,7 @@ export default function Home() {
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center">
           <a href="#" className="flex items-center">
             <img
-              src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781897308/Untitled_Project_15_copvus.png"
+              src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781898235/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_zqd1wl.png"
               alt="TITUS"
               style={{ height: 56, width: 'auto', objectFit: 'contain' }}
             />
@@ -1045,7 +1045,7 @@ export default function Home() {
             <div>
               <a href="#">
                 <img
-                  src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781897308/Untitled_Project_15_copvus.png"
+                  src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781898235/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_zqd1wl.png"
                   alt="TITUS"
                   style={{ height: 40, width: 'auto', objectFit: 'contain' }}
                 />
