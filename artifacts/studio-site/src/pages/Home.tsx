@@ -317,12 +317,11 @@ export default function Home() {
                 className="font-display leading-[0.92] tracking-wide"
                 style={{
                   fontSize: 'clamp(52px, 7.5vw, 96px)',
-                  color: 'transparent',
-                  WebkitTextStroke: '1.5px #ffffff',
+                  color: '#ffffff',
                   display: 'block',
                 }}
               >
-                TRANSFORMAMOS
+                EJECUTAMOS
               </h1>
               <h1
                 className="font-display leading-[0.92] tracking-wide"
