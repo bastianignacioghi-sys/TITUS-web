@@ -230,7 +230,7 @@ export default function Home() {
             <img
               src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781897308/Untitled_Project_15_copvus.png"
               alt="TITUS"
-              style={{ height: 36, width: 'auto', objectFit: 'contain' }}
+              style={{ height: 56, width: 'auto', objectFit: 'contain' }}
             />
           </a>
           
