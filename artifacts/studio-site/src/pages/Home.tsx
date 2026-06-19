@@ -221,16 +221,16 @@ export default function Home() {
       <nav 
         className={`fixed top-0 w-full z-50 transition-all duration-400 ease-out ${
           isScrolled 
-            ? 'bg-[rgba(10,10,10,0.88)] backdrop-blur-[24px] border-b border-[rgba(255,255,255,0.05)] py-2' 
-            : 'bg-transparent py-3'
+            ? 'bg-[rgba(10,10,10,0.88)] backdrop-blur-[24px] border-b border-[rgba(255,255,255,0.05)] py-0' 
+            : 'bg-transparent py-0'
         }`}
       >
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center">
           <a href="#" className="flex items-center">
             <img
-              src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781898235/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_zqd1wl.png"
+              src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781899403/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_1_al0af6.png"
               alt="TITUS"
-              style={{ height: 220, width: 'auto', objectFit: 'contain' }}
+              style={{ height: 180, width: 'auto', objectFit: 'contain' }}
             />
           </a>
           
@@ -1045,9 +1045,9 @@ export default function Home() {
             <div>
               <a href="#">
                 <img
-                  src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781898235/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_zqd1wl.png"
+                  src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781899403/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_1_al0af6.png"
                   alt="TITUS"
-                  style={{ height: 130, width: 'auto', objectFit: 'contain' }}
+                  style={{ height: 100, width: 'auto', objectFit: 'contain' }}
                 />
               </a>
               <p className="text-[13px] text-[#444] mt-3">Diseño y ejecución profesional.</p>
