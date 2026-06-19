@@ -226,8 +226,12 @@ export default function Home() {
         }`}
       >
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center">
-          <a href="#" className="font-display text-[22px] tracking-wider text-white flex items-center">
-            TITU<span style={{ color: '#ff5a1f' }}>S</span>
+          <a href="#" className="flex items-center">
+            <img
+              src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781897308/Untitled_Project_15_copvus.png"
+              alt="TITUS"
+              style={{ height: 36, width: 'auto', objectFit: 'contain' }}
+            />
           </a>
           
           <div className="hidden md:flex gap-8 text-[12px] uppercase tracking-[0.15em] text-[#888]">
@@ -1039,8 +1043,12 @@ export default function Home() {
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
           <div className="grid md:grid-cols-3 gap-10 mb-10">
             <div>
-              <a href="#" className="font-display text-[28px] tracking-wider text-white">
-                TITU<span style={{ color: '#ff5a1f' }}>S</span>
+              <a href="#">
+                <img
+                  src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781897308/Untitled_Project_15_copvus.png"
+                  alt="TITUS"
+                  style={{ height: 40, width: 'auto', objectFit: 'contain' }}
+                />
               </a>
               <p className="text-[13px] text-[#444] mt-3">Diseño y ejecución profesional.</p>
             </div>
