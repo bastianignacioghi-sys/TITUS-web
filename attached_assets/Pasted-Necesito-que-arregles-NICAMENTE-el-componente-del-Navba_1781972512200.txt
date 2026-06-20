@@ -1,0 +1,23 @@
+Necesito que arregles ÚNICAMENTE el componente del Navbar (Header) y el componente del Footer de la página. NO modifiques el Hero, las secciones de Servicios, Portafolio, Nosotros, Contacto, ni ningún estilo global (colores, tipografías, espaciados de otras secciones). Si necesitas tocar un archivo de estilos compartido, aplica los cambios con clases o selectores específicos del Navbar/Footer, nunca de forma global.
+
+PROBLEMA 1 - LOGO Y NAVBAR:
+El logo (imagen alojada en Cloudinary) se ve demasiado pequeño y desalineado respecto a los links del menú (INICIO, SERVICIOS, PORTAFOLIO, NOSOTROS, CONTACTO).
+
+Corrige así:
+1. Envuelve el logo en un contenedor con altura fija (ej: h-10 a h-12, ajusta según se vea proporcionado).
+2. Aplica a la imagen del logo: object-fit: contain, width: auto (o w-auto), para que no se deforme y ocupe toda la altura del contenedor.
+3. El contenedor del navbar completo debe tener display: flex, align-items: center, justify-content: space-between, para que el logo y los links queden centrados verticalmente entre sí.
+4. Verifica que el logo se vea nítido (no pixelado) y con un tamaño visualmente equilibrado respecto al alto total del navbar (ni gigante ni minúsculo).
+5. Revisa que esto se vea bien tanto en desktop como en mobile (breakpoints sm/md/lg).
+
+PROBLEMA 2 - FOOTER:
+El footer se ve descuadrado: hay una sección con la frase "Diseñamos con intención, construimos con propósito." y el botón "ENVIAR MENSAJE" que tiene demasiado espacio vacío arriba, como si faltara contenido o el padding esté mal configurado. Debajo de eso, el footer con columnas (Logo + descripción, Navegación, Contacto) se ve bien pero quiero que quede más prolijo.
+
+Corrige así:
+1. En la sección CTA previa al footer (frase + botón "ENVIAR MENSAJE"): elimina el espacio vacío excesivo arriba. Ajusta el padding vertical a algo razonable (ej: py-16 o py-20), y asegúrate de que la frase y el botón estén alineados verticalmente al centro entre sí (flex, align-items: center, justify-content: space-between en desktop; en mobile, deben apilarse centrados con gap consistente).
+2. Revisa si hay algún elemento vacío, slider/carousel roto, o div sin contenido que esté generando ese espacio en blanco, y elimínalo si no cumple ninguna función.
+3. En el bloque inferior del footer (columnas Logo/Descripción, Navegación, Contacto): usa un grid equilibrado (ej: grid-cols-1 en mobile, grid-cols-3 en desktop) con el mismo gap entre columnas y el mismo tamaño de fuente/espaciado entre títulos (NAVEGACIÓN, CONTACTO) y sus listas de links.
+4. El logo dentro del footer debe usar el mismo tratamiento que el del navbar (contenedor con altura fija, object-fit contain) para que se vea del mismo tamaño/proporción que en el header.
+5. La barra final con "© 2025 TITUS. Todos los derechos reservados." y los íconos sociales (Instagram, Behance, LinkedIn) debe quedar alineada horizontalmente, con buen espacio (border-top sutil de separación) y alineación responsive (apilada y centrada en mobile).
+
+Al terminar, muéstrame un resumen de qué archivos/componentes modificaste y confírmame que ninguna otra sección de la página fue alterada.

@@ -225,12 +225,12 @@ export default function Home() {
             : 'bg-transparent'
         }`}
       >
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center py-3">
-          <a href="#" className="flex items-center">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center py-4">
+          <a href="#" className="flex items-center h-12">
             <img
               src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781899403/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_1_al0af6.png"
               alt="TITUS"
-              style={{ height: 80, width: 'auto', objectFit: 'contain' }}
+              className="h-full w-auto object-contain"
             />
           </a>
           
@@ -967,12 +967,12 @@ export default function Home() {
           </motion.h2>
           
           <div className="grid md:grid-cols-2 gap-10">
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col gap-8">
               <div className="space-y-4">
                 <a href="mailto:titus@titus.cl" className="block text-[18px] text-[#888] hover:text-white transition-colors">titus@titus.cl</a>
                 <p className="text-[18px] text-[#888]">+56 9 9228 5863</p>
               </div>
-              <p className="font-[Playfair_Display] italic text-[#666] text-[20px] mt-16 md:mt-0">
+              <p className="font-[Playfair_Display] italic text-[#666] text-[20px]">
                 Diseñamos con intención, construimos con propósito.
               </p>
             </div>
@@ -1039,47 +1039,51 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="pt-12 pb-8 bg-[#080808] border-t border-[rgba(255,255,255,0.05)]">
+      <footer className="pt-16 pb-8 bg-[#080808] border-t border-[rgba(255,255,255,0.05)]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
-          <div className="grid md:grid-cols-3 gap-10 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+            {/* Col 1 — Logo + descripción */}
             <div>
-              <a href="#">
+              <a href="#" className="inline-flex items-center h-12 mb-4">
                 <img
                   src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1781899403/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_1_al0af6.png"
                   alt="TITUS"
-                  style={{ height: 100, width: 'auto', objectFit: 'contain' }}
+                  className="h-full w-auto object-contain"
                 />
               </a>
-              <p className="text-[13px] text-[#444] mt-3">Diseño y ejecución profesional.</p>
+              <p className="text-[13px] text-[#444] leading-relaxed">Diseño y ejecución<br/>profesional en Santiago.</p>
             </div>
             
+            {/* Col 2 — Navegación */}
             <div>
-              <p className="text-[11px] uppercase tracking-widest text-[#444] mb-4">Navegación</p>
-              <div className="flex flex-col gap-1">
+              <p className="text-[11px] uppercase tracking-widest text-[#444] mb-5">Navegación</p>
+              <div className="flex flex-col gap-2">
                 {['Inicio', 'Servicios', 'Portafolio', 'Nosotros', 'Contacto'].map(link => (
-                  <a key={link} href={`#${link.toLowerCase()}`} className="text-[13px] text-[#666] hover:text-white transition-colors py-1">
+                  <a key={link} href={`#${link.toLowerCase()}`} className="text-[13px] text-[#666] hover:text-white transition-colors duration-200">
                     {link}
                   </a>
                 ))}
               </div>
             </div>
             
+            {/* Col 3 — Contacto */}
             <div>
-              <p className="text-[11px] uppercase tracking-widest text-[#444] mb-4">Contacto</p>
-              <div className="flex flex-col gap-1">
-                <a href="mailto:titus@titus.cl" className="text-[13px] text-[#666] hover:text-white transition-colors py-1">titus@titus.cl</a>
-                <p className="text-[13px] text-[#666] py-1">+56 9 9228 5863</p>
-                <p className="text-[13px] text-[#666] py-1">Santiago, Chile</p>
+              <p className="text-[11px] uppercase tracking-widest text-[#444] mb-5">Contacto</p>
+              <div className="flex flex-col gap-2">
+                <a href="mailto:titus@titus.cl" className="text-[13px] text-[#666] hover:text-white transition-colors duration-200">titus@titus.cl</a>
+                <p className="text-[13px] text-[#666]">+56 9 9228 5863</p>
+                <p className="text-[13px] text-[#666]">Santiago, Chile</p>
               </div>
             </div>
           </div>
           
-          <div className="flex justify-between items-center pt-8 border-t border-[rgba(255,255,255,0.04)]">
-            <p className="text-[11px] text-[#333]">© 2025 TITUS. Todos los derechos reservados.</p>
-            <div className="flex gap-4">
-              <a href="#" className="text-[#444] hover:text-white transition-colors"><SiInstagram size={18} /></a>
-              <a href="#" className="text-[#444] hover:text-white transition-colors"><SiBehance size={18} /></a>
-              <a href="#" className="text-[#444] hover:text-white transition-colors"><FaLinkedin size={18} /></a>
+          {/* Barra inferior */}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-[rgba(255,255,255,0.06)]">
+            <p className="text-[11px] text-[#333] tracking-[0.05em]">© 2025 TITUS. Todos los derechos reservados.</p>
+            <div className="flex gap-5">
+              <a href="#" aria-label="Instagram" className="text-[#444] hover:text-white transition-colors duration-200"><SiInstagram size={16} /></a>
+              <a href="#" aria-label="Behance" className="text-[#444] hover:text-white transition-colors duration-200"><SiBehance size={16} /></a>
+              <a href="#" aria-label="LinkedIn" className="text-[#444] hover:text-white transition-colors duration-200"><FaLinkedin size={16} /></a>
             </div>
           </div>
         </div>
