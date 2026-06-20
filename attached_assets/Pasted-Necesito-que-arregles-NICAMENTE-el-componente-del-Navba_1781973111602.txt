@@ -1,0 +1,20 @@
+Necesito que arregles ÚNICAMENTE el componente del Navbar (Header) y el componente del Footer de la página. NO modifiques el Hero, las secciones de Servicios, Portafolio, Nosotros, Contacto, ni ningún estilo global (colores, tipografías, espaciados de otras secciones). Si necesitas tocar un archivo de estilos compartido, aplica los cambios con clases o selectores específicos del Navbar/Footer, nunca de forma global.
+
+PASO 1 - ACTUALIZAR LA URL DEL LOGO:
+Reemplaza la URL actual del logo (en el Navbar y en el Footer) por esta nueva URL, que tiene el espacio transparente recortado:
+https://res.cloudinary.com/dnlpxcjpw/image/upload/e_trim/v1781899403/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_1_al0af6.png
+
+PASO 2 - NAVBAR (logo + alineación):
+1. Envuelve el logo en un contenedor con altura fija (ej: h-10 a h-12 — ajusta el valor hasta que se vea proporcionado, ni gigante ni minúsculo, comparado con el alto total del navbar).
+2. Aplica a la imagen: object-fit: contain, width: auto (o w-auto), para que mantenga su proporción real sin deformarse.
+3. El contenedor del navbar debe tener display: flex, align-items: center, justify-content: space-between, para que el logo quede centrado verticalmente con los links del menú (INICIO, SERVICIOS, PORTAFOLIO, NOSOTROS, CONTACTO).
+4. Verifica que se vea bien tanto en desktop como en mobile (breakpoints sm/md/lg), sin que el logo se corte ni quede descentrado en el menú hamburguesa.
+
+PASO 3 - FOOTER (logo + estructura):
+1. Aplica el mismo tratamiento de logo (contenedor con altura fija + object-fit contain) en el footer, usando la misma URL actualizada, para que se vea del mismo tamaño/proporción que en el navbar.
+2. En la sección CTA previa al footer (frase "Diseñamos con intención, construimos con propósito." + botón "ENVIAR MENSAJE"): elimina cualquier espacio vacío excesivo arriba o abajo. Ajusta el padding vertical a algo razonable (ej: py-16 o py-20) y alinea la frase y el botón verticalmente al centro entre sí (flex, align-items: center, justify-content: space-between en desktop; apilados y centrados en mobile).
+3. Revisa si hay algún div, slider o elemento vacío sin contenido generando espacio en blanco extra en esa sección, y elimínalo si no cumple ninguna función.
+4. En el bloque de columnas del footer (Logo/Descripción, Navegación, Contacto): usa un grid equilibrado (grid-cols-1 en mobile, grid-cols-3 en desktop) con el mismo gap entre columnas y mismo espaciado entre títulos y listas de links.
+5. La barra final con "© 2025 TITUS. Todos los derechos reservados." y los íconos sociales debe quedar alineada horizontalmente con un border-top sutil de separación, y apilada/centrada en mobile.
+
+Al terminar, muéstrame un resumen de los archivos/componentes que modificaste y confírmame que ninguna otra sección de la página fue alterada.
