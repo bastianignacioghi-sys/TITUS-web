@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight, Quote } from 'lucide-react';
+import { Menu, X, ArrowRight, Quote, Fingerprint, MapPin, BookOpen, Zap, Layers, Printer } from 'lucide-react';
 import { SiInstagram, SiBehance } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
 import { useSubmitContact } from '@workspace/api-client-react';
@@ -130,7 +130,7 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroTextIndex, setHeroTextIndex] = useState(0);
   const heroTexts = ["MARCAS", "SEÑALES", "ESPACIOS"];
-  const [hoveredService, setHoveredService] = useState<number | null>(null);
+  const [flippedCard, setFlippedCard] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState("Todos");
   const [currentSlide, setCurrentSlide] = useState(0);
   const touchStartRef = useRef<number | null>(null);
@@ -164,10 +164,12 @@ export default function Home() {
   }, [currentSlide]); // reset interval on manual slide change
 
   const services = [
-    { num: "01", title: "Diseño de Marca e Identidad", img: "https://picsum.photos/seed/200/1200/800" },
-    { num: "02", title: "Señalética y Wayfinding", img: "https://picsum.photos/seed/300/1200/800" },
-    { num: "03", title: "Diseño Editorial y Print", img: "https://picsum.photos/seed/400/1200/800" },
-    { num: "04", title: "Motion & Digital Design", img: "https://picsum.photos/seed/500/1200/800" }
+    { icon: Fingerprint, title: "Diseño de Marca e Identidad", desc: "Creamos marcas coherentes y memorables que conectan con tu audiencia.", accent: "#e8420a", bg: "#120a08" },
+    { icon: MapPin,      title: "Señalética y Wayfinding",      desc: "Sistemas de orientación claros y elegantes para espacios complejos.",  accent: "#3b82f6", bg: "#08101a" },
+    { icon: BookOpen,    title: "Diseño Editorial y Print",      desc: "Publicaciones, catálogos y materiales impresos con rigor tipográfico.",  accent: "#22c55e", bg: "#08150a" },
+    { icon: Zap,         title: "Motion & Digital Design",       desc: "Piezas animadas y activos digitales que dan vida a tu comunicación.",   accent: "#a855f7", bg: "#120815" },
+    { icon: Layers,      title: "Espacios y Ambientación",       desc: "Intervenciones visuales que transforman entornos físicos.",             accent: "#f59e0b", bg: "#15100a" },
+    { icon: Printer,     title: "Impresión y Montaje",           desc: "Producción e instalación de punta a punta para cada proyecto.",        accent: "#06b6d4", bg: "#071515" },
   ];
 
   const projects = [
@@ -523,56 +525,91 @@ export default function Home() {
       })()}
 
       {/* Services */}
-      <section id="servicios" className="py-16 relative">
+      <section id="servicios" className="py-20 relative">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.7 }}
-            className="text-[72px] font-display mb-8"
+            className="text-[72px] font-display mb-12"
           >
             Nuestros Servicios
           </motion.h2>
-          
-          <div className="flex flex-col border-t border-[rgba(255,255,255,0.06)]">
-            {services.map((srv, idx) => (
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                key={idx}
-                className="group relative border-b border-[rgba(255,255,255,0.06)] py-8 cursor-pointer overflow-hidden grid grid-cols-[60px_1fr_auto] md:grid-cols-[100px_1fr_auto] items-center"
-                onMouseEnter={() => setHoveredService(idx)}
-                onMouseLeave={() => setHoveredService(null)}
-              >
-                <AnimatePresence>
-                  {hoveredService === idx && (
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 0.12 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="absolute inset-0 z-[-1]"
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {services.map((srv, idx) => {
+              const Icon = srv.icon;
+              const isFlipped = flippedCard === idx;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.07 }}
+                  style={{ perspective: '1000px', height: '220px' }}
+                  onMouseEnter={() => setFlippedCard(idx)}
+                  onMouseLeave={() => setFlippedCard(null)}
+                  className="cursor-pointer"
+                >
+                  <div
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      height: '100%',
+                      transformStyle: 'preserve-3d',
+                      transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                      transition: 'transform 0.55s cubic-bezier(0.4,0,0.2,1)',
+                    }}
+                  >
+                    {/* ── FRONT ── */}
+                    <div
+                      style={{
+                        position: 'absolute', inset: 0,
+                        backfaceVisibility: 'hidden',
+                        background: srv.bg,
+                        border: '1px solid rgba(255,255,255,0.06)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        padding: '28px',
+                      }}
                     >
-                      <img src={srv.img} alt={srv.title} className="w-full h-full object-cover" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-                
-                <span className="text-[12px] text-[#444] group-hover:text-[#ff5a1f] transition-colors duration-400 font-medium">
-                  {srv.num}
-                </span>
-                <h3 className="text-[32px] md:text-[52px] font-display text-white transform group-hover:translate-x-2 transition-transform duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]">
-                  {srv.title}
-                </h3>
-                <ArrowRight 
-                  className="text-[#444] group-hover:text-white transform group-hover:-rotate-45 transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]" 
-                  size={32} 
-                />
-              </motion.div>
-            ))}
+                      <Icon size={32} color={srv.accent} strokeWidth={1.5} />
+                      <div>
+                        <p className="text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: srv.accent }}>
+                          {String(idx + 1).padStart(2, '0')}
+                        </p>
+                        <h3 className="text-[20px] font-display text-white leading-tight">{srv.title}</h3>
+                      </div>
+                    </div>
+
+                    {/* ── BACK ── */}
+                    <div
+                      style={{
+                        position: 'absolute', inset: 0,
+                        backfaceVisibility: 'hidden',
+                        transform: 'rotateY(180deg)',
+                        background: srv.accent,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        padding: '28px',
+                      }}
+                    >
+                      <h3 className="text-[18px] font-display text-black leading-tight">{srv.title}</h3>
+                      <div>
+                        <p className="text-[14px] text-black/80 leading-relaxed mb-6">{srv.desc}</p>
+                        <span className="text-[12px] uppercase tracking-[0.18em] text-black font-semibold flex items-center gap-2">
+                          Ver más <ArrowRight size={14} />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
