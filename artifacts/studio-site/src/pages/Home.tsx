@@ -548,7 +548,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.07 }}
-                  style={{ perspective: '1000px', height: '220px' }}
+                  style={{ perspective: '1000px', height: '260px' }}
                   onMouseEnter={() => setFlippedCard(idx)}
                   onMouseLeave={() => setFlippedCard(null)}
                   className="cursor-pointer"
@@ -568,20 +568,32 @@ export default function Home() {
                       style={{
                         position: 'absolute', inset: 0,
                         backfaceVisibility: 'hidden',
-                        background: srv.bg,
-                        border: '1px solid rgba(255,255,255,0.06)',
+                        background: '#1c1c1c',
+                        border: '2px solid rgba(255,255,255,0.22)',
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '20px',
                         padding: '28px',
+                        textAlign: 'center',
                       }}
                     >
-                      <Icon size={32} color={srv.accent} strokeWidth={1.5} />
+                      <div style={{
+                        width: 72, height: 72,
+                        borderRadius: '50%',
+                        background: `${srv.accent}18`,
+                        border: `1.5px solid ${srv.accent}55`,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        flexShrink: 0,
+                      }}>
+                        <Icon size={36} color={srv.accent} strokeWidth={1.5} />
+                      </div>
                       <div>
-                        <p className="text-[11px] uppercase tracking-[0.18em] mb-2" style={{ color: srv.accent }}>
+                        <p className="text-[11px] uppercase tracking-[0.2em] mb-2" style={{ color: srv.accent }}>
                           {String(idx + 1).padStart(2, '0')}
                         </p>
-                        <h3 className="text-[20px] font-display text-white leading-tight">{srv.title}</h3>
+                        <h3 className="text-[22px] font-display text-white leading-tight">{srv.title}</h3>
                       </div>
                     </div>
 
@@ -592,17 +604,18 @@ export default function Home() {
                         backfaceVisibility: 'hidden',
                         transform: 'rotateY(180deg)',
                         background: srv.accent,
+                        border: '2px solid rgba(255,255,255,0.22)',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
                         padding: '28px',
                       }}
                     >
-                      <h3 className="text-[18px] font-display text-black leading-tight">{srv.title}</h3>
+                      <h3 className="text-[22px] font-display text-black leading-tight">{srv.title}</h3>
                       <div>
-                        <p className="text-[14px] text-black/80 leading-relaxed mb-6">{srv.desc}</p>
-                        <span className="text-[12px] uppercase tracking-[0.18em] text-black font-semibold flex items-center gap-2">
-                          Ver más <ArrowRight size={14} />
+                        <p className="text-[14px] text-black/80 leading-relaxed mb-5">{srv.desc}</p>
+                        <span className="text-[11px] uppercase tracking-[0.18em] text-black font-semibold flex items-center gap-2">
+                          Ver más <ArrowRight size={13} />
                         </span>
                       </div>
                     </div>
