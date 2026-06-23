@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight, Quote, Fingerprint, MapPin, BookOpen, Zap, Layers, Printer } from 'lucide-react';
+import { Menu, X, ArrowRight, Quote, Printer, Layers, Wrench, Lightbulb } from 'lucide-react';
 import { SiInstagram, SiBehance } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
 import { useSubmitContact } from '@workspace/api-client-react';
@@ -164,34 +164,32 @@ export default function Home() {
   }, [currentSlide]); // reset interval on manual slide change
 
   const services = [
-    { icon: Fingerprint, title: "Diseño de Marca e Identidad", desc: "Creamos marcas coherentes y memorables que conectan con tu audiencia.", accent: "#e8420a", bg: "#120a08" },
-    { icon: MapPin,      title: "Señalética y Wayfinding",      desc: "Sistemas de orientación claros y elegantes para espacios complejos.",  accent: "#3b82f6", bg: "#08101a" },
-    { icon: BookOpen,    title: "Diseño Editorial y Print",      desc: "Publicaciones, catálogos y materiales impresos con rigor tipográfico.",  accent: "#22c55e", bg: "#08150a" },
-    { icon: Zap,         title: "Motion & Digital Design",       desc: "Piezas animadas y activos digitales que dan vida a tu comunicación.",   accent: "#a855f7", bg: "#120815" },
-    { icon: Layers,      title: "Espacios y Ambientación",       desc: "Intervenciones visuales que transforman entornos físicos.",             accent: "#f59e0b", bg: "#15100a" },
-    { icon: Printer,     title: "Impresión y Montaje",           desc: "Producción e instalación de punta a punta para cada proyecto.",        accent: "#06b6d4", bg: "#071515" },
+    { icon: Printer,   title: "Producción Gráfica",      desc: "Desarrollo y ejecución de piezas gráficas en impresión digital de gran formato y gigantografía.",                                              accent: "#e8420a", bg: "#120a08" },
+    { icon: Layers,    title: "Producción Industrial",   desc: "Fabricación y construcción de elementos para exhibición, módulos, gabinetes y stand.",                                                         accent: "#3b82f6", bg: "#08101a" },
+    { icon: Wrench,    title: "Montaje en Obra",         desc: "Ejecutamos instalaciones en terreno, piezas gráficas y montaje de elementos volumétricos.",                                                     accent: "#22c55e", bg: "#08150a" },
+    { icon: Lightbulb, title: "Proponemos Soluciones",   desc: "Desarrollamos proyectos a partir de las ideas de nuestros clientes, proponiendo soluciones eficientes, modernas y prácticas.",               accent: "#a855f7", bg: "#120815" },
   ];
 
   const projects = [
-    { title: "Hotel Bellavista", category: "Señalética", img: "https://picsum.photos/seed/10/800/600" },
-    { title: "Clínica Las Condes", category: "Branding", img: "https://picsum.photos/seed/11/800/600" },
-    { title: "Revista Diseño Chile", category: "Editorial", img: "https://picsum.photos/seed/12/800/600" },
-    { title: "Mall Plaza Oeste", category: "Señalética", img: "https://picsum.photos/seed/13/800/600" },
-    { title: "Viña Montes", category: "Branding", img: "https://picsum.photos/seed/14/800/600" },
-    { title: "Metro Santiago", category: "Señalética", img: "https://picsum.photos/seed/15/800/600" },
-    { title: "Banco Estado", category: "Branding", img: "https://picsum.photos/seed/16/800/600" },
-    { title: "Anuario Arquitectura", category: "Editorial", img: "https://picsum.photos/seed/17/800/600" },
-    { title: "Parque Arauco", category: "Señalética", img: "https://picsum.photos/seed/18/800/600" }
+    { title: "Clínica Las Condes",            category: "Señalética",  img: "https://picsum.photos/seed/clc1/800/600" },
+    { title: "Clínica Estoril",               category: "Señalética",  img: "https://picsum.photos/seed/est2/800/600" },
+    { title: "Universidad Central",           category: "Branding",    img: "https://picsum.photos/seed/uc3/800/600"  },
+    { title: "Museo Nac. Historia Natural",   category: "Producción",  img: "https://picsum.photos/seed/mhn4/800/600" },
+    { title: "Clínica Las Condes — Ambulancias", category: "Branding", img: "https://picsum.photos/seed/amb5/800/600" },
+    { title: "Hospital Félix Bulnes",         category: "Señalética",  img: "https://picsum.photos/seed/hfb6/800/600" },
+    { title: "Universidad Andrés Bello",      category: "Branding",    img: "https://picsum.photos/seed/uab7/800/600" },
+    { title: "MetroGas",                      category: "Señalética",  img: "https://picsum.photos/seed/mg8/800/600"  },
+    { title: "Escuela Militar",               category: "Señalética",  img: "https://picsum.photos/seed/em9/800/600"  },
   ];
 
   const filteredProjects = activeTab === "Todos" ? projects : projects.filter(p => p.category === activeTab);
 
   const carouselSlides = [
-    { title: "Señalética Corporativa — Hotel Bellavista", desc: "Sistema completo de wayfinding para hotel 5 estrellas.", img: "https://picsum.photos/seed/1/1200/700", category: "Señalética" },
-    { title: "Identidad Visual — Clínica Las Condes", desc: "Rediseño de marca para cadena médica líder.", img: "https://picsum.photos/seed/2/1200/700", category: "Branding" },
-    { title: "Señalética Retail — Mall Plaza Oeste", desc: "600 piezas señaléticas en 3 niveles.", img: "https://picsum.photos/seed/3/1200/700", category: "Señalética" },
-    { title: "Branding — Viña Montes", desc: "Sistema de identidad para exportación internacional.", img: "https://picsum.photos/seed/4/1200/700", category: "Branding" },
-    { title: "Editorial — Revista Diseño Chile", desc: "Diseño editorial para publicación de arquitectura.", img: "https://picsum.photos/seed/5/1200/700", category: "Editorial" }
+    { title: "Señalética Corporativa — Clínica Las Condes",       desc: "Sistema completo de señalética corporativa y general de direccionamiento.",                                              img: "https://picsum.photos/seed/car1/1200/700", category: "Señalética"  },
+    { title: "Señalética Corporativa — Clínica Estoril",          desc: "Sistema completo de señalética corporativa y general de direccionamiento.",                                              img: "https://picsum.photos/seed/car2/1200/700", category: "Señalética"  },
+    { title: "Branding Oficinas — Universidad Central",           desc: "Instalación de film empavonado en todos los recintos vidriados.",                                                       img: "https://picsum.photos/seed/car3/1200/700", category: "Branding"    },
+    { title: "Módulos Exhibición — Museo Nac. Historia Natural",  desc: "Fabricación y montaje de módulos exhibidores.",                                                                         img: "https://picsum.photos/seed/car4/1200/700", category: "Producción"  },
+    { title: "Branding Ambulancias — Clínica Las Condes",         desc: "Implementación de branding con rotulación de emergencia bajo norma y gráfica corporativa.",                           img: "https://picsum.photos/seed/car5/1200/700", category: "Branding"    },
   ];
 
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -348,7 +346,7 @@ export default function Home() {
               transition={{ delay: 0.35, duration: 0.7 }}
               style={{ fontSize: 17, color: '#a0a0a0', maxWidth: 480, lineHeight: 1.7, fontFamily: 'Inter, sans-serif' }}
             >
-              Diseño, impresión y montaje de señalética para empresas que quieren destacar.
+              Estudio de diseño industrial, señalética y producción con más de 30 años desarrollando y creando identidad visual para nuestros clientes.
             </motion.p>
 
             {/* Stats */}
@@ -360,12 +358,12 @@ export default function Home() {
               style={{ gap: 40 }}
             >
               <div>
-                <p className="font-display leading-none" style={{ fontSize: 40, color: '#ffffff' }}>120+</p>
-                <p style={{ fontSize: 11, color: '#a0a0a0', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: 4, fontFamily: 'Inter, sans-serif' }}>Proyectos realizados</p>
+                <p className="font-display leading-none" style={{ fontSize: 40, color: '#ffffff' }}>800+</p>
+                <p style={{ fontSize: 11, color: '#a0a0a0', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: 4, fontFamily: 'Inter, sans-serif' }}>Proyectos completados</p>
               </div>
               <div style={{ width: 1, height: 40, background: '#333333', flexShrink: 0 }} />
               <div>
-                <p className="font-display leading-none" style={{ fontSize: 40, color: '#ffffff' }}>12</p>
+                <p className="font-display leading-none" style={{ fontSize: 40, color: '#ffffff' }}>30</p>
                 <p style={{ fontSize: 11, color: '#a0a0a0', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: 4, fontFamily: 'Inter, sans-serif' }}>Años de experiencia</p>
               </div>
             </motion.div>
@@ -436,10 +434,10 @@ export default function Home() {
               height: 480,
             }}>
               {[
-                { seed: 'senaleg1', label: 'SEÑALÉTICA' },
-                { seed: 'branding2', label: 'BRANDING' },
-                { seed: 'editorial3', label: 'EDITORIAL' },
-                { seed: 'espacios4', label: 'ESPACIOS' },
+                { seed: 'senaleg1',   label: 'SEÑALÉTICA'   },
+                { seed: 'branding2',  label: 'BRANDING'     },
+                { seed: 'montaje3',   label: 'MONTAJE'      },
+                { seed: 'produccion4',label: 'PRODUCCIÓN'   },
               ].map(({ seed, label }, idx) => (
                 <div
                   key={seed}
@@ -479,44 +477,27 @@ export default function Home() {
         `}</style>
       </section>
 
-      {/* Marquee — logos */}
+      {/* Marquee — clientes */}
       {(() => {
-        const logos = [
-          { name: 'Marriott',  src: 'https://logo.clearbit.com/marriott.com' },
-          { name: 'Adobe',     src: 'https://logo.clearbit.com/adobe.com' },
-          { name: 'Falabella', src: 'https://logo.clearbit.com/falabella.com' },
-          { name: 'Entel',     src: 'https://logo.clearbit.com/entel.cl' },
-          { name: 'LATAM',     src: 'https://logo.clearbit.com/latam.com' },
-          { name: 'Copec',     src: 'https://logo.clearbit.com/copec.cl' },
-          { name: 'Sodimac',   src: 'https://logo.clearbit.com/sodimac.com' },
-          { name: 'Mall Plaza',src: 'https://logo.clearbit.com/mallplaza.cl' },
+        const clients = [
+          'Clínica Las Condes', 'Clínica Estoril', 'Clínica Cordillera', 'Hospital Félix Bulnes',
+          'Hospital Barros Luco', 'Univ. de Los Andes', 'Univ. Andrés Bello', 'Univ. Católica',
+          'Univ. de O\'Higgins', 'Univ. San Sebastián', 'Culinary', 'Eagle Helicopters',
+          'Embajada Suiza', 'Escuela Militar', 'Consejo Defensa del Estado', 'MetroGas',
         ];
-        const items = [...logos, ...logos];
+        const items = [...clients, ...clients];
         return (
-          <div className="bg-[#111111] py-6 overflow-hidden border-y border-[rgba(255,255,255,0.03)] mt-16" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
+          <div className="bg-[#111111] py-5 overflow-hidden border-y border-[rgba(255,255,255,0.03)] mt-16" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
             <div
-              className="flex items-center gap-16"
-              style={{ animation: 'marquee-scroll 28s linear infinite', width: 'max-content' }}
+              className="flex items-center gap-12"
+              style={{ animation: 'marquee-scroll 40s linear infinite', width: 'max-content' }}
             >
-              {items.map((logo, i) => (
-                <div key={i} className="flex items-center gap-16 flex-shrink-0">
-                  <img
-                    src={logo.src}
-                    alt={logo.name}
-                    className="h-7 w-auto object-contain"
-                    style={{ filter: 'grayscale(1) brightness(0.45)', transition: 'filter 0.3s' }}
-                    onMouseEnter={e => (e.currentTarget.style.filter = 'grayscale(0) brightness(1)')}
-                    onMouseLeave={e => (e.currentTarget.style.filter = 'grayscale(1) brightness(0.45)')}
-                    onError={e => {
-                      const t = e.currentTarget;
-                      t.style.display = 'none';
-                      const span = document.createElement('span');
-                      span.textContent = logo.name.toUpperCase();
-                      span.style.cssText = 'font-size:11px;letter-spacing:0.2em;color:#444;font-family:Inter,sans-serif';
-                      t.parentNode?.insertBefore(span, t);
-                    }}
-                  />
-                  <span style={{ color: '#222', fontSize: 18, userSelect: 'none' }}>·</span>
+              {items.map((name, i) => (
+                <div key={i} className="flex items-center gap-12 flex-shrink-0">
+                  <span style={{ fontSize: 11, letterSpacing: '0.2em', color: '#444', fontFamily: 'Inter, sans-serif', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+                    {name}
+                  </span>
+                  <span style={{ color: '#2a2a2a', fontSize: 16, userSelect: 'none' }}>·</span>
                 </div>
               ))}
             </div>
@@ -731,6 +712,7 @@ export default function Home() {
                 titus@titus.cl
               </a>
               <span className="text-[13px] text-[#555]">+56 9 9228 5863</span>
+              <span className="text-[13px] text-[#555]">Vargas Fontecilla 4550, Quinta Normal, Santiago</span>
             </div>
           </div>
 
@@ -860,7 +842,7 @@ export default function Home() {
               transition={{ delay: 0.4, duration: 0.7 }}
               className="text-[16px] font-light leading-[1.8] text-[#888] mb-6"
             >
-              En TITUS convertimos ideas y proyectos en realidad. Nos especializamos en diseño gráfico, señalética e identidad visual, con una ejecución profesional que garantiza resultados concretos. Tu visión, nuestra precisión.
+              Somos un equipo apasionado por el diseño estratégico. Combinamos creatividad y funcionalidad para construir marcas sólidas y sistemas de señalética que guían, informan y conectan a las personas con los espacios y las marcas.
             </motion.p>
             <div className="flex gap-12">
               <motion.div
@@ -869,7 +851,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="font-display text-[90px] text-[#ff5a1f] leading-[1]">80+</p>
+                <p className="font-display text-[90px] text-[#ff5a1f] leading-[1]">800+</p>
                 <p className="text-[11px] uppercase tracking-[0.2em] text-[#555] mt-1">Proyectos</p>
               </motion.div>
               <motion.div
@@ -878,7 +860,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.6 }}
               >
-                <p className="font-display text-[90px] text-[#ff5a1f] leading-[1]">12+</p>
+                <p className="font-display text-[90px] text-[#ff5a1f] leading-[1]">30</p>
                 <p className="text-[11px] uppercase tracking-[0.2em] text-[#555] mt-1">Años</p>
               </motion.div>
             </div>
@@ -915,7 +897,7 @@ export default function Home() {
           </motion.h2>
           
           <div className="flex flex-wrap gap-6 mb-8">
-            {['Todos', 'Señalética', 'Branding', 'Editorial'].map(tab => (
+            {['Todos', 'Señalética', 'Branding', 'Producción'].map(tab => (
               <button 
                 key={tab}
                 onClick={() => setActiveTab(tab)}
