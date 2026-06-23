@@ -286,7 +286,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section id="inicio" className="h-[100vh] relative overflow-hidden bg-[#0A0A0B]">
+      <section id="inicio" className="min-h-[100vh] relative overflow-x-hidden bg-[#0A0A0B]">
         {/* noise texture */}
         <div
           className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none z-0"
@@ -297,10 +297,10 @@ export default function Home() {
           style={{ background: 'radial-gradient(ellipse 55% 50% at 30% 52%, rgba(232,66,10,0.12) 0%, transparent 65%)' }}
         />
 
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-full grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-8 relative z-10">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 min-h-[100vh] grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-8 relative z-10">
 
           {/* ── LEFT COLUMN ── */}
-          <div className="flex flex-col justify-center gap-6 pt-36 pb-16">
+          <div className="flex flex-col justify-center gap-4 pt-20 pb-8 md:gap-6 md:pt-32 md:pb-12">
 
             {/* Eyebrow */}
             <motion.div
