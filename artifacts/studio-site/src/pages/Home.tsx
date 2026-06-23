@@ -430,10 +430,10 @@ export default function Home() {
               height: 480,
             }}>
               {[
-                { seed: 'senaleg1',   label: 'SEÑALÉTICA'   },
-                { seed: 'branding2',  label: 'BRANDING'     },
-                { seed: 'montaje3',   label: 'MONTAJE'      },
-                { seed: 'produccion4',label: 'PRODUCCIÓN'   },
+                { seed: 'senaleg1',   label: 'PROD. GRÁFICA'    },
+                { seed: 'branding2',  label: 'PROD. INDUSTRIAL'  },
+                { seed: 'montaje3',   label: 'MONTAJE EN OBRA'   },
+                { seed: 'produccion4',label: 'SOLUCIONES'        },
               ].map(({ seed, label }, idx) => (
                 <div
                   key={seed}
