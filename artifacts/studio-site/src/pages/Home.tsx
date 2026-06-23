@@ -307,7 +307,7 @@ export default function Home() {
             >
               <span style={{ display: 'inline-block', width: 24, height: 1, background: '#e8420a', flexShrink: 0 }} />
               <span style={{ fontSize: 12, color: '#e8420a', letterSpacing: '0.25em', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif' }}>
-                Diseño Gráfico &amp; Señalética Profesional
+                Diseño Gráfico · Señalética · Diseño Industrial
               </span>
             </motion.div>
 
@@ -325,7 +325,7 @@ export default function Home() {
                   display: 'block',
                 }}
               >
-                EJECUTAMOS
+                DISEÑO Y SEÑALÉTICA
               </h1>
               <h1
                 className="font-display leading-[0.92] tracking-wide"
@@ -335,7 +335,7 @@ export default function Home() {
                   display: 'block',
                 }}
               >
-                TUS IDEAS
+                DE PRINCIPIO A FIN
               </h1>
             </motion.div>
 
@@ -346,7 +346,7 @@ export default function Home() {
               transition={{ delay: 0.35, duration: 0.7 }}
               style={{ fontSize: 17, color: '#a0a0a0', maxWidth: 480, lineHeight: 1.7, fontFamily: 'Inter, sans-serif' }}
             >
-              Estudio de diseño industrial, señalética y producción con más de 30 años desarrollando y creando identidad visual para nuestros clientes.
+              Estudio de diseño gráfico, señalética y diseño industrial con más de 30 años desarrollando, produciendo e instalando identidad visual para nuestros clientes.
             </motion.p>
 
             {/* Stats */}
@@ -415,13 +415,6 @@ export default function Home() {
               <span style={{ fontSize: 13, color: '#a0a0a0', fontFamily: 'Inter, sans-serif' }}>Disponible para nuevos proyectos</span>
             </motion.div>
 
-            {/* Scroll indicator */}
-            <div className="absolute bottom-10 left-6 md:left-12 flex flex-col items-center gap-3">
-              <span className="text-[10px] text-[#444] tracking-[0.3em] [writing-mode:vertical-rl] uppercase">SCROLL</span>
-              <div className="h-[40px] w-[1px] bg-[rgba(255,255,255,0.08)] relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1/2 bg-[#444]" style={{ animation: 'scroll-line 1.5s infinite' }} />
-              </div>
-            </div>
           </div>
 
           {/* ── RIGHT COLUMN — 2×2 image grid ── */}
@@ -462,6 +455,14 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Scroll indicator — centered bottom */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
+          <span className="text-[10px] text-[#444] tracking-[0.3em] uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>SCROLL</span>
+          <div className="h-[36px] w-[1px] bg-[rgba(255,255,255,0.08)] relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1/2 bg-[#444]" style={{ animation: 'scroll-line 1.5s infinite' }} />
           </div>
         </div>
 
