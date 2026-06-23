@@ -383,8 +383,7 @@ export default function Home() {
                 href="https://wa.me/56992285863?text=Hola%2C+quiero+cotizar+un+proyecto"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-semibold uppercase text-white"
-                style={{ backgroundColor: '#25D366', borderRadius: 4, padding: '16px 32px', fontSize: 14, letterSpacing: '0.06em', fontFamily: 'Inter, sans-serif', textDecoration: 'none', transition: 'background-color 0.2s', position: 'relative', zIndex: 30, boxShadow: 'none' }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, backgroundColor: '#25D366', color: '#ffffff', borderRadius: 4, padding: '16px 32px', fontSize: 14, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif', textDecoration: 'none', transition: 'background-color 0.2s', boxShadow: 'none' }}
                 onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#1ebe5d'; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#25D366'; }}
               >
@@ -396,9 +395,9 @@ export default function Home() {
 
               <a
                 href="tel:+56992285863"
-                style={{ border: '1px solid #444444', padding: '16px 24px', fontSize: 14, color: '#a0a0a0', fontFamily: 'Inter, sans-serif', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', transition: 'border-color 0.2s, color 0.2s' }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = '#888'; el.style.color = '#fff'; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.borderColor = '#444444'; el.style.color = '#a0a0a0'; }}
+                style={{ display: 'inline-flex', alignItems: 'center', backgroundColor: '#2a2a2a', color: '#ffffff', borderRadius: 4, padding: '16px 24px', fontSize: 14, fontWeight: 500, fontFamily: 'Inter, sans-serif', textDecoration: 'none', transition: 'background-color 0.2s' }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#383838'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#2a2a2a'; }}
               >
                 o llámanos ahora →
               </a>
@@ -465,7 +464,7 @@ export default function Home() {
         </div>
 
         {/* Bottom fade to next section */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none z-20"
+        <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none z-[2]"
           style={{ background: 'linear-gradient(to bottom, transparent, #0A0A0B)' }}
         />
         {/* Scroll indicator — centered bottom */}
