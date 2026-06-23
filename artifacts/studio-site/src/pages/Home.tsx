@@ -592,11 +592,11 @@ export default function Home() {
                         padding: '28px',
                       }}
                     >
-                      <h3 className="text-[22px] font-display text-black leading-tight">{srv.title}</h3>
+                      <h3 className="text-[30px] font-display text-white leading-tight">{srv.title}</h3>
                       <div>
-                        <p className="text-[14px] text-black/80 leading-relaxed mb-5">{srv.desc}</p>
-                        <span className="text-[11px] uppercase tracking-[0.18em] text-black font-semibold flex items-center gap-2">
-                          Ver más <ArrowRight size={13} />
+                        <p className="text-[16px] text-white/90 leading-relaxed mb-5">{srv.desc}</p>
+                        <span className="text-[13px] uppercase tracking-[0.18em] text-white font-semibold flex items-center gap-2">
+                          Ver más <ArrowRight size={14} />
                         </span>
                       </div>
                     </div>
