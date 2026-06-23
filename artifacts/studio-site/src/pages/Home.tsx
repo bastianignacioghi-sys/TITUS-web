@@ -286,11 +286,15 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <section id="inicio" className="h-[100vh] relative overflow-hidden bg-[#000000]">
+      <section id="inicio" className="h-[100vh] relative overflow-hidden bg-[#0A0A0B]">
         {/* noise texture */}
         <div
           className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none z-0"
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E\")" }}
+        />
+        {/* Orange radial glow behind headline */}
+        <div className="absolute inset-0 pointer-events-none z-[1]"
+          style={{ background: 'radial-gradient(ellipse 55% 50% at 30% 52%, rgba(232,66,10,0.12) 0%, transparent 65%)' }}
         />
 
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-full grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-8 relative z-10">
@@ -446,6 +450,8 @@ export default function Home() {
                     className="absolute inset-0"
                     style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%)' }}
                   />
+                  {/* Corner bracket — top-left technical style */}
+                  <div className="absolute top-0 left-0 z-10 pointer-events-none" style={{ width: 20, height: 20, borderTop: '2px solid #E8420A', borderLeft: '2px solid #E8420A' }} />
                   <span
                     className="absolute bottom-3 left-3 font-display text-[13px] uppercase"
                     style={{ color: '#e8420a', letterSpacing: '0.12em' }}
@@ -458,6 +464,10 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Bottom fade to next section */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none z-20"
+          style={{ background: 'linear-gradient(to bottom, transparent, #0A0A0B)' }}
+        />
         {/* Scroll indicator — centered bottom */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
           <span className="text-[10px] text-[#444] tracking-[0.3em] uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>SCROLL</span>
@@ -498,7 +508,7 @@ export default function Home() {
                   <span style={{ fontSize: 11, letterSpacing: '0.2em', color: '#444', fontFamily: 'Inter, sans-serif', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                     {name}
                   </span>
-                  <span style={{ color: '#2a2a2a', fontSize: 16, userSelect: 'none' }}>·</span>
+                  <span style={{ display: 'inline-block', width: 1, height: 14, background: 'rgba(255,255,255,0.08)', verticalAlign: 'middle', flexShrink: 0 }} />
                 </div>
               ))}
             </div>
@@ -507,7 +517,7 @@ export default function Home() {
       })()}
 
       {/* Services */}
-      <section id="servicios" className="py-20 relative">
+      <section id="servicios" className="py-20 relative bg-[#141416]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
@@ -720,10 +730,12 @@ export default function Home() {
           {/* Right — card form */}
           <div
             style={{
-              border: '1px solid rgba(255,90,31,0.25)',
-              background: 'rgba(20,10,5,0.7)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              background: '#141416',
               backdropFilter: 'blur(4px)',
               position: 'relative',
+              borderRadius: 12,
+              overflow: 'hidden',
             }}
           >
             {/* top accent bar */}
@@ -809,7 +821,7 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="nosotros" className="py-16">
+      <section id="nosotros" className="py-16 bg-[#0A0A0B]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid md:grid-cols-[40%_60%] gap-10 items-center">
           <div>
             <motion.p 
@@ -867,13 +879,13 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="relative pb-5 pr-5 mt-10 md:mt-0">
+          <div className="relative mt-10 md:mt-0">
             <motion.div 
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative z-10 overflow-hidden w-full h-[600px] shadow-[20px_20px_0_#ff5a1f]"
+              className="relative z-10 overflow-hidden w-full h-[600px]"
             >
               <img 
                 src="https://picsum.photos/seed/studiokm/1000/1200" 
@@ -881,6 +893,12 @@ export default function Home() {
                 className="w-full h-full object-cover grayscale-[20%] contrast-110 hover:grayscale-0 transition-all duration-700" 
               />
             </motion.div>
+            {/* Gradient accent line — right edge */}
+            <div style={{
+              position: 'absolute', top: 0, right: -4, width: 4, height: '100%',
+              background: 'linear-gradient(to bottom, #E8420A, #2F6FE8)',
+              borderRadius: 2, zIndex: 11,
+            }} />
           </div>
         </div>
       </section>
@@ -929,8 +947,12 @@ export default function Home() {
                     key={p.title}
                     className={`group relative overflow-hidden cursor-pointer ${gridClass}`}
                   >
-                    <img src={p.img} alt={p.title} className="w-full h-full object-cover transition-transform duration-600 ease-out group-hover:scale-105" />
+                    <img src={p.img} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
                     <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.8)_0%,transparent_50%)]" />
+                    {/* Hover border overlay */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
+                      style={{ border: '1px solid rgba(47,111,232,0.4)' }}
+                    />
                     
                     <div className="absolute bottom-0 left-0 p-6 w-full flex justify-between items-end transform transition-transform duration-400 group-hover:-translate-y-[6px]">
                       <div>
@@ -948,18 +970,18 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 bg-[#0d0d0d]">
+      <section className="py-16 bg-[#141416]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-[72px] font-display mb-8 text-center"
+            className="text-[72px] font-display mb-10 text-center"
           >
             Voces
           </motion.h2>
           
-          <div className="grid md:grid-cols-3">
+          <div className="grid md:grid-cols-3 gap-6">
             {[
               { q: "TITUS transformó completamente nuestra señalética. El rigor en cada detalle es notable.", n: "Carlos Mendez", r: "Gerente de Operaciones, Hotel Bellavista" },
               { q: "Profesionales, creativos y con una atención al detalle impecable. Entendieron nuestra marca desde el día uno.", n: "María González", r: "Directora de Marketing, Clínica Las Condes" },
@@ -970,8 +992,9 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.6 }}
-                key={i} 
-                className={`px-8 py-8 md:py-0 ${i !== 0 ? 'md:border-l border-[rgba(255,255,255,0.06)]' : ''}`}
+                key={i}
+                className="px-8 py-8 rounded-[8px]"
+                style={{ background: '#0A0A0B', borderTop: '2px solid #E8420A' }}
               >
                 <div className="font-[Playfair_Display] italic text-[80px] leading-[1] text-[#ff5a1f]/30 mb-4">"</div>
                 <p className="text-[17px] font-light leading-[1.8] text-[#ddd] mb-8">
@@ -988,7 +1011,8 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section id="contacto" className="py-16 bg-[#0a0a0a] border-t border-[rgba(255,255,255,0.06)]">
+      <section id="contacto" className="py-16 border-t border-[rgba(255,255,255,0.06)]"
+        style={{ background: 'radial-gradient(ellipse 50% 60% at 85% 15%, rgba(232,66,10,0.08) 0%, #0A0A0B 60%)' }}>
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
@@ -1062,7 +1086,7 @@ export default function Home() {
                 type="submit"
                 disabled={submitContact.isPending}
                 data-testid="button-contact-submit"
-                className="mt-8 border border-[#ff5a1f] text-[#ff5a1f] bg-transparent px-8 py-4 uppercase tracking-[0.2em] text-[12px] hover:bg-[#ff5a1f] hover:text-[#000] transition-all duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                className="mt-8 border border-[#ff5a1f] text-[#ff5a1f] bg-transparent px-8 py-4 uppercase tracking-[0.2em] text-[12px] hover:bg-[#ff5a1f] hover:text-[#000] transition-all duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer rounded-[8px]"
               >
                 {submitContact.isPending ? 'Enviando...' : 'Enviar Mensaje'}
               </button>

@@ -1,0 +1,24 @@
+Necesito un re-diseño SOLO de colores, fondos y formas (no contenido, no estructura de tarjetas) en todo el sitio. NO TOCAR las tarjetas de "Nuestros Servicios" (Producción Gráfica, Producción Industrial, Montaje en Obra y la cuarta tarjeta) ni sus colores internos (naranja, azul, verde, morado) — esas quedan exactamente igual.
+
+1. Variables globales de color: agregar estas variables CSS y reemplazar el negro puro (#000000) del fondo general por:
+   --bg-base: #0A0A0B;
+   --bg-elevated: #141416;
+   --accent-primary: #E8420A; (ya existe, mantener)
+   --accent-cool: #2F6FE8;
+   --border-subtle: rgba(255,255,255,0.08);
+
+2. Hero: agregar un glow radial difuso color naranja (--accent-primary, opacidad ~12%, blur grande) posicionado detrás del headline "DE PRINCIPIO A FIN", sin que tape el texto. Agregar pequeñas esquinas tipo "plano técnico" (corner brackets en --accent-primary, estilo dibujo técnico, 20px, grosor 2px) en las 4 fotos del grid derecho, en cada esquina superior izquierda de cada imagen. El corte inferior del hero hacia la siguiente sección debe tener un degradado suave de --bg-base a --bg-elevated en vez de un corte recto.
+
+3. Sección "Nuestros Servicios": cambiar el fondo de la sección (no de las tarjetas) a --bg-elevated para diferenciarla del hero. El marquee de logos de clientes debe tener líneas divisorias sutiles (--border-subtle) entre cada logo en vez de solo espacio.
+
+4. Sección de portafolio destacado (carrusel "Historia Natural" / "Conversemos"): el panel del formulario de cotización debe tener fondo --bg-elevated con borde 1px --border-subtle y esquinas redondeadas (12px) en vez de fondo plano. La etiqueta "COTIZACIÓN GRATIS" mantiene su color naranja actual.
+
+5. Sección "Sobre Nosotros": cambiar el fondo de esta sección a --bg-base, pero agregar una línea vertical de acento que combine --accent-primary arriba y --accent-cool abajo (degradado sutil) en el borde derecho de la imagen oceánica, en vez del bloque naranja sólido actual.
+
+6. Sección "Nuestro Trabajo" (grid de portafolio): al hacer hover sobre cada proyecto, agregar un borde sutil --accent-cool (1px, opacidad 40%) y un leve zoom de la imagen (scale 1.03, transition suave). Las pestañas de filtro (TODOS, SEÑALÉTICA, BRANDING, PRODUCCIÓN) deben tener un indicador de línea inferior en --accent-primary para la pestaña activa.
+
+7. Sección "VOCES" (testimonios): cambiar el fondo de esta sección a --bg-elevated. Cada tarjeta de testimonio debe tener fondo --bg-base, borde superior de 2px en --accent-primary, esquinas redondeadas (8px) y padding generoso, para que se sientan como tarjetas con peso en vez de texto flotando.
+
+8. Sección de contacto final "¿Hablamos?": fondo con un degradado radial sutil desde --accent-primary al 8% de opacidad en la esquina superior derecha hacia --bg-base, para cerrar la página con un cierre cálido. El botón "Enviar mensaje" mantiene su color naranja actual pero con esquinas redondeadas (8px) en vez de rectas.
+
+9. Mantener el resto de la tipografía, textos y estructura de cada sección exactamente igual. Este cambio es únicamente de fondo, bordes, sombras y formas.
