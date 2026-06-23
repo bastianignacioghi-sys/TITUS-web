@@ -571,10 +571,10 @@ export default function Home() {
                         <Icon size={36} color={srv.accent} strokeWidth={1.5} />
                       </div>
                       <div>
-                        <p className="text-[11px] uppercase tracking-[0.2em] mb-2" style={{ color: srv.accent }}>
+                        <p className="text-[13px] uppercase tracking-[0.2em] mb-2" style={{ color: '#ffffff' }}>
                           {String(idx + 1).padStart(2, '0')}
                         </p>
-                        <h3 className="text-[22px] font-display text-white leading-tight">{srv.title}</h3>
+                        <h3 className="text-[30px] font-display text-white leading-tight">{srv.title}</h3>
                       </div>
                     </div>
 
