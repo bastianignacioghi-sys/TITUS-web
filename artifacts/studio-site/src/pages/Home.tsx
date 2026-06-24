@@ -667,13 +667,8 @@ export default function Home() {
                               width: '85%',
                               height: '75%',
                               objectFit: 'contain',
-                              filter: 'grayscale(100%)',
-                              opacity: 0.8,
-                              transition: 'opacity 0.25s, filter 0.25s',
                               display: 'block',
                             }}
-                            onMouseEnter={e => { const el = e.currentTarget as HTMLImageElement; el.style.filter = 'grayscale(0%)'; el.style.opacity = '1'; }}
-                            onMouseLeave={e => { const el = e.currentTarget as HTMLImageElement; el.style.filter = 'grayscale(100%)'; el.style.opacity = '0.8'; }}
                           />
                         </div>
                       ))}
