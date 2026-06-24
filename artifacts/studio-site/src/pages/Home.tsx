@@ -651,11 +651,11 @@ export default function Home() {
                             flex: '1 1 0',
                             background: 'white',
                             borderRadius: 10,
-                            height: 160,
+                            height: 180,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: '16px',
+                            padding: '20px',
                             overflow: 'hidden',
                             border: '1px solid rgba(0,0,0,0.08)',
                           }}
@@ -664,8 +664,8 @@ export default function Home() {
                             src={logo.url}
                             alt={logo.name}
                             style={{
-                              width: '85%',
-                              height: '75%',
+                              width: '88%',
+                              height: '82%',
                               objectFit: 'contain',
                               display: 'block',
                             }}
