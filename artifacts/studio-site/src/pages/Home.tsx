@@ -650,36 +650,35 @@ export default function Home() {
                           style={{
                             flex: '1 1 0',
                             background: 'white',
-                            borderRadius: 8,
-                            height: 140,
+                            borderRadius: 10,
+                            height: 160,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: '20px 24px',
+                            padding: '16px',
                             overflow: 'hidden',
+                            border: '1px solid rgba(0,0,0,0.08)',
                           }}
                         >
                           <img
                             src={logo.url}
                             alt={logo.name}
                             style={{
-                              maxHeight: 90,
-                              maxWidth: '100%',
-                              width: 'auto',
+                              width: '85%',
+                              height: '75%',
                               objectFit: 'contain',
                               filter: 'grayscale(100%)',
-                              opacity: 0.75,
+                              opacity: 0.8,
                               transition: 'opacity 0.25s, filter 0.25s',
                               display: 'block',
-                              margin: '0 auto',
                             }}
                             onMouseEnter={e => { const el = e.currentTarget as HTMLImageElement; el.style.filter = 'grayscale(0%)'; el.style.opacity = '1'; }}
-                            onMouseLeave={e => { const el = e.currentTarget as HTMLImageElement; el.style.filter = 'grayscale(100%)'; el.style.opacity = '0.75'; }}
+                            onMouseLeave={e => { const el = e.currentTarget as HTMLImageElement; el.style.filter = 'grayscale(100%)'; el.style.opacity = '0.8'; }}
                           />
                         </div>
                       ))}
                       {visibleLogos.length < perPage && Array.from({ length: perPage - visibleLogos.length }).map((_, i) => (
-                        <div key={`empty-${i}`} style={{ flex: '1 1 0', height: 110 }} />
+                        <div key={`empty-${i}`} style={{ flex: '1 1 0', height: 160 }} />
                       ))}
                     </motion.div>
                   </AnimatePresence>
