@@ -71,10 +71,6 @@ const Cursor = () => {
         style={{ willChange: 'transform' }}
       />
       <style>{`
-        @keyframes marquee-scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
         @keyframes scroll-line {
           0% { transform: translateY(0); opacity: 1; }
           100% { transform: translateY(20px); opacity: 0; }
@@ -133,6 +129,17 @@ export default function Home() {
   const [flippedCard, setFlippedCard] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState("Todos");
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [clientPage, setClientPage] = useState(0);
+
+  const clientLogos = [
+    { name: 'Clínica Las Condes',          url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_CLINICALASCONDES_acrgn2.jpg' },
+    { name: 'U. Católica',                 url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312469/LOGO_UCATOLICA_kngjhw.png' },
+    { name: 'U. de Los Andes',             url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312469/LOGO_UANDES_hjz0cj.png' },
+    { name: 'MetroGas',                    url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_METROGAS_pyslkf.webp' },
+    { name: 'Escuela Militar',             url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_ESCUELAMILITAR_j5bboc.png' },
+    { name: 'Consejo Defensa del Estado',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_DEFENSAESTADO_x0jigg.png' },
+    { name: 'UNAB',                        url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_UNAB_ka4q3u.png' },
+  ];
   const touchStartRef = useRef<number | null>(null);
   
   useEffect(() => {
@@ -487,31 +494,85 @@ export default function Home() {
         `}</style>
       </section>
 
-      {/* Marquee — clientes */}
+      {/* Clientes — Image Carousel */}
       {(() => {
-        const clients = [
-          'Clínica Las Condes', 'Clínica Estoril', 'Clínica Cordillera', 'Hospital Félix Bulnes',
-          'Hospital Barros Luco', 'Univ. de Los Andes', 'Univ. Andrés Bello', 'Univ. Católica',
-          'Univ. de O\'Higgins', 'Univ. San Sebastián', 'Culinary', 'Eagle Helicopters',
-          'Embajada Suiza', 'Escuela Militar', 'Consejo Defensa del Estado', 'MetroGas',
-        ];
-        const items = [...clients, ...clients];
+        const perPage = 4;
+        const totalPages = Math.ceil(clientLogos.length / perPage);
+        const visibleLogos = clientLogos.slice(clientPage * perPage, clientPage * perPage + perPage);
+        const canPrev = clientPage > 0;
+        const canNext = clientPage < totalPages - 1;
+        const btnBase: React.CSSProperties = {
+          width: 36, height: 36, borderRadius: '50%', border: '1px solid #e0e0e0',
+          background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center',
+          justifyContent: 'center', flexShrink: 0, transition: 'border-color 0.2s, opacity 0.2s',
+        };
         return (
-          <div className="bg-[#111111] py-5 overflow-hidden border-y border-[rgba(255,255,255,0.03)] mt-16" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }}>
-            <div
-              className="flex items-center gap-12"
-              style={{ animation: 'marquee-scroll 40s linear infinite', width: 'max-content' }}
-            >
-              {items.map((name, i) => (
-                <div key={i} className="flex items-center gap-12 flex-shrink-0">
-                  <span style={{ fontSize: 11, letterSpacing: '0.2em', color: '#444', fontFamily: 'Inter, sans-serif', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
-                    {name}
-                  </span>
-                  <span style={{ display: 'inline-block', width: 1, height: 14, background: 'rgba(255,255,255,0.08)', verticalAlign: 'middle', flexShrink: 0 }} />
+          <section className="bg-white mt-16 border-y border-gray-100 py-10">
+            <div className="max-w-[1280px] mx-auto px-6 md:px-12">
+              <p style={{ textAlign: 'center', fontSize: 11, letterSpacing: '0.3em', color: '#aaa', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif', marginBottom: 32 }}>
+                NUESTROS CLIENTES
+              </p>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <button
+                  onClick={() => setClientPage(p => Math.max(0, p - 1))}
+                  disabled={!canPrev}
+                  style={{ ...btnBase, opacity: canPrev ? 1 : 0.25 }}
+                  aria-label="Anterior"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+
+                <div style={{ flex: 1, overflow: 'hidden' }}>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={clientPage}
+                      initial={{ opacity: 0, x: 24 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -24 }}
+                      transition={{ duration: 0.3 }}
+                      style={{ display: 'grid', gridTemplateColumns: `repeat(${perPage}, 1fr)`, gap: 24, alignItems: 'center' }}
+                    >
+                      {visibleLogos.map((logo, i) => (
+                        <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '8px 16px', minHeight: 80 }}>
+                          <img
+                            src={logo.url}
+                            alt={logo.name}
+                            style={{ maxHeight: 64, maxWidth: '100%', width: 'auto', objectFit: 'contain', filter: 'grayscale(100%)', opacity: 0.7, transition: 'opacity 0.2s, filter 0.2s' }}
+                            onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.filter = 'grayscale(0%)'; (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
+                            onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.filter = 'grayscale(100%)'; (e.currentTarget as HTMLImageElement).style.opacity = '0.7'; }}
+                          />
+                        </div>
+                      ))}
+                      {visibleLogos.length < perPage && Array.from({ length: perPage - visibleLogos.length }).map((_, i) => (
+                        <div key={`empty-${i}`} />
+                      ))}
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
-              ))}
+
+                <button
+                  onClick={() => setClientPage(p => Math.min(totalPages - 1, p + 1))}
+                  disabled={!canNext}
+                  style={{ ...btnBase, opacity: canNext ? 1 : 0.25 }}
+                  aria-label="Siguiente"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 20 }}>
+                {Array.from({ length: totalPages }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setClientPage(i)}
+                    style={{ width: i === clientPage ? 20 : 8, height: 8, borderRadius: 4, border: 'none', cursor: 'pointer', background: i === clientPage ? '#333' : '#ddd', transition: 'all 0.2s', padding: 0 }}
+                    aria-label={`Página ${i + 1}`}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          </section>
         );
       })()}
 
