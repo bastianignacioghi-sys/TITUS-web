@@ -838,22 +838,8 @@ export default function Home() {
               backdropFilter: 'blur(4px)',
               position: 'relative',
               borderRadius: 12,
-              overflow: 'hidden',
             }}
           >
-            {/* top accent bar */}
-            <div style={{ height: 3, background: 'linear-gradient(to right, #ff5a1f, #ff8c5a)', width: '100%' }} />
-
-            {/* badge */}
-            <div className="absolute -top-4 right-6">
-              <span
-                className="text-[10px] uppercase tracking-[0.2em] font-semibold px-3 py-1"
-                style={{ background: '#ff5a1f', color: '#000' }}
-              >
-                Cotización gratis
-              </span>
-            </div>
-
             <div className="p-8">
               {quickStatus === 'success' ? (
                 <div className="py-6 text-center">
