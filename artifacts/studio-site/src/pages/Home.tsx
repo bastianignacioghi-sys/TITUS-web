@@ -139,6 +139,10 @@ export default function Home() {
     { name: 'Escuela Militar',             url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_ESCUELAMILITAR_j5bboc.png' },
     { name: 'Consejo Defensa del Estado',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_DEFENSAESTADO_x0jigg.png' },
     { name: 'UNAB',                        url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_UNAB_ka4q3u.png' },
+    { name: 'Cliente 8',                   url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335349/Dise%C3%B1o_sin_t%C3%ADtulo_5_avofzm.png' },
+    { name: 'Cliente 9',                   url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335287/Dise%C3%B1o_sin_t%C3%ADtulo_4_ownqr7.png' },
+    { name: 'Cliente 10',                  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335079/Dise%C3%B1o_sin_t%C3%ADtulo_3_sptoxl.png' },
+    { name: 'Cliente 11',                  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782334975/Dise%C3%B1o_sin_t%C3%ADtulo_2_expudm.png' },
   ];
   const touchStartRef = useRef<number | null>(null);
   
@@ -494,87 +498,6 @@ export default function Home() {
         `}</style>
       </section>
 
-      {/* Clientes — Image Carousel */}
-      {(() => {
-        const perPage = 4;
-        const totalPages = Math.ceil(clientLogos.length / perPage);
-        const visibleLogos = clientLogos.slice(clientPage * perPage, clientPage * perPage + perPage);
-        const canPrev = clientPage > 0;
-        const canNext = clientPage < totalPages - 1;
-        const btnBase: React.CSSProperties = {
-          width: 36, height: 36, borderRadius: '50%', border: '1px solid #e0e0e0',
-          background: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center',
-          justifyContent: 'center', flexShrink: 0, transition: 'border-color 0.2s, opacity 0.2s',
-        };
-        return (
-          <section className="bg-white mt-16 border-y border-gray-100 py-10">
-            <div className="max-w-[1280px] mx-auto px-6 md:px-12">
-              <p style={{ textAlign: 'center', fontSize: 11, letterSpacing: '0.3em', color: '#aaa', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif', marginBottom: 32 }}>
-                NUESTROS CLIENTES
-              </p>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                <button
-                  onClick={() => setClientPage(p => Math.max(0, p - 1))}
-                  disabled={!canPrev}
-                  style={{ ...btnBase, opacity: canPrev ? 1 : 0.25 }}
-                  aria-label="Anterior"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                </button>
-
-                <div style={{ flex: 1, overflow: 'hidden' }}>
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={clientPage}
-                      initial={{ opacity: 0, x: 24 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -24 }}
-                      transition={{ duration: 0.3 }}
-                      style={{ display: 'grid', gridTemplateColumns: `repeat(${perPage}, 1fr)`, gap: 24, alignItems: 'center' }}
-                    >
-                      {visibleLogos.map((logo, i) => (
-                        <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '8px 16px', minHeight: 80 }}>
-                          <img
-                            src={logo.url}
-                            alt={logo.name}
-                            style={{ maxHeight: 64, maxWidth: '100%', width: 'auto', objectFit: 'contain', filter: 'grayscale(100%)', opacity: 0.7, transition: 'opacity 0.2s, filter 0.2s' }}
-                            onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.filter = 'grayscale(0%)'; (e.currentTarget as HTMLImageElement).style.opacity = '1'; }}
-                            onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.filter = 'grayscale(100%)'; (e.currentTarget as HTMLImageElement).style.opacity = '0.7'; }}
-                          />
-                        </div>
-                      ))}
-                      {visibleLogos.length < perPage && Array.from({ length: perPage - visibleLogos.length }).map((_, i) => (
-                        <div key={`empty-${i}`} />
-                      ))}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                <button
-                  onClick={() => setClientPage(p => Math.min(totalPages - 1, p + 1))}
-                  disabled={!canNext}
-                  style={{ ...btnBase, opacity: canNext ? 1 : 0.25 }}
-                  aria-label="Siguiente"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                </button>
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 20 }}>
-                {Array.from({ length: totalPages }).map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setClientPage(i)}
-                    style={{ width: i === clientPage ? 20 : 8, height: 8, borderRadius: 4, border: 'none', cursor: 'pointer', background: i === clientPage ? '#333' : '#ddd', transition: 'all 0.2s', padding: 0 }}
-                    aria-label={`Página ${i + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        );
-      })()}
 
       {/* Services */}
       <section id="servicios" className="py-20 relative bg-[#141416]">
@@ -678,6 +601,127 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Clientes — Image Carousel */}
+      {(() => {
+        const perPage = 5;
+        const totalPages = Math.ceil(clientLogos.length / perPage);
+        const visibleLogos = clientLogos.slice(clientPage * perPage, clientPage * perPage + perPage);
+        const canPrev = clientPage > 0;
+        const canNext = clientPage < totalPages - 1;
+        return (
+          <section className="bg-[#0A0A0B] py-16 border-t border-[rgba(255,255,255,0.06)]">
+            <div className="max-w-[1280px] mx-auto px-6 md:px-16">
+              <p style={{ textAlign: 'center', fontSize: 11, letterSpacing: '0.3em', color: '#555', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif', marginBottom: 40 }}>
+                MARCAS QUE CONFÍAN EN NOSOTROS
+              </p>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <button
+                  onClick={() => setClientPage(p => Math.max(0, p - 1))}
+                  disabled={!canPrev}
+                  style={{
+                    width: 44, height: 44, borderRadius: '50%',
+                    border: '1px solid rgba(255,255,255,0.15)',
+                    background: 'rgba(255,255,255,0.04)',
+                    cursor: canPrev ? 'pointer' : 'default',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0, opacity: canPrev ? 1 : 0.2,
+                    transition: 'all 0.2s', padding: 0,
+                  }}
+                  aria-label="Anterior"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+
+                <div style={{ flex: 1, overflow: 'hidden' }}>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={clientPage}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -30 }}
+                      transition={{ duration: 0.3 }}
+                      style={{ display: 'flex', gap: 12, alignItems: 'center' }}
+                    >
+                      {visibleLogos.map((logo, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            flex: '1 1 0',
+                            background: 'white',
+                            borderRadius: 8,
+                            height: 110,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '16px 20px',
+                            overflow: 'hidden',
+                          }}
+                        >
+                          <img
+                            src={logo.url}
+                            alt={logo.name}
+                            style={{
+                              maxHeight: 64,
+                              maxWidth: '100%',
+                              width: 'auto',
+                              objectFit: 'contain',
+                              filter: 'grayscale(100%)',
+                              opacity: 0.75,
+                              transition: 'opacity 0.25s, filter 0.25s',
+                              display: 'block',
+                              margin: '0 auto',
+                            }}
+                            onMouseEnter={e => { const el = e.currentTarget as HTMLImageElement; el.style.filter = 'grayscale(0%)'; el.style.opacity = '1'; }}
+                            onMouseLeave={e => { const el = e.currentTarget as HTMLImageElement; el.style.filter = 'grayscale(100%)'; el.style.opacity = '0.75'; }}
+                          />
+                        </div>
+                      ))}
+                      {visibleLogos.length < perPage && Array.from({ length: perPage - visibleLogos.length }).map((_, i) => (
+                        <div key={`empty-${i}`} style={{ flex: '1 1 0', height: 110 }} />
+                      ))}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                <button
+                  onClick={() => setClientPage(p => Math.min(totalPages - 1, p + 1))}
+                  disabled={!canNext}
+                  style={{
+                    width: 44, height: 44, borderRadius: '50%',
+                    border: '1px solid rgba(255,255,255,0.15)',
+                    background: 'rgba(255,255,255,0.04)',
+                    cursor: canNext ? 'pointer' : 'default',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0, opacity: canNext ? 1 : 0.2,
+                    transition: 'all 0.2s', padding: 0,
+                  }}
+                  aria-label="Siguiente"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 24 }}>
+                {Array.from({ length: totalPages }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setClientPage(i)}
+                    style={{
+                      width: i === clientPage ? 24 : 8, height: 8,
+                      borderRadius: 4, border: 'none', cursor: 'pointer',
+                      background: i === clientPage ? '#e8420a' : 'rgba(255,255,255,0.18)',
+                      transition: 'all 0.25s', padding: 0,
+                    }}
+                    aria-label={`Página ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Projects Carousel */}
       <section className="overflow-x-hidden relative w-full bg-[#0a0a0a]">
