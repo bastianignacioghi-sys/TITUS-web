@@ -133,7 +133,7 @@ export default function Home() {
 
   const clientLogos = [
     { name: 'Clínica Las Condes',          url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_CLINICALASCONDES_acrgn2.jpg' },
-    { name: 'U. Católica',                 url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312469/LOGO_UCATOLICA_kngjhw.png' },
+    { name: 'U. Católica',                 url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782334912/Dise%C3%B1o_sin_t%C3%ADtulo_1_dbbnyk.png' },
     { name: 'U. de Los Andes',             url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312469/LOGO_UANDES_hjz0cj.png' },
     { name: 'MetroGas',                    url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_METROGAS_pyslkf.webp' },
     { name: 'Escuela Militar',             url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_ESCUELAMILITAR_j5bboc.png' },
