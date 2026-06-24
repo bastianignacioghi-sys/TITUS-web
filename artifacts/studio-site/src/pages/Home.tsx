@@ -651,11 +651,11 @@ export default function Home() {
                             flex: '1 1 0',
                             background: 'white',
                             borderRadius: 8,
-                            height: 110,
+                            height: 140,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: '16px 20px',
+                            padding: '20px 24px',
                             overflow: 'hidden',
                           }}
                         >
@@ -663,7 +663,7 @@ export default function Home() {
                             src={logo.url}
                             alt={logo.name}
                             style={{
-                              maxHeight: 64,
+                              maxHeight: 90,
                               maxWidth: '100%',
                               width: 'auto',
                               objectFit: 'contain',
