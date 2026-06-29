@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, Quote, Printer, Layers, Wrench, Lightbulb } from 'lucide-react';
 import { SiInstagram, SiBehance } from 'react-icons/si';
@@ -175,10 +176,10 @@ export default function Home() {
   }, [currentSlide]); // reset interval on manual slide change
 
   const services = [
-    { icon: Printer,   title: "Producción Gráfica",      desc: "Desarrollo y ejecución de piezas gráficas en impresión digital de gran formato y gigantografía.",                                              accent: "#e8420a", bg: "#120a08" },
-    { icon: Layers,    title: "Producción Industrial",   desc: "Fabricación y construcción de elementos para exhibición, módulos, gabinetes y stand.",                                                         accent: "#3b82f6", bg: "#08101a" },
-    { icon: Wrench,    title: "Montaje en Obra",         desc: "Ejecutamos instalaciones en terreno, piezas gráficas y montaje de elementos volumétricos.",                                                     accent: "#22c55e", bg: "#08150a" },
-    { icon: Lightbulb, title: "Proponemos Soluciones",   desc: "Desarrollamos proyectos a partir de las ideas de nuestros clientes, proponiendo soluciones eficientes, modernas y prácticas.",               accent: "#a855f7", bg: "#120815" },
+    { icon: Printer,   slug: 'produccion-grafica',    title: "Producción Gráfica",      desc: "Desarrollo y ejecución de piezas gráficas en impresión digital de gran formato y gigantografía.",                                              accent: "#e8420a", bg: "#120a08" },
+    { icon: Layers,    slug: 'produccion-industrial', title: "Producción Industrial",   desc: "Fabricación y construcción de elementos para exhibición, módulos, gabinetes y stand.",                                                         accent: "#3b82f6", bg: "#08101a" },
+    { icon: Wrench,    slug: 'montaje-en-obra',       title: "Montaje en Obra",         desc: "Ejecutamos instalaciones en terreno, piezas gráficas y montaje de elementos volumétricos.",                                                     accent: "#22c55e", bg: "#08150a" },
+    { icon: Lightbulb, slug: 'soluciones',            title: "Proponemos Soluciones",   desc: "Desarrollamos proyectos a partir de las ideas de nuestros clientes, proponiendo soluciones eficientes, modernas y prácticas.",               accent: "#a855f7", bg: "#120815" },
   ];
 
   const projects = [
@@ -582,9 +583,12 @@ export default function Home() {
                       <h3 className="text-[30px] font-display text-white leading-tight">{srv.title}</h3>
                       <div>
                         <p className="text-[16px] text-white/90 leading-relaxed mb-5">{srv.desc}</p>
-                        <span className="text-[13px] uppercase tracking-[0.18em] text-white font-semibold flex items-center gap-2">
+                        <Link
+                          href={`/servicios/${srv.slug}`}
+                          className="text-[13px] uppercase tracking-[0.18em] text-white font-semibold flex items-center gap-2 hover:opacity-80 transition-opacity"
+                        >
                           Ver más <ArrowRight size={14} />
-                        </span>
+                        </Link>
                       </div>
                     </div>
                   </div>
