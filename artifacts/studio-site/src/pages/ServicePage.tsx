@@ -20,10 +20,7 @@ const serviceData = {
       'Manejo de color perfilado y calibrado',
     ],
     images: [
-      'https://picsum.photos/seed/grafica1/1200/700',
-      'https://picsum.photos/seed/grafica2/1200/700',
-      'https://picsum.photos/seed/grafica3/1200/700',
-      'https://picsum.photos/seed/grafica4/1200/700',
+      'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842078/produccion.png_na2rtr.png',
     ],
   },
   'produccion-industrial': {
@@ -41,10 +38,7 @@ const serviceData = {
       'Prototipos y maquetas',
     ],
     images: [
-      'https://picsum.photos/seed/industrial1/1200/700',
-      'https://picsum.photos/seed/industrial2/1200/700',
-      'https://picsum.photos/seed/industrial3/1200/700',
-      'https://picsum.photos/seed/industrial4/1200/700',
+      'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/stand.png_bh1u4z.png',
     ],
   },
   'montaje-en-obra': {
@@ -62,10 +56,7 @@ const serviceData = {
       'Equipos con protocolos de seguridad',
     ],
     images: [
-      'https://picsum.photos/seed/montaje1/1200/700',
-      'https://picsum.photos/seed/montaje2/1200/700',
-      'https://picsum.photos/seed/montaje3/1200/700',
-      'https://picsum.photos/seed/montaje4/1200/700',
+      'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/instalacion-panel.png_lvioxm.png',
     ],
   },
   'soluciones': {
@@ -83,10 +74,7 @@ const serviceData = {
       'Coordinación multidisciplinaria',
     ],
     images: [
-      'https://picsum.photos/seed/sol1/1200/700',
-      'https://picsum.photos/seed/sol2/1200/700',
-      'https://picsum.photos/seed/sol3/1200/700',
-      'https://picsum.photos/seed/sol4/1200/700',
+      'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842496/stand-uss.png_cpwfms.jpg',
     ],
   },
 };
@@ -166,18 +154,24 @@ export default function ServicePage() {
       </nav>
 
       {/* Hero */}
-      <section className="pt-[64px] relative overflow-hidden" style={{ minHeight: '52vh', background: '#111113' }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 80% at 20% 50%, ${accent}20 0%, transparent 70%)` }} />
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex flex-col justify-center" style={{ minHeight: 'calc(52vh - 64px)', paddingTop: 64, paddingBottom: 64 }}>
+      <section className="pt-[64px] relative overflow-hidden" style={{ minHeight: '56vh' }}>
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img
+            src={images[0]}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.60) 60%, rgba(0,0,0,0.30) 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,11,0.9) 0%, transparent 50%)' }} />
+        </div>
+
+        <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 flex flex-col justify-center" style={{ minHeight: 'calc(56vh - 64px)', paddingTop: 64, paddingBottom: 64 }}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="flex items-center gap-3 mb-6">
-              <div style={{ width: 44, height: 44, borderRadius: '50%', background: `${accent}18`, border: `1.5px solid ${accent}55`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Icon size={22} color={accent} strokeWidth={1.5} />
-              </div>
-              <span style={{ fontSize: 11, letterSpacing: '0.28em', color: accent, textTransform: 'uppercase' }}>Servicio</span>
-            </div>
+            <span style={{ display: 'block', fontSize: 11, letterSpacing: '0.28em', color: accent, textTransform: 'uppercase', marginBottom: 20 }}>— Servicio</span>
             <h1 className="font-display text-white leading-none mb-4" style={{ fontSize: 'clamp(48px, 7vw, 96px)' }}>{title}</h1>
-            <p style={{ fontSize: 'clamp(16px, 1.8vw, 20px)', color: '#888', maxWidth: 560, lineHeight: 1.6 }}>{tagline}</p>
+            <p style={{ fontSize: 'clamp(16px, 1.8vw, 20px)', color: 'rgba(255,255,255,0.65)', maxWidth: 560, lineHeight: 1.6 }}>{tagline}</p>
           </motion.div>
         </div>
       </section>

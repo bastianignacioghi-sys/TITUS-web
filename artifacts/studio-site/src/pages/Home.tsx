@@ -126,6 +126,14 @@ export default function Home() {
   };
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroTextIndex, setHeroTextIndex] = useState(0);
+  const [heroBgIndex, setHeroBgIndex] = useState(0);
+
+  const heroBgImages = [
+    'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842078/produccion.png_na2rtr.png',
+    'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/stand.png_bh1u4z.png',
+    'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/instalacion-panel.png_lvioxm.png',
+    'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842496/stand-uss.png_cpwfms.jpg',
+  ];
   const heroTexts = ["MARCAS", "SEÑALES", "ESPACIOS"];
   const [flippedCard, setFlippedCard] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState("Todos");
@@ -167,6 +175,13 @@ export default function Home() {
     }, 3000);
     return () => clearInterval(interval);
   }, [heroTexts.length]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroBgIndex((prev) => (prev + 1) % heroBgImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [heroBgImages.length]);
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
@@ -295,14 +310,32 @@ export default function Home() {
       </AnimatePresence>
       {/* Hero Section */}
       <section id="inicio" className="min-h-[100vh] relative overflow-x-hidden bg-[#0A0A0B]">
+        {/* Background image carousel */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {heroBgImages.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{
+                opacity: i === heroBgIndex ? 1 : 0,
+                transition: 'opacity 1.2s ease-in-out',
+              }}
+            />
+          ))}
+          {/* Strong dark overlay so text stays readable */}
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(10,10,11,0.88) 0%, rgba(10,10,11,0.70) 55%, rgba(10,10,11,0.40) 100%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(10,10,11,0.3) 0%, transparent 30%, rgba(10,10,11,0.6) 80%, #0A0A0B 100%)' }} />
+        </div>
         {/* noise texture */}
         <div
-          className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none z-0"
+          className="absolute inset-0 opacity-20 mix-blend-overlay pointer-events-none z-[2]"
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E\")" }}
         />
         {/* Orange radial glow behind headline */}
-        <div className="absolute inset-0 pointer-events-none z-[1]"
-          style={{ background: 'radial-gradient(ellipse 55% 50% at 30% 52%, rgba(232,66,10,0.12) 0%, transparent 65%)' }}
+        <div className="absolute inset-0 pointer-events-none z-[3]"
+          style={{ background: 'radial-gradient(ellipse 55% 50% at 30% 52%, rgba(232,66,10,0.10) 0%, transparent 65%)' }}
         />
 
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 min-h-[100vh] grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-8 relative z-10">
@@ -437,18 +470,18 @@ export default function Home() {
               height: 480,
             }}>
               {[
-                { seed: 'senaleg1',   label: 'PROD. GRÁFICA'    },
-                { seed: 'branding2',  label: 'PROD. INDUSTRIAL'  },
-                { seed: 'montaje3',   label: 'MONTAJE EN OBRA'   },
-                { seed: 'produccion4',label: 'SOLUCIONES'        },
-              ].map(({ seed, label }, idx) => (
+                { src: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842078/produccion.png_na2rtr.png',   label: 'PROD. GRÁFICA'    },
+                { src: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/stand.png_bh1u4z.png',        label: 'PROD. INDUSTRIAL'  },
+                { src: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/instalacion-panel.png_lvioxm.png', label: 'MONTAJE EN OBRA'   },
+                { src: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842496/stand-uss.png_cpwfms.jpg',    label: 'SOLUCIONES'        },
+              ].map(({ src, label }, idx) => (
                 <div
-                  key={seed}
+                  key={label}
                   className="overflow-hidden relative cursor-pointer group"
                   style={{ animation: `slideInRight 0.9s ease ${0.3 + idx * 0.15}s both` }}
                 >
                   <img
-                    src={`https://picsum.photos/seed/${seed}/400/300`}
+                    src={src}
                     alt={label}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   />
