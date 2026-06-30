@@ -338,10 +338,10 @@ export default function Home() {
           style={{ background: 'radial-gradient(ellipse 55% 50% at 30% 52%, rgba(232,66,10,0.10) 0%, transparent 65%)' }}
         />
 
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 min-h-[100vh] grid grid-cols-1 md:grid-cols-[55fr_45fr] gap-8 relative z-10">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 min-h-[100vh] flex flex-col justify-center relative z-10">
 
-          {/* ── LEFT COLUMN ── */}
-          <div className="flex flex-col justify-center gap-4 pt-20 pb-8 md:gap-6 md:pt-32 md:pb-12">
+          {/* ── CONTENT ── */}
+          <div className="flex flex-col gap-4 pt-20 pb-8 md:gap-6 md:pt-32 md:pb-12" style={{ maxWidth: 720 }}>
 
             {/* Eyebrow */}
             <motion.div
@@ -458,48 +458,6 @@ export default function Home() {
               <span style={{ fontSize: 13, color: '#a0a0a0', fontFamily: 'Inter, sans-serif' }}>Disponible para nuevos proyectos</span>
             </motion.div>
 
-          </div>
-
-          {/* ── RIGHT COLUMN — 2×2 image grid ── */}
-          <div className="hidden md:block relative pt-36 pb-8">
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gridTemplateRows: '1fr 1fr',
-              gap: 8,
-              height: 480,
-            }}>
-              {[
-                { src: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842078/produccion.png_na2rtr.png',   label: 'PROD. GRÁFICA'    },
-                { src: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/stand.png_bh1u4z.png',        label: 'PROD. INDUSTRIAL'  },
-                { src: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/instalacion-panel.png_lvioxm.png', label: 'MONTAJE EN OBRA'   },
-                { src: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842496/stand-uss.png_cpwfms.jpg',    label: 'SOLUCIONES'        },
-              ].map(({ src, label }, idx) => (
-                <div
-                  key={label}
-                  className="overflow-hidden relative cursor-pointer group"
-                  style={{ animation: `slideInRight 0.9s ease ${0.3 + idx * 0.15}s both` }}
-                >
-                  <img
-                    src={src}
-                    alt={label}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%)' }}
-                  />
-                  {/* Corner bracket — top-left technical style */}
-                  <div className="absolute top-0 left-0 z-10 pointer-events-none" style={{ width: 20, height: 20, borderTop: '2px solid #E8420A', borderLeft: '2px solid #E8420A' }} />
-                  <span
-                    className="absolute bottom-3 left-3 font-display text-[13px] uppercase"
-                    style={{ color: '#e8420a', letterSpacing: '0.12em' }}
-                  >
-                    {label}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
