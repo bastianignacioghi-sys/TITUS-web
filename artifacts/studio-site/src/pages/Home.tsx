@@ -88,8 +88,6 @@ const Cursor = () => {
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [quickForm, setQuickForm] = useState({ name: '', email: '', need: '', message: '' });
-  const [quickStatus, setQuickStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const heroImgMainRef = useRef<HTMLImageElement>(null);
@@ -104,26 +102,6 @@ export default function Home() {
     },
   });
 
-  const handleQuickSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!quickForm.email) return;
-    setQuickStatus('sending');
-    try {
-      await submitContact.mutateAsync({
-        data: {
-          name: quickForm.name || quickForm.email,
-          email: quickForm.email,
-          message: `¿Qué necesita?: ${quickForm.need || 'No indicado'}\n\n${quickForm.message}`,
-        },
-      });
-      setQuickStatus('success');
-      setQuickForm({ name: '', email: '', need: '', message: '' });
-      setTimeout(() => setQuickStatus('idle'), 5000);
-    } catch {
-      setQuickStatus('error');
-      setTimeout(() => setQuickStatus('idle'), 3000);
-    }
-  };
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroTextIndex, setHeroTextIndex] = useState(0);
   const [heroBgIndex, setHeroBgIndex] = useState(0);
@@ -135,8 +113,6 @@ export default function Home() {
   ];
   const heroTexts = ["MARCAS", "SEÑALES", "ESPACIOS"];
   const [flippedCard, setFlippedCard] = useState<number | null>(null);
-  const [activeTab, setActiveTab] = useState("Todos");
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [clientPage, setClientPage] = useState(0);
 
   const clientLogos = [
@@ -152,8 +128,6 @@ export default function Home() {
     { name: 'Cliente 10',                  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335079/Dise%C3%B1o_sin_t%C3%ADtulo_3_sptoxl.png' },
     { name: 'Cliente 11',                  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782334975/Dise%C3%B1o_sin_t%C3%ADtulo_2_expudm.png' },
   ];
-  const touchStartRef = useRef<number | null>(null);
-  
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -182,13 +156,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [heroBgImages.length]);
 
-  useEffect(() => {
-    const slideInterval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % 5);
-    }, 4000);
-    return () => clearInterval(slideInterval);
-  }, [currentSlide]); // reset interval on manual slide change
-
   const services = [
     { icon: Printer,   slug: 'produccion-grafica',    title: "Producción Gráfica",      desc: "Desarrollo y ejecución de piezas gráficas en impresión digital de gran formato y gigantografía.",                                              accent: "#e8420a", bg: "#120a08" },
     { icon: Layers,    slug: 'produccion-industrial', title: "Producción Industrial",   desc: "Fabricación y construcción de elementos para exhibición, módulos, gabinetes y stand.",                                                         accent: "#3b82f6", bg: "#08101a" },
@@ -196,42 +163,12 @@ export default function Home() {
     { icon: Lightbulb, slug: 'soluciones',            title: "Proponemos Soluciones",   desc: "Desarrollamos proyectos a partir de las ideas de nuestros clientes, proponiendo soluciones eficientes, modernas y prácticas.",               accent: "#a855f7", bg: "#120815" },
   ];
 
-  const projects = [
-    { title: "Clínica Las Condes",            category: "Señalética",  img: "https://picsum.photos/seed/clc1/800/600" },
-    { title: "Clínica Estoril",               category: "Señalética",  img: "https://picsum.photos/seed/est2/800/600" },
-    { title: "Universidad Central",           category: "Branding",    img: "https://picsum.photos/seed/uc3/800/600"  },
-    { title: "Museo Nac. Historia Natural",   category: "Producción",  img: "https://picsum.photos/seed/mhn4/800/600" },
-    { title: "Clínica Las Condes — Ambulancias", category: "Branding", img: "https://picsum.photos/seed/amb5/800/600" },
-    { title: "Hospital Félix Bulnes",         category: "Señalética",  img: "https://picsum.photos/seed/hfb6/800/600" },
-    { title: "Universidad Andrés Bello",      category: "Branding",    img: "https://picsum.photos/seed/uab7/800/600" },
-    { title: "MetroGas",                      category: "Señalética",  img: "https://picsum.photos/seed/mg8/800/600"  },
-    { title: "Escuela Militar",               category: "Señalética",  img: "https://picsum.photos/seed/em9/800/600"  },
+  const workCategories = [
+    { title: "Producción Gráfica",    slug: "produccion-grafica",    accent: "#e8420a", img: "https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842078/produccion.png_na2rtr.png",          desc: "Impresión digital de gran formato, gigantografía y vinilo." },
+    { title: "Producción Industrial", slug: "produccion-industrial", accent: "#3b82f6", img: "https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/stand.png_bh1u4z.png",              desc: "Fabricación de stands, módulos, gabinetes y elementos volumétricos." },
+    { title: "Montaje en Obra",       slug: "montaje-en-obra",       accent: "#22c55e", img: "https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/instalacion-panel.png_lvioxm.png",  desc: "Instalación profesional en terreno con cuadrilla especializada." },
+    { title: "Proponemos Soluciones", slug: "soluciones",            accent: "#a855f7", img: "https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842496/stand-uss.png_cpwfms.jpg",          desc: "Proyectos integrales desde la concept hasta la entrega final." },
   ];
-
-  const filteredProjects = activeTab === "Todos" ? projects : projects.filter(p => p.category === activeTab);
-
-  const carouselSlides = [
-    { title: "Señalética Corporativa — Clínica Las Condes",       desc: "Sistema completo de señalética corporativa y general de direccionamiento.",                                              img: "https://picsum.photos/seed/car1/1200/700", category: "Señalética"  },
-    { title: "Señalética Corporativa — Clínica Estoril",          desc: "Sistema completo de señalética corporativa y general de direccionamiento.",                                              img: "https://picsum.photos/seed/car2/1200/700", category: "Señalética"  },
-    { title: "Branding Oficinas — Universidad Central",           desc: "Instalación de film empavonado en todos los recintos vidriados.",                                                       img: "https://picsum.photos/seed/car3/1200/700", category: "Branding"    },
-    { title: "Módulos Exhibición — Museo Nac. Historia Natural",  desc: "Fabricación y montaje de módulos exhibidores.",                                                                         img: "https://picsum.photos/seed/car4/1200/700", category: "Producción"  },
-    { title: "Branding Ambulancias — Clínica Las Condes",         desc: "Implementación de branding con rotulación de emergencia bajo norma y gráfica corporativa.",                           img: "https://picsum.photos/seed/car5/1200/700", category: "Branding"    },
-  ];
-
-  const handlePointerDown = (e: React.PointerEvent) => {
-    touchStartRef.current = e.clientX;
-  };
-
-  const handlePointerUp = (e: React.PointerEvent) => {
-    if (touchStartRef.current === null) return;
-    const diff = e.clientX - touchStartRef.current;
-    if (diff > 50) {
-      setCurrentSlide(prev => (prev === 0 ? carouselSlides.length - 1 : prev - 1));
-    } else if (diff < -50) {
-      setCurrentSlide(prev => (prev + 1) % carouselSlides.length);
-    }
-    touchStartRef.current = null;
-  };
 
   return (
     <div className="bg-[#0a0a0a] text-white min-h-screen font-sans selection:bg-[#ff5a1f] selection:text-black">
@@ -496,7 +433,7 @@ export default function Home() {
             Nuestros Servicios
           </motion.h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {services.map((srv, idx) => {
               const Icon = srv.icon;
               const isFlipped = flippedCard === idx;
@@ -507,10 +444,10 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.07 }}
-                  style={{ perspective: '1000px', height: '260px' }}
+                  style={{ perspective: '1000px' }}
                   onMouseEnter={() => setFlippedCard(idx)}
                   onMouseLeave={() => setFlippedCard(null)}
-                  className="cursor-pointer"
+                  className="cursor-pointer h-[180px] sm:h-[220px] lg:h-[260px]"
                 >
                   <div
                     style={{
@@ -702,191 +639,6 @@ export default function Home() {
           </section>
         );
       })()}
-      {/* Projects Carousel */}
-      <section className="overflow-x-hidden relative w-full bg-[#0a0a0a]">
-        <div className="flex flex-col md:flex-row h-auto md:h-[90vh]">
-          {/* Left: Image */}
-          <div 
-            className="w-full md:w-[65%] h-[50vh] md:h-full relative overflow-hidden"
-            onPointerDown={handlePointerDown}
-            onPointerUp={handlePointerUp}
-          >
-            <AnimatePresence initial={false}>
-              <motion.img
-                key={currentSlide}
-                src={carouselSlides[currentSlide].img}
-                alt={carouselSlides[currentSlide].title}
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -40 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="absolute inset-0 w-full h-full object-cover cursor-grab active:cursor-grabbing"
-              />
-            </AnimatePresence>
-            <div className="absolute inset-0 hidden md:block bg-[linear-gradient(to_right,transparent_60%,#0a0a0a)] pointer-events-none" />
-          </div>
-          
-          {/* Right: Text Panel */}
-          <div className="w-full md:w-[35%] bg-[#0a0a0a] flex flex-col justify-center px-6 py-12 md:px-12 md:py-16 relative">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-              >
-                <div className="text-[11px] tracking-[0.25em] text-[#444] mb-6">
-                  0{currentSlide + 1} / 0{carouselSlides.length}
-                </div>
-                <div className="border border-[#ff5a1f] text-[#ff5a1f] text-[10px] tracking-[0.2em] px-3 py-1 inline-block mb-8 uppercase">
-                  {carouselSlides[currentSlide].category}
-                </div>
-                <h3 className="font-display text-[40px] md:text-[56px] text-white mb-4 leading-[1.1]">
-                  {carouselSlides[currentSlide].title}
-                </h3>
-                <p className="text-[15px] text-[#888] leading-[1.7] mb-10 font-light">
-                  {carouselSlides[currentSlide].desc}
-                </p>
-                <a href="#" className="text-[13px] text-[#ff5a1f] tracking-[0.1em] hover:underline transition-all">
-                  Ver proyecto →
-                </a>
-              </motion.div>
-            </AnimatePresence>
-            
-            {/* Nav */}
-            <div className="mt-16 flex items-center justify-between">
-              <div className="flex gap-4">
-                <button 
-                  onClick={() => setCurrentSlide(prev => (prev === 0 ? carouselSlides.length - 1 : prev - 1))}
-                  className="w-[44px] h-[44px] rounded-full border border-[rgba(255,255,255,0.15)] flex items-center justify-center text-white hover:border-white transition-colors"
-                >
-                  <ArrowRight className="rotate-180" size={18} />
-                </button>
-                <button 
-                  onClick={() => setCurrentSlide(prev => (prev + 1) % carouselSlides.length)}
-                  className="w-[44px] h-[44px] rounded-full border border-[rgba(255,255,255,0.15)] flex items-center justify-center text-white hover:border-white transition-colors"
-                >
-                  <ArrowRight size={18} />
-                </button>
-              </div>
-              <div className="flex gap-2">
-                {carouselSlides.map((_, idx) => (
-                  <div key={idx} className="w-[40px] h-[1px] bg-[rgba(255,255,255,0.2)] overflow-hidden">
-                    {idx === currentSlide && (
-                      <div className="h-full bg-[#ff5a1f]" style={{ animation: 'progress-dot 4s linear forwards' }} />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Sección Cotizar / Conversemos */}
-      <section id="cotizar" className="py-14 relative overflow-hidden" style={{ background: '#0d0d0d' }}>
-        {/* faint radial glow behind form */}
-        <div className="absolute right-0 top-0 w-[600px] h-full pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 60% 80% at 80% 50%, rgba(255,90,31,0.06) 0%, transparent 70%)' }} />
-
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-12 items-center relative z-10">
-
-          {/* Left */}
-          <div>
-            <p className="text-[11px] tracking-[0.25em] uppercase mb-4" style={{ color: '#ff5a1f' }}>— Conversemos</p>
-            <h2 className="font-display text-[clamp(34px,3.8vw,52px)] text-white leading-none mb-5">
-              ¿Tienes un proyecto<br />en mente?
-            </h2>
-            <p className="text-[#666] text-[14px] leading-relaxed mb-8 max-w-xs">
-              Cuéntanos qué necesitas.<br />Respondemos en menos de 24 horas.
-            </p>
-            <div className="flex flex-col gap-3">
-              <a href="mailto:titus@titus.cl" style={{ color: '#ff5a1f' }} className="text-[13px] tracking-wide hover:opacity-70 transition-opacity">
-                titus@titus.cl
-              </a>
-              <span className="text-[13px] text-[#555]">+56 9 9228 5863</span>
-              <span className="text-[13px] text-[#555]">Vargas Fontecilla 4550, Quinta Normal, Santiago</span>
-            </div>
-          </div>
-
-          {/* Right — card form */}
-          <div
-            style={{
-              border: '1px solid rgba(255,255,255,0.08)',
-              background: '#141416',
-              backdropFilter: 'blur(4px)',
-              position: 'relative',
-              borderRadius: 12,
-            }}
-          >
-            <div className="p-8">
-              {quickStatus === 'success' ? (
-                <div className="py-6 text-center">
-                  <p className="text-white text-[20px] font-display tracking-wide mb-2">¡Mensaje enviado!</p>
-                  <p className="text-[#666] text-[13px]">Te contactaremos muy pronto.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleQuickSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
-                  {[
-                    { label: 'Nombre', key: 'name', type: 'text', placeholder: 'Tu nombre' },
-                    { label: 'Email', key: 'email', type: 'email', placeholder: 'tu@correo.cl', required: true },
-                    { label: '¿Qué necesitas?', key: 'need', type: 'text', placeholder: 'Ej: Señalética, diseño de logo...' },
-                  ].map(({ label, key, type, placeholder, required }) => (
-                    <div key={key}>
-                      <label className="block text-[10px] tracking-[0.2em] uppercase mb-2" style={{ color: '#888' }}>{label}</label>
-                      <input
-                        type={type}
-                        required={required}
-                        placeholder={placeholder}
-                        value={quickForm[key as keyof typeof quickForm]}
-                        onChange={e => setQuickForm(f => ({ ...f, [key]: e.target.value }))}
-                        className="w-full pb-2 text-white text-[14px] outline-none transition-colors duration-300"
-                        style={{ background: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.12)', color: '#fff' }}
-                        onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
-                        onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)')}
-                      />
-                    </div>
-                  ))}
-
-                  <div className="sm:col-span-2">
-                    <label className="block text-[10px] tracking-[0.2em] uppercase mb-2" style={{ color: '#888' }}>
-                      Mensaje <span className="normal-case tracking-normal text-[#444]">(opcional)</span>
-                    </label>
-                    <textarea
-                      placeholder="Cuéntanos más detalles..."
-                      value={quickForm.message}
-                      onChange={e => setQuickForm(f => ({ ...f, message: e.target.value }))}
-                      rows={2}
-                      className="w-full pb-2 text-white text-[14px] outline-none resize-none transition-colors duration-300"
-                      style={{ background: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.12)' }}
-                      onFocus={e => (e.currentTarget.style.borderBottomColor = '#ff5a1f')}
-                      onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)')}
-                    />
-                  </div>
-
-                  {quickStatus === 'error' && (
-                    <p className="sm:col-span-2 text-red-400 text-[11px] tracking-wide -mt-2">Error al enviar. Intenta de nuevo.</p>
-                  )}
-
-                  <div className="sm:col-span-2 flex items-center gap-4 mt-2">
-                    <button
-                      type="submit"
-                      disabled={quickStatus === 'sending'}
-                      className="px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-40"
-                      style={{ background: '#ff5a1f', color: '#000', borderRadius: 0 }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#e04800'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(4px)'; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#ff5a1f'; (e.currentTarget as HTMLButtonElement).style.transform = 'translateX(0)'; }}
-                    >
-                      {quickStatus === 'sending' ? 'Enviando…' : 'Enviar mensaje →'}
-                    </button>
-                    <span className="text-[11px] text-[#444] tracking-wide">Sin compromiso</span>
-                  </div>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
       {/* About */}
       <section id="nosotros" className="py-16 bg-[#0A0A0B]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid md:grid-cols-[40%_60%] gap-10 items-center">
@@ -970,68 +722,71 @@ export default function Home() {
         </div>
       </section>
       {/* Portfolio Grid */}
-      <section id="portafolio" className="py-16">
+      <section id="portafolio" className="py-16 bg-[#0A0A0B]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
-          <motion.h2 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-[72px] font-display mb-4"
-          >
-            Nuestro Trabajo
-          </motion.h2>
-          
-          <div className="flex flex-wrap gap-6 mb-8">
-            {['Todos', 'Señalética', 'Branding', 'Producción'].map(tab => (
-              <button 
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`text-[13px] tracking-[0.1em] uppercase transition-colors relative py-1 ${activeTab === tab ? 'text-white' : 'text-[#888] hover:text-white'}`}
-              >
-                {tab}
-                {activeTab === tab && (
-                  <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 w-full h-[1px] bg-[#ff5a1f]" />
-                )}
-              </button>
-            ))}
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <motion.h2
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-[clamp(48px,7vw,80px)] font-display leading-none"
+            >
+              Nuestro Trabajo
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-[14px] text-[#666] max-w-xs leading-relaxed"
+            >
+              30 años produciendo identidad visual para instituciones, empresas y espacios de Chile.
+            </motion.p>
           </div>
 
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-3 gap-1">
-            <AnimatePresence>
-              {filteredProjects.map((p, i) => {
-                // Layout logic for editorial feel
-                let gridClass = "col-span-1 aspect-[4/3]";
-                if (i === 0 || i === 3) gridClass = "md:col-span-2 aspect-[16/9]";
-                
-                return (
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.5 }}
-                    key={p.title}
-                    className={`group relative overflow-hidden cursor-pointer ${gridClass}`}
-                  >
-                    <img src={p.img} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
-                    <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.8)_0%,transparent_50%)]" />
-                    {/* Hover border overlay */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
-                      style={{ border: '1px solid rgba(47,111,232,0.4)' }}
-                    />
-                    
-                    <div className="absolute bottom-0 left-0 p-6 w-full flex justify-between items-end transform transition-transform duration-400 group-hover:-translate-y-[6px]">
-                      <div>
-                        <p className="text-[#ff5a1f] uppercase tracking-[0.2em] text-[10px] mb-2">{p.category}</p>
-                        <h3 className="text-[22px] font-display text-white">{p.title}</h3>
-                      </div>
-                      <ArrowRight className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-400" size={20} />
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[2px]">
+            {workCategories.map((item, i) => (
+              <motion.a
+                key={item.slug}
+                href={`/servicios/${item.slug}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: i * 0.08 }}
+                className="group relative overflow-hidden aspect-[4/3] block"
+              >
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                />
+                <div
+                  className="absolute inset-0 transition-opacity duration-400"
+                  style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.0) 100%)' }}
+                />
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
+                  style={{ background: `linear-gradient(135deg, ${item.accent}22 0%, transparent 60%)` }}
+                />
+                <div className="absolute bottom-0 left-0 p-6 sm:p-8 w-full">
+                  <p className="text-[10px] tracking-[0.28em] uppercase mb-2 transition-all duration-300" style={{ color: item.accent }}>
+                    — Servicio
+                  </p>
+                  <h3 className="font-display text-white text-[clamp(24px,2.8vw,36px)] leading-tight mb-2 group-hover:-translate-y-[3px] transition-transform duration-400">
+                    {item.title}
+                  </h3>
+                  <p className="text-[13px] text-white/50 leading-relaxed max-w-[280px] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
+                    {item.desc}
+                  </p>
+                </div>
+                <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: item.accent }}>
+                    <ArrowRight size={14} color="#fff" />
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+          </div>
         </div>
       </section>
       {/* Testimonials */}
