@@ -433,7 +433,7 @@ export default function Home() {
             Nuestros Servicios
           </motion.h2>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {services.map((srv, idx) => {
               const Icon = srv.icon;
               const isFlipped = flippedCard === idx;
@@ -444,10 +444,10 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.07 }}
-                  style={{ perspective: '1000px' }}
+                  style={{ perspective: '1000px', height: '260px' }}
                   onMouseEnter={() => setFlippedCard(idx)}
                   onMouseLeave={() => setFlippedCard(null)}
-                  className="cursor-pointer h-[180px] sm:h-[220px] lg:h-[260px]"
+                  className="cursor-pointer"
                 >
                   <div
                     style={{
