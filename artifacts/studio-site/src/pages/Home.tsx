@@ -113,7 +113,6 @@ export default function Home() {
   ];
   const heroTexts = ["MARCAS", "SEÑALES", "ESPACIOS"];
   const [flippedCard, setFlippedCard] = useState<number | null>(null);
-  const [clientPage, setClientPage] = useState(0);
 
   const clientLogos = [
     { name: 'Clínica Las Condes',          url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_CLINICALASCONDES_acrgn2.jpg' },
@@ -525,120 +524,50 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Clientes — Image Carousel */}
-      {(() => {
-        const perPage = 5;
-        const totalPages = Math.ceil(clientLogos.length / perPage);
-        const visibleLogos = clientLogos.slice(clientPage * perPage, clientPage * perPage + perPage);
-        const canPrev = clientPage > 0;
-        const canNext = clientPage < totalPages - 1;
-        return (
-          <section className="bg-[#0A0A0B] py-16 border-t border-[rgba(255,255,255,0.06)]">
-            <div className="max-w-[1280px] mx-auto px-6 md:px-16">
-              <p style={{ textAlign: 'center', fontSize: 11, letterSpacing: '0.3em', color: '#555', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif', marginBottom: 40 }}>
-                MARCAS QUE CONFÍAN EN NOSOTROS
-              </p>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                <button
-                  onClick={() => setClientPage(p => Math.max(0, p - 1))}
-                  disabled={!canPrev}
-                  style={{
-                    width: 44, height: 44, borderRadius: '50%',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                    background: 'rgba(255,255,255,0.04)',
-                    cursor: canPrev ? 'pointer' : 'default',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    flexShrink: 0, opacity: canPrev ? 1 : 0.2,
-                    transition: 'all 0.2s', padding: 0,
-                  }}
-                  aria-label="Anterior"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                </button>
-
-                <div style={{ flex: 1, overflow: 'hidden' }}>
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={clientPage}
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -30 }}
-                      transition={{ duration: 0.3 }}
-                      style={{ display: 'flex', gap: 12, alignItems: 'center' }}
-                    >
-                      {visibleLogos.map((logo, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            flex: '1 1 0',
-                            background: 'white',
-                            borderRadius: 10,
-                            height: 180,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: '20px',
-                            overflow: 'hidden',
-                            border: '1px solid rgba(0,0,0,0.08)',
-                          }}
-                        >
-                          <img
-                            src={logo.url}
-                            alt={logo.name}
-                            style={{
-                              width: '88%',
-                              height: '82%',
-                              objectFit: 'contain',
-                              display: 'block',
-                            }}
-                          />
-                        </div>
-                      ))}
-                      {visibleLogos.length < perPage && Array.from({ length: perPage - visibleLogos.length }).map((_, i) => (
-                        <div key={`empty-${i}`} style={{ flex: '1 1 0', height: 160 }} />
-                      ))}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                <button
-                  onClick={() => setClientPage(p => Math.min(totalPages - 1, p + 1))}
-                  disabled={!canNext}
-                  style={{
-                    width: 44, height: 44, borderRadius: '50%',
-                    border: '1px solid rgba(255,255,255,0.15)',
-                    background: 'rgba(255,255,255,0.04)',
-                    cursor: canNext ? 'pointer' : 'default',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    flexShrink: 0, opacity: canNext ? 1 : 0.2,
-                    transition: 'all 0.2s', padding: 0,
-                  }}
-                  aria-label="Siguiente"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                </button>
+      {/* Clientes — Marquee infinito */}
+      <section className="bg-[#0A0A0B] py-12 border-t border-[rgba(255,255,255,0.06)] overflow-hidden">
+        <p style={{ textAlign: 'center', fontSize: 11, letterSpacing: '0.3em', color: '#555', textTransform: 'uppercase', fontFamily: 'Inter, sans-serif', marginBottom: 36 }}>
+          MARCAS QUE CONFÍAN EN NOSOTROS
+        </p>
+        <div className="relative">
+          {/* Fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-28 z-10 pointer-events-none"
+            style={{ background: 'linear-gradient(to right, #0A0A0B, transparent)' }} />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-28 z-10 pointer-events-none"
+            style={{ background: 'linear-gradient(to left, #0A0A0B, transparent)' }} />
+          {/* Track */}
+          <div style={{ display: 'flex', gap: 12, width: 'max-content', animation: 'client-marquee 28s linear infinite' }}>
+            {[...clientLogos, ...clientLogos].map((logo, i) => (
+              <div
+                key={i}
+                style={{
+                  width: 140,
+                  height: 96,
+                  background: 'white',
+                  borderRadius: 8,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '14px 18px',
+                  flexShrink: 0,
+                }}
+              >
+                <img
+                  src={logo.url}
+                  alt={logo.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+                />
               </div>
-
-              <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 24 }}>
-                {Array.from({ length: totalPages }).map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setClientPage(i)}
-                    style={{
-                      width: i === clientPage ? 24 : 8, height: 8,
-                      borderRadius: 4, border: 'none', cursor: 'pointer',
-                      background: i === clientPage ? '#e8420a' : 'rgba(255,255,255,0.18)',
-                      transition: 'all 0.25s', padding: 0,
-                    }}
-                    aria-label={`Página ${i + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        );
-      })()}
+            ))}
+          </div>
+        </div>
+        <style>{`
+          @keyframes client-marquee {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+          }
+        `}</style>
+      </section>
       {/* About */}
       <section id="nosotros" className="py-16 bg-[#0A0A0B]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid md:grid-cols-[40%_60%] gap-10 items-center">
