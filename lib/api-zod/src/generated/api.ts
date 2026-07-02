@@ -46,3 +46,78 @@ export const ListContactMessagesResponseItem = zod.object({
 export const ListContactMessagesResponse = zod.array(ListContactMessagesResponseItem)
 
 
+/**
+ * Returns all portfolio projects ordered by creation date desc
+ * @summary List portfolio projects
+ */
+export const ListProjectsResponseItem = zod.object({
+  "id": zod.number(),
+  "title": zod.string(),
+  "category": zod.string().nullish(),
+  "imagePath": zod.string(),
+  "createdAt": zod.coerce.date()
+})
+export const ListProjectsResponse = zod.array(ListProjectsResponseItem)
+
+
+/**
+ * Saves a new portfolio project with image path and metadata
+ * @summary Create a portfolio project
+ */
+
+
+
+
+export const CreateProjectBody = zod.object({
+  "title": zod.string().min(1),
+  "category": zod.string().optional(),
+  "imagePath": zod.string().min(1)
+})
+
+
+/**
+ * @summary Delete a portfolio project
+ */
+export const DeleteProjectParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+
+/**
+ * @summary Request a presigned URL for file upload
+ */
+
+
+
+
+
+export const RequestUploadUrlBody = zod.object({
+  "name": zod.string().min(1),
+  "size": zod.number().min(1),
+  "contentType": zod.string().min(1)
+})
+
+
+
+
+
+
+export const RequestUploadUrlResponse = zod.object({
+  "uploadURL": zod.string().url(),
+  "objectPath": zod.string(),
+  "metadata": zod.object({
+  "name": zod.string().min(1),
+  "size": zod.number().min(1),
+  "contentType": zod.string().min(1)
+}).optional()
+})
+
+
+/**
+ * @summary Serve an object entity from PRIVATE_OBJECT_DIR
+ */
+export const GetStorageObjectParams = zod.object({
+  "objectPath": zod.coerce.string()
+})
+
+

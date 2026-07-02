@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, Quote, Printer, Layers, Wrench, Lightbulb } from 'lucide-react';
 import { SiInstagram, SiBehance } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
-import { useSubmitContact } from '@workspace/api-client-react';
+import { useSubmitContact, useListProjects } from '@workspace/api-client-react';
 
 const TRAIL_COUNT = 8;
 
@@ -168,6 +168,41 @@ export default function Home() {
     { title: "Montaje en Obra",       slug: "montaje-en-obra",       accent: "#22c55e", img: "https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842077/instalacion-panel.png_lvioxm.png",  desc: "Instalación profesional en terreno con cuadrilla especializada." },
     { title: "Proponemos Soluciones", slug: "soluciones",            accent: "#a855f7", img: "https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782842496/stand-uss.png_cpwfms.jpg",          desc: "Proyectos integrales desde la concept hasta la entrega final." },
   ];
+
+  // Portfolio carousel
+  const { data: projects } = useListProjects();
+  const [carouselIdx, setCarouselIdx] = useState(0);
+  const carouselTouchStart = useRef<number | null>(null);
+  const carouselAutoRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const carouselItems = projects && projects.length > 0
+    ? projects.map(p => ({
+        id: p.id,
+        title: p.title,
+        category: p.category ?? '',
+        img: p.imagePath.startsWith('http')
+          ? p.imagePath
+          : p.imagePath.replace('/objects/', '/api/storage/objects/'),
+      }))
+    : null;
+
+  const carouselTotal = carouselItems?.length ?? 0;
+
+  function carouselPrev() {
+    setCarouselIdx(i => (i - 1 + carouselTotal) % carouselTotal);
+  }
+  function carouselNext() {
+    setCarouselIdx(i => (i + 1) % carouselTotal);
+  }
+
+  useEffect(() => {
+    if (!carouselItems || carouselTotal < 2) return;
+    carouselAutoRef.current = setInterval(() => {
+      setCarouselIdx(i => (i + 1) % carouselTotal);
+    }, 5000);
+    return () => { if (carouselAutoRef.current) clearInterval(carouselAutoRef.current); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carouselTotal]);
 
   return (
     <div className="bg-[#0a0a0a] text-white min-h-screen font-sans selection:bg-[#ff5a1f] selection:text-black">
@@ -650,7 +685,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Portfolio Grid */}
+      {/* Portfolio Carousel */}
       <section id="portafolio" className="py-16 bg-[#0A0A0B]">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
@@ -673,49 +708,132 @@ export default function Home() {
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[2px]">
-            {workCategories.map((item, i) => (
-              <motion.a
-                key={item.slug}
-                href={`/servicios/${item.slug}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: i * 0.08 }}
-                className="group relative overflow-hidden aspect-[4/3] block"
+          {carouselItems ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative"
+            >
+              {/* Carousel track */}
+              <div
+                className="overflow-hidden"
+                onTouchStart={e => { carouselTouchStart.current = e.touches[0].clientX; }}
+                onTouchEnd={e => {
+                  if (carouselTouchStart.current === null) return;
+                  const delta = e.changedTouches[0].clientX - carouselTouchStart.current;
+                  if (delta < -40) carouselNext();
+                  else if (delta > 40) carouselPrev();
+                  carouselTouchStart.current = null;
+                }}
               >
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                />
                 <div
-                  className="absolute inset-0 transition-opacity duration-400"
-                  style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.0) 100%)' }}
-                />
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none"
-                  style={{ background: `linear-gradient(135deg, ${item.accent}22 0%, transparent 60%)` }}
-                />
-                <div className="absolute bottom-0 left-0 p-6 sm:p-8 w-full">
-                  <p className="text-[10px] tracking-[0.28em] uppercase mb-2 transition-all duration-300" style={{ color: item.accent }}>
-                    — Servicio
-                  </p>
-                  <h3 className="font-display text-white text-[clamp(24px,2.8vw,36px)] leading-tight mb-2 group-hover:-translate-y-[3px] transition-transform duration-400">
-                    {item.title}
-                  </h3>
-                  <p className="text-[13px] text-white/50 leading-relaxed max-w-[280px] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
-                    {item.desc}
-                  </p>
+                  className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+                  style={{ transform: `translateX(-${carouselIdx * 100}%)` }}
+                >
+                  {carouselItems.map(item => (
+                    <div
+                      key={item.id}
+                      className="relative flex-none w-full aspect-[16/8] overflow-hidden"
+                    >
+                      <img
+                        src={item.img}
+                        alt={item.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      <div
+                        className="absolute inset-0"
+                        style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.0) 100%)' }}
+                      />
+                      <div className="absolute bottom-0 left-0 p-8 md:p-12">
+                        {item.category && (
+                          <p className="text-[10px] tracking-[0.28em] uppercase mb-3 text-[#ff5a1f]">
+                            — {item.category}
+                          </p>
+                        )}
+                        <h3 className="font-display text-white text-[clamp(28px,4vw,56px)] leading-none">
+                          {item.title}
+                        </h3>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: item.accent }}>
-                    <ArrowRight size={14} color="#fff" />
-                  </div>
+              </div>
+
+              {/* Arrows */}
+              {carouselTotal > 1 && (
+                <>
+                  <button
+                    onClick={carouselPrev}
+                    aria-label="Anterior"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-11 h-11 transition-all duration-200"
+                    style={{ background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M10 3L5 8L10 13" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  <button
+                    onClick={carouselNext}
+                    aria-label="Siguiente"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-11 h-11 transition-all duration-200"
+                    style={{ background: 'rgba(0,0,0,0.55)', border: '1px solid rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)' }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M6 3L11 8L6 13" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </>
+              )}
+
+              {/* Dots */}
+              {carouselTotal > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-6">
+                  {carouselItems.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCarouselIdx(i)}
+                      aria-label={`Slide ${i + 1}`}
+                      className="transition-all duration-300"
+                      style={{
+                        width: i === carouselIdx ? 28 : 8,
+                        height: 3,
+                        background: i === carouselIdx ? '#ff5a1f' : 'rgba(255,255,255,0.2)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: 0,
+                      }}
+                    />
+                  ))}
                 </div>
-              </motion.a>
-            ))}
-          </div>
+              )}
+
+              {/* Counter */}
+              <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5" style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)', padding: '6px 12px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <span className="text-[13px] font-medium text-white">{carouselIdx + 1}</span>
+                <span className="text-[11px] text-[#555]">/</span>
+                <span className="text-[11px] text-[#555]">{carouselTotal}</span>
+              </div>
+            </motion.div>
+          ) : (
+            /* Empty state — no projects uploaded yet */
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="flex flex-col items-center justify-center py-24 text-center"
+              style={{ border: '1px dashed rgba(255,255,255,0.08)', background: '#0d0d0e' }}
+            >
+              <div style={{ width: 56, height: 56, background: 'rgba(255,90,31,0.08)', border: '1px solid rgba(255,90,31,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+                <ArrowRight size={20} color="#ff5a1f" />
+              </div>
+              <p className="text-[11px] tracking-[0.25em] uppercase text-[#555] mb-3">Portafolio en construcción</p>
+              <p className="text-[14px] text-[#333] max-w-xs leading-relaxed">
+                Los proyectos aparecerán aquí una vez cargados desde el panel de administración.
+              </p>
+            </motion.div>
+          )}
         </div>
       </section>
       {/* Testimonials */}

@@ -25,7 +25,38 @@ export interface ContactMessage {
   createdAt: string;
 }
 
+export interface ProjectInput {
+  /** @minLength 1 */
+  title: string;
+  category?: string;
+  /** @minLength 1 */
+  imagePath: string;
+}
+
+export interface Project {
+  id: number;
+  title: string;
+  category?: string | null;
+  imagePath: string;
+  createdAt: string;
+}
+
 export interface ErrorResponse {
   error: string;
+}
+
+export interface UploadUrlRequest {
+  /** @minLength 1 */
+  name: string;
+  /** @minimum 1 */
+  size: number;
+  /** @minLength 1 */
+  contentType: string;
+}
+
+export interface UploadUrlResponse {
+  uploadURL: string;
+  objectPath: string;
+  metadata?: UploadUrlRequest;
 }
 

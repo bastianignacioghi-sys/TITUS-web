@@ -10,3 +10,7 @@ export * from './contactMessage';
 export * from './contactMessageInput';
 export * from './errorResponse';
 export * from './healthStatus';
+export * from './project';
+export * from './projectInput';
+export * from './uploadUrlRequest';
+export * from './uploadUrlResponse';
