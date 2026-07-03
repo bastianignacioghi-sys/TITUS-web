@@ -5,6 +5,7 @@ import { Menu, X, ArrowRight, Quote, Printer, Layers, Wrench, Lightbulb } from '
 import { SiInstagram, SiBehance } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
 import { useSubmitContact, useListProjects } from '@workspace/api-client-react';
+import SafeImage from '../components/SafeImage';
 
 const TRAIL_COUNT = 8;
 
@@ -115,7 +116,7 @@ export default function Home() {
   const [flippedCard, setFlippedCard] = useState<number | null>(null);
 
   const clientLogos = [
-    { name: 'Clínica Las Condes',          url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_CLINICALASCONDES_acrgn2.jpg' },
+    { name: 'Clínica Las Condes',          url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782334912/Dise%C3%B1o_sin_t%C3%ADtulo_1_dbbnyk.png' },
     { name: 'U. Católica',                 url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782334912/Dise%C3%B1o_sin_t%C3%ADtulo_1_dbbnyk.png' },
     { name: 'U. de Los Andes',             url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312469/LOGO_UANDES_hjz0cj.png' },
     { name: 'MetroGas',                    url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782312468/LOGO_METROGAS_pyslkf.webp' },
@@ -222,11 +223,9 @@ export default function Home() {
       >
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex justify-between items-center py-4">
           <a href="#" className="flex items-center h-12">
-            <img
-              src="https://res.cloudinary.com/dnlpxcjpw/image/upload/e_trim/v1781899403/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_1_al0af6.png"
-              alt="TITUS"
-              className="h-full w-auto object-contain"
-            />
+            <span className="font-display text-[24px] leading-none tracking-[0.06em] text-white">
+              TITUS<span className="text-[#ff5a1f]">·</span>DISEÑO
+            </span>
           </a>
           
           <div className="hidden md:flex gap-8 text-[12px] uppercase tracking-[0.15em] text-[#888]">
@@ -283,7 +282,7 @@ export default function Home() {
         {/* Background image carousel */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           {heroBgImages.map((src, i) => (
-            <img
+            <SafeImage
               key={src}
               src={src}
               alt=""
@@ -587,7 +586,7 @@ export default function Home() {
                   flexShrink: 0,
                 }}
               >
-                <img
+                <SafeImage
                   src={logo.url}
                   alt={logo.name}
                   style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
@@ -670,10 +669,10 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="relative z-10 overflow-hidden w-full h-[600px]"
             >
-              <img 
-                src="https://picsum.photos/seed/studiokm/1000/1200" 
-                alt="TITUS" 
-                className="w-full h-full object-cover grayscale-[20%] contrast-110 hover:grayscale-0 transition-all duration-700" 
+              <SafeImage
+                src="https://picsum.photos/seed/studiokm/1000/1200"
+                alt="TITUS"
+                className="w-full h-full object-cover grayscale-[20%] contrast-110 hover:grayscale-0 transition-all duration-700"
               />
             </motion.div>
             {/* Gradient accent line — right edge */}
@@ -737,7 +736,7 @@ export default function Home() {
                       key={item.id}
                       className="relative flex-none w-full aspect-[16/8] overflow-hidden"
                     >
-                      <img
+                      <SafeImage
                         src={item.img}
                         alt={item.title}
                         className="absolute inset-0 w-full h-full object-cover"
@@ -980,11 +979,9 @@ export default function Home() {
             {/* Col 1 — Logo + descripción */}
             <div>
               <a href="#" className="inline-flex items-center h-12 mb-4">
-                <img
-                  src="https://res.cloudinary.com/dnlpxcjpw/image/upload/e_trim/v1781899403/Gemini_Generated_Image_g8lqswg8lqswg8lq-removebg-preview_1_al0af6.png"
-                  alt="TITUS"
-                  className="h-full w-auto object-contain"
-                />
+                <span className="font-display text-[22px] leading-none tracking-[0.06em] text-white">
+                  TITUS<span className="text-[#ff5a1f]">·</span>DISEÑO
+                </span>
               </a>
               <p className="text-[13px] text-[#444] leading-relaxed">Diseño y ejecución<br/>profesional en Santiago.</p>
             </div>

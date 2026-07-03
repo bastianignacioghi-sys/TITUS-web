@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useListContactMessages, useListProjects, useCreateProject, useDeleteProject, useRequestUploadUrl } from '@workspace/api-client-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { Mail, Calendar, RefreshCw, Inbox, Lock, ImagePlus, Trash2, Upload, LayoutGrid } from 'lucide-react';
+import SafeImage from '../components/SafeImage';
 
 const SESSION_KEY = 'km_admin_auth';
 
@@ -330,7 +331,7 @@ function ProjectsPanel() {
               }}
             >
               <div style={{ aspectRatio: '4/3', overflow: 'hidden' }}>
-                <img
+                <SafeImage
                   src={getImageUrl(p.imagePath)}
                   alt={p.title}
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}

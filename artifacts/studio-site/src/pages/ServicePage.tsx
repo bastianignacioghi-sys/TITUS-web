@@ -3,6 +3,7 @@ import { Link, useParams } from 'wouter';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Printer, Layers, Wrench, Lightbulb } from 'lucide-react';
 import { useSubmitContact } from '@workspace/api-client-react';
+import SafeImage from '../components/SafeImage';
 
 const serviceData = {
   'produccion-grafica': {
@@ -157,7 +158,7 @@ export default function ServicePage() {
       <section className="pt-[64px] relative overflow-hidden" style={{ minHeight: '56vh' }}>
         {/* Background image */}
         <div className="absolute inset-0">
-          <img
+          <SafeImage
             src={images[0]}
             alt={title}
             className="w-full h-full object-cover"
@@ -286,7 +287,7 @@ export default function ServicePage() {
             className="sticky top-[80px]"
           >
             <div className="overflow-hidden rounded-lg" style={{ aspectRatio: '4/5', background: '#141416' }}>
-              <img
+              <SafeImage
                 src={images[0]}
                 alt={title}
                 className="w-full h-full object-cover"
