@@ -88,25 +88,10 @@ export default function SafeImage({ src, alt, className, style, ...rest }: SafeI
     }
   }
 
+  // If failed after proxy fallback, render an invisible placeholder
+  // (keeps layout intact without showing broken-image text)
   if (failed) {
-    return (
-      <div
-        className={className}
-        style={{
-          ...(typeof style === "object" ? style : {}),
-          background: "#141416",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#333",
-          fontSize: 11,
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
-        }}
-      >
-        <span>Imagen no disponible</span>
-      </div>
-    );
+    return <div className={className} style={style} aria-hidden="true" />;
   }
 
   return (
