@@ -621,7 +621,7 @@ export default function Home() {
               transition={{ delay: 0.1, duration: 0.7 }}
               className="text-[56px] md:text-[80px] font-display leading-[1] mb-4 whitespace-pre-line"
             >
-              {"Donde la creatividad\nencontró\nla estrategia."}
+              {"Nos adaptamos a tus desafíos"}
             </motion.h2>
             <motion.div 
               initial={{ width: 0 }}
