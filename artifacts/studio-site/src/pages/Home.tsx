@@ -604,7 +604,7 @@ export default function Home() {
       </section>
       {/* About */}
       <section id="nosotros" className="py-16 bg-[#0A0A0B]">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid md:grid-cols-[40%_60%] gap-10 items-center">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid md:grid-cols-[1fr_1fr] gap-12 items-start">
           <div>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -630,14 +630,14 @@ export default function Home() {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="h-[2px] bg-[#ff5a1f] mb-8"
             />
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.7 }}
-              className="text-[16px] font-light leading-[1.8] text-[#888] mb-6"
+              className="text-[15px] font-light leading-[1.75] text-[#888] mb-6"
             >
-              Somos un equipo apasionado por el diseño estratégico. Combinamos creatividad y funcionalidad para construir marcas sólidas y sistemas de señalética que guían, informan y conectan a las personas con los espacios y las marcas.
+              Con más de 30 años de experiencia, somos una empresa especializada en diseño gráfico, diseño industrial, fabricación de señalética corporativa e impresión de gran formato. Desarrollamos soluciones visuales de alto impacto para empresas, industrias, centros comerciales, oficinas y proyectos comerciales de todo Chile. Diseñamos, fabricamos e instalamos letreros, señalización interior y exterior, gráficas vehiculares, branding corporativo, stands, elementos publicitarios y proyectos personalizados con los más altos estándares de calidad. Nuestra trayectoria nos ha permitido trabajar junto a algunas de las empresas más importantes del país, destacando por nuestro profesionalismo, atención al detalle y compromiso con cada proyecto. Transformamos ideas en soluciones visuales duraderas que fortalecen la imagen de marca y generan resultados.
             </motion.p>
             <div className="flex gap-12">
               <motion.div
