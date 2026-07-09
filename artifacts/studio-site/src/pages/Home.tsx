@@ -357,9 +357,9 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35, duration: 0.7 }}
-              style={{ fontSize: 17, color: '#a0a0a0', maxWidth: 480, lineHeight: 1.7, fontFamily: 'Inter, sans-serif' }}
+              style={{ fontSize: 17, color: '#a0a0a0', maxWidth: 580, lineHeight: 1.7, fontFamily: 'Inter, sans-serif' }}
             >
-              Estudio de diseño gráfico, señalética y diseño industrial con más de 30 años desarrollando, produciendo e instalando identidad visual para nuestros clientes.
+              Diseñamos, fabricamos e instalamos soluciones gráficas para empresas e industrias. Especialistas en señalética, letreros, impresión de gran formato, branding corporativo y proyectos personalizados, con más de 30 años de experiencia entregando calidad, precisión y resultados.
             </motion.p>
 
             {/* Stats */}
