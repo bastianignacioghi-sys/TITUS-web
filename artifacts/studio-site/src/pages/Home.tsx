@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, Quote, Printer, Layers, Wrench, Lightbulb } from 'lucide-react';
 import { SiInstagram, SiBehance } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
-import { useSubmitContact, useListProjects } from '@workspace/api-client-react';
+import { portfolio } from '../data/portfolio';
 import SafeImage from '../components/SafeImage';
 
 const TRAIL_COUNT = 8;
@@ -91,17 +91,9 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const heroImgMainRef = useRef<HTMLImageElement>(null);
   const heroImgSecRef = useRef<HTMLImageElement>(null);
-  const submitContact = useSubmitContact({
-    mutation: {
-      onSuccess: () => {
-        setFormStatus('success');
-        setContactForm({ name: '', email: '', message: '' });
-      },
-      onError: () => setFormStatus('error'),
-    },
-  });
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroTextIndex, setHeroTextIndex] = useState(0);
@@ -171,21 +163,11 @@ export default function Home() {
   ];
 
   // Portfolio carousel
-  const { data: projects } = useListProjects();
   const [carouselIdx, setCarouselIdx] = useState(0);
   const carouselTouchStart = useRef<number | null>(null);
   const carouselAutoRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const carouselItems = projects && projects.length > 0
-    ? projects.map(p => ({
-        id: p.id,
-        title: p.title,
-        category: p.category ?? '',
-        img: p.imagePath.startsWith('http')
-          ? p.imagePath
-          : p.imagePath.replace('/objects/', '/api/storage/objects/'),
-      }))
-    : null;
+  const carouselItems = portfolio.length > 0 ? portfolio : null;
 
   const carouselTotal = carouselItems?.length ?? 0;
 
@@ -901,11 +883,25 @@ export default function Home() {
             
             <form
               className="space-y-6"
-              onSubmit={e => {
+              onSubmit={async e => {
                 e.preventDefault();
                 if (!contactForm.name || !contactForm.email || !contactForm.message) return;
                 setFormStatus('idle');
-                submitContact.mutate({ data: contactForm });
+                setIsSubmitting(true);
+                try {
+                  const res = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(contactForm),
+                  });
+                  if (!res.ok) throw new Error();
+                  setFormStatus('success');
+                  setContactForm({ name: '', email: '', message: '' });
+                } catch {
+                  setFormStatus('error');
+                } finally {
+                  setIsSubmitting(false);
+                }
               }}
             >
               <input
@@ -949,11 +945,11 @@ export default function Home() {
 
               <button
                 type="submit"
-                disabled={submitContact.isPending}
+                disabled={isSubmitting}
                 data-testid="button-contact-submit"
                 className="mt-8 border border-[#ff5a1f] text-[#ff5a1f] bg-transparent px-8 py-4 uppercase tracking-[0.2em] text-[12px] hover:bg-[#ff5a1f] hover:text-[#000] transition-all duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer rounded-[8px]"
               >
-                {submitContact.isPending ? 'Enviando...' : 'Enviar Mensaje'}
+                {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
               </button>
             </form>
           </div>

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useParams } from 'wouter';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Printer, Layers, Wrench, Lightbulb } from 'lucide-react';
-import { useSubmitContact } from '@workspace/api-client-react';
 import SafeImage from '../components/SafeImage';
 
 const serviceData = {
@@ -89,28 +88,23 @@ export default function ServicePage() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  const submitContact = useSubmitContact({
-    mutation: {
-      onSuccess: () => {
-        setFormStatus('success');
-        setFormData({ name: '', email: '', message: '' });
-      },
-      onError: () => setFormStatus('error'),
-    },
-  });
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.email) return;
     setFormStatus('sending');
     try {
-      await submitContact.mutateAsync({
-        data: {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: formData.name || formData.email,
           email: formData.email,
           message: `Servicio: ${service?.title}\n\n${formData.message}`,
-        },
+        }),
       });
+      if (!res.ok) throw new Error();
+      setFormStatus('success');
+      setFormData({ name: '', email: '', message: '' });
     } catch {
       setFormStatus('error');
       setTimeout(() => setFormStatus('idle'), 3000);
