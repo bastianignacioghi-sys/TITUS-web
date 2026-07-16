@@ -652,7 +652,7 @@ export default function Home() {
               className="relative z-10 overflow-hidden w-full h-[600px]"
             >
               <SafeImage
-                src="https://picsum.photos/seed/studiokm/1000/1200"
+                src="https://res.cloudinary.com/dnlpxcjpw/image/upload/v1784241426/ChatGPT_Image_16_jul_2026_18_36_57_arsemi.png"
                 alt="TITUS"
                 className="w-full h-full object-cover grayscale-[20%] contrast-110 hover:grayscale-0 transition-all duration-700"
               />
