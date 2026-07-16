@@ -85,7 +85,7 @@ export default function ServicePage() {
   const { slug } = useParams<{ slug: string }>();
   const service = serviceData[slug as ServiceSlug];
 
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -99,12 +99,13 @@ export default function ServicePage() {
         body: JSON.stringify({
           name: formData.name || formData.email,
           email: formData.email,
+          phone: formData.phone,
           message: `Servicio: ${service?.title}\n\n${formData.message}`,
         }),
       });
       if (!res.ok) throw new Error();
       setFormStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '' });
     } catch {
       setFormStatus('error');
       setTimeout(() => setFormStatus('idle'), 3000);
@@ -214,6 +215,7 @@ export default function ServicePage() {
                   {[
                     { label: 'Nombre', key: 'name', type: 'text', placeholder: 'Tu nombre' },
                     { label: 'Email', key: 'email', type: 'email', placeholder: 'tu@correo.cl' },
+                    { label: 'Teléfono', key: 'phone', type: 'tel', placeholder: '+56 9 XXXX XXXX' },
                   ].map(({ label, key, type, placeholder }) => (
                     <div key={key}>
                       <label style={{ display: 'block', fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>{label}</label>

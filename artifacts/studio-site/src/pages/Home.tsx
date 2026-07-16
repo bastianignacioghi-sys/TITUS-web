@@ -89,7 +89,7 @@ const Cursor = () => {
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+  const [contactForm, setContactForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const heroImgMainRef = useRef<HTMLImageElement>(null);
@@ -892,11 +892,11 @@ export default function Home() {
                   const res = await fetch('/api/contact', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(contactForm),
+                    body: JSON.stringify({ ...contactForm }),
                   });
                   if (!res.ok) throw new Error();
                   setFormStatus('success');
-                  setContactForm({ name: '', email: '', message: '' });
+                  setContactForm({ name: '', email: '', phone: '', message: '' });
                 } catch {
                   setFormStatus('error');
                 } finally {
@@ -920,6 +920,13 @@ export default function Home() {
                 onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))}
                 required
                 data-testid="input-contact-email"
+                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors"
+              />
+              <input
+                type="tel"
+                placeholder="Teléfono"
+                value={contactForm.phone}
+                onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))}
                 className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors"
               />
               <textarea
