@@ -113,12 +113,12 @@ export default function Home() {
     { name: 'Cliente C',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335079/Dise%C3%B1o_sin_t%C3%ADtulo_3_sptoxl.png' },
     { name: 'Cliente D',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335287/Dise%C3%B1o_sin_t%C3%ADtulo_4_ownqr7.png' },
     { name: 'Cliente E',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335349/Dise%C3%B1o_sin_t%C3%ADtulo_5_avofzm.png' },
-    { name: 'Cliente F',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782334912/Dise%C3%B1o_sin_t%C3%ADtulo_1_dbbnyk.png' },
-    { name: 'Cliente G',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782334975/Dise%C3%B1o_sin_t%C3%ADtulo_2_expudm.png' },
-    { name: 'Cliente H',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335079/Dise%C3%B1o_sin_t%C3%ADtulo_3_sptoxl.png' },
-    { name: 'Cliente I',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335287/Dise%C3%B1o_sin_t%C3%ADtulo_4_ownqr7.png' },
-    { name: 'Cliente J',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335349/Dise%C3%B1o_sin_t%C3%ADtulo_5_avofzm.png' },
-    { name: 'Cliente K',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782334912/Dise%C3%B1o_sin_t%C3%ADtulo_1_dbbnyk.png' },
+    { name: 'Cliente F',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782334975/Dise%C3%B1o_sin_t%C3%ADtulo_2_expudm.png' },
+    { name: 'Cliente G',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335079/Dise%C3%B1o_sin_t%C3%ADtulo_3_sptoxl.png' },
+    { name: 'Cliente H',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335287/Dise%C3%B1o_sin_t%C3%ADtulo_4_ownqr7.png' },
+    { name: 'Cliente I',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782334912/Dise%C3%B1o_sin_t%C3%ADtulo_1_dbbnyk.png' },
+    { name: 'Cliente J',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335079/Dise%C3%B1o_sin_t%C3%ADtulo_3_sptoxl.png' },
+    { name: 'Cliente K',  url: 'https://res.cloudinary.com/dnlpxcjpw/image/upload/v1782335349/Dise%C3%B1o_sin_t%C3%ADtulo_5_avofzm.png' },
   ];
   useEffect(() => {
     const handleScroll = () => {
