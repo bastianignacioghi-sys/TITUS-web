@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, Quote, Printer, Layers, Wrench, Lightbulb } from 'lucide-react';
 import { SiInstagram, SiBehance } from 'react-icons/si';
@@ -88,6 +88,7 @@ const Cursor = () => {
 
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [, navigate] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [contactForm, setContactForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -515,6 +516,7 @@ export default function Home() {
                   style={{ perspective: '1000px', height: '260px' }}
                   onMouseEnter={() => setFlippedCard(idx)}
                   onMouseLeave={() => setFlippedCard(null)}
+                  onClick={() => navigate(`/servicios/${srv.slug}`)}
                   className="cursor-pointer"
                 >
                   <div
