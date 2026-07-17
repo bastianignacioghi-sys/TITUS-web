@@ -436,8 +436,61 @@ export default function Home() {
         `}</style>
       </section>
       {/* Services */}
-      <section id="servicios" className="py-20 relative bg-[#141416]">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12">
+      <section id="servicios" className="py-20 relative overflow-hidden" style={{ background: '#0e0e0f' }}>
+
+        {/* Wave ribbon background — silver/white organic curves */}
+        <svg
+          aria-hidden="true"
+          preserveAspectRatio="xMidYMid slice"
+          viewBox="0 0 1440 700"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}
+        >
+          <defs>
+            <filter id="sw-halo" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="36" result="blur" />
+            </filter>
+            <filter id="sw-mid" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="14" result="blur" />
+            </filter>
+            <filter id="sw-core" x="-10%" y="-10%" width="120%" height="120%">
+              <feGaussianBlur stdDeviation="2.5" result="blur" />
+            </filter>
+          </defs>
+
+          {/* Curve 1 — top-left arc sweeping down-right */}
+          <path d="M -60 20 C 80 20, 200 40, 300 140 C 380 220, 380 320, 340 420"
+            fill="none" stroke="#555" strokeWidth="70" opacity="0.28" filter="url(#sw-halo)" />
+          <path d="M -60 20 C 80 20, 200 40, 300 140 C 380 220, 380 320, 340 420"
+            fill="none" stroke="#aaa" strokeWidth="18" opacity="0.3" filter="url(#sw-mid)" />
+          <path d="M -60 20 C 80 20, 200 40, 300 140 C 380 220, 380 320, 340 420"
+            fill="none" stroke="#ffffff" strokeWidth="1.8" opacity="0.7" filter="url(#sw-core)" />
+
+          {/* Curve 2 — top-center sweeping right and down */}
+          <path d="M 440 -40 C 540 20, 680 60, 820 100 C 960 140, 1100 120, 1260 200 C 1350 250, 1420 320, 1500 380"
+            fill="none" stroke="#444" strokeWidth="80" opacity="0.22" filter="url(#sw-halo)" />
+          <path d="M 440 -40 C 540 20, 680 60, 820 100 C 960 140, 1100 120, 1260 200 C 1350 250, 1420 320, 1500 380"
+            fill="none" stroke="#999" strokeWidth="20" opacity="0.28" filter="url(#sw-mid)" />
+          <path d="M 440 -40 C 540 20, 680 60, 820 100 C 960 140, 1100 120, 1260 200 C 1350 250, 1420 320, 1500 380"
+            fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.65" filter="url(#sw-core)" />
+
+          {/* Curve 3 — middle S-sweep left to right */}
+          <path d="M -60 430 C 100 400, 280 480, 480 450 C 680 420, 820 490, 1020 460 C 1180 438, 1340 500, 1500 520"
+            fill="none" stroke="#3a3a3a" strokeWidth="70" opacity="0.25" filter="url(#sw-halo)" />
+          <path d="M -60 430 C 100 400, 280 480, 480 450 C 680 420, 820 490, 1020 460 C 1180 438, 1340 500, 1500 520"
+            fill="none" stroke="#888" strokeWidth="16" opacity="0.28" filter="url(#sw-mid)" />
+          <path d="M -60 430 C 100 400, 280 480, 480 450 C 680 420, 820 490, 1020 460 C 1180 438, 1340 500, 1500 520"
+            fill="none" stroke="#ffffff" strokeWidth="1.5" opacity="0.6" filter="url(#sw-core)" />
+
+          {/* Curve 4 — lower right arc */}
+          <path d="M 900 580 C 1050 560, 1200 600, 1380 580 C 1450 572, 1500 560, 1520 540"
+            fill="none" stroke="#333" strokeWidth="50" opacity="0.2" filter="url(#sw-halo)" />
+          <path d="M 900 580 C 1050 560, 1200 600, 1380 580 C 1450 572, 1500 560, 1520 540"
+            fill="none" stroke="#777" strokeWidth="12" opacity="0.25" filter="url(#sw-mid)" />
+          <path d="M 900 580 C 1050 560, 1200 600, 1380 580 C 1450 572, 1500 560, 1520 540"
+            fill="none" stroke="#ffffff" strokeWidth="1.2" opacity="0.5" filter="url(#sw-core)" />
+        </svg>
+
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
