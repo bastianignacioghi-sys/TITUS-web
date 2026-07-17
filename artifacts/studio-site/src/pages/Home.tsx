@@ -655,7 +655,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1, duration: 0.7 }}
-              className="text-[56px] md:text-[80px] font-display leading-[1] mb-4 whitespace-pre-line"
+              className="text-[56px] md:text-[80px] font-display text-white leading-[1] mb-4 whitespace-pre-line"
             >
               {"Nos adaptamos a tus desafíos"}
             </motion.h2>
@@ -671,7 +671,7 @@ export default function Home() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.7 }}
-              className="text-[15px] font-light leading-[1.75] text-[#888] mb-6"
+              className="text-[15px] font-light leading-[1.75] text-[#bbb] mb-6"
             >
               Con más de 30 años de experiencia, somos una empresa especializada en diseño gráfico, diseño industrial, fabricación de señalética corporativa e impresión de gran formato. Desarrollamos soluciones visuales de alto impacto para empresas, industrias, centros comerciales, oficinas y proyectos comerciales de todo Chile. Diseñamos, fabricamos e instalamos letreros, señalización interior y exterior, gráficas vehiculares, branding corporativo, stands, elementos publicitarios y proyectos personalizados con los más altos estándares de calidad. Nuestra trayectoria nos ha permitido trabajar junto a algunas de las empresas más importantes del país, destacando por nuestro profesionalismo, atención al detalle y compromiso con cada proyecto. Transformamos ideas en soluciones visuales duraderas que fortalecen la imagen de marca y generan resultados.
             </motion.p>
@@ -682,8 +682,8 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="font-display text-[90px] text-[#ff5a1f] leading-[1]">800+</p>
-                <p className="text-[11px] uppercase tracking-[0.2em] text-[#555] mt-1">Proyectos</p>
+                <p className="font-display text-[90px] text-white leading-[1]">800+</p>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-white mt-1">Proyectos</p>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -691,8 +691,8 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.6 }}
               >
-                <p className="font-display text-[90px] text-[#ff5a1f] leading-[1]">30</p>
-                <p className="text-[11px] uppercase tracking-[0.2em] text-[#555] mt-1">Años</p>
+                <p className="font-display text-[90px] text-white leading-[1]">30</p>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-white mt-1">Años</p>
               </motion.div>
             </div>
           </div>
