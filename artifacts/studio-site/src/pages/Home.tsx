@@ -585,8 +585,62 @@ export default function Home() {
         `}</style>
       </section>
       {/* About */}
-      <section id="nosotros" className="py-16 bg-[#0A0A0B]">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid md:grid-cols-[1fr_1fr] gap-12 items-start">
+      <section id="nosotros" className="py-16 relative overflow-hidden" style={{ background: '#0A0A0B' }}>
+
+        {/* Wave ribbon background — luminous S-curves */}
+        <svg
+          aria-hidden="true"
+          preserveAspectRatio="xMidYMid slice"
+          viewBox="0 0 1440 700"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}
+        >
+          <defs>
+            <filter id="glow-wave" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="14" result="blur" />
+            </filter>
+            <filter id="glow-wave-soft" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="32" result="blur" />
+            </filter>
+            <filter id="glow-wave-core" x="-10%" y="-10%" width="120%" height="120%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+            </filter>
+          </defs>
+
+          {/* Wave 1 — top sweep, right to left */}
+          {/* Outer soft halo */}
+          <path d="M 1520 60 C 1200 70, 950 200, 700 230 C 450 260, 220 170, -80 280"
+            fill="none" stroke="#8B0000" strokeWidth="60" opacity="0.35" filter="url(#glow-wave-soft)" />
+          {/* Mid glow */}
+          <path d="M 1520 60 C 1200 70, 950 200, 700 230 C 450 260, 220 170, -80 280"
+            fill="none" stroke="#cc1100" strokeWidth="20" opacity="0.45" filter="url(#glow-wave)" />
+          {/* Bright core line */}
+          <path d="M 1520 60 C 1200 70, 950 200, 700 230 C 450 260, 220 170, -80 280"
+            fill="none" stroke="#ff3300" strokeWidth="2.5" opacity="0.85" filter="url(#glow-wave-core)" />
+
+          {/* Wave 2 — middle sweep, left to right */}
+          {/* Outer soft halo */}
+          <path d="M -80 390 C 200 360, 480 460, 730 420 C 980 380, 1200 480, 1520 450"
+            fill="none" stroke="#7a0000" strokeWidth="60" opacity="0.3" filter="url(#glow-wave-soft)" />
+          {/* Mid glow */}
+          <path d="M -80 390 C 200 360, 480 460, 730 420 C 980 380, 1200 480, 1520 450"
+            fill="none" stroke="#bb1000" strokeWidth="18" opacity="0.4" filter="url(#glow-wave)" />
+          {/* Bright core line */}
+          <path d="M -80 390 C 200 360, 480 460, 730 420 C 980 380, 1200 480, 1520 450"
+            fill="none" stroke="#ff2200" strokeWidth="2" opacity="0.75" filter="url(#glow-wave-core)" />
+
+          {/* Wave 3 — lower sweep, left to right */}
+          {/* Outer soft halo */}
+          <path d="M -80 590 C 300 555, 650 630, 1000 600 C 1200 582, 1360 620, 1520 608"
+            fill="none" stroke="#6a0000" strokeWidth="50" opacity="0.25" filter="url(#glow-wave-soft)" />
+          {/* Mid glow */}
+          <path d="M -80 590 C 300 555, 650 630, 1000 600 C 1200 582, 1360 620, 1520 608"
+            fill="none" stroke="#aa0e00" strokeWidth="14" opacity="0.35" filter="url(#glow-wave)" />
+          {/* Bright core line */}
+          <path d="M -80 590 C 300 555, 650 630, 1000 600 C 1200 582, 1360 620, 1520 608"
+            fill="none" stroke="#ff1a00" strokeWidth="1.5" opacity="0.65" filter="url(#glow-wave-core)" />
+        </svg>
+
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 grid md:grid-cols-[1fr_1fr] gap-12 items-start relative z-10">
           <div>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
