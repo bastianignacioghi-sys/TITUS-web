@@ -817,46 +817,6 @@ export default function Home() {
           )}
         </div>
       </section>
-      {/* Testimonials */}
-      <section className="py-16 bg-[#141416]">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12">
-          <motion.h2 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-[72px] font-display mb-10 text-center"
-          >
-            Voces
-          </motion.h2>
-          
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { q: "TITUS transformó completamente nuestra señalética. El rigor en cada detalle es notable.", n: "Carlos Mendez", r: "Gerente de Operaciones, Hotel Bellavista" },
-              { q: "Profesionales, creativos y con una atención al detalle impecable. Entendieron nuestra marca desde el día uno.", n: "María González", r: "Directora de Marketing, Clínica Las Condes" },
-              { q: "Nuestra identidad de marca nunca había sido tan coherente y poderosa. Un trabajo de nivel mundial.", n: "Pedro Soto", r: "CEO, Viña Montes" }
-            ].map((t, i) => (
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
-                key={i}
-                className="px-8 py-8 rounded-[8px]"
-                style={{ background: '#0A0A0B', borderTop: '2px solid #E8420A' }}
-              >
-                <div className="font-[Playfair_Display] italic text-[80px] leading-[1] text-[#ff5a1f]/30 mb-4">"</div>
-                <p className="text-[17px] font-light leading-[1.8] text-[#ddd] mb-8">
-                  {t.q}
-                </p>
-                <div>
-                  <p className="font-medium text-[13px] text-white">{t.n}</p>
-                  <p className="text-[#555] text-[12px] tracking-[0.1em] uppercase mt-1">{t.r}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
       {/* Contact */}
       <section id="contacto" className="py-16 border-t border-[rgba(255,255,255,0.06)]"
         style={{ background: 'radial-gradient(ellipse 50% 60% at 85% 15%, rgba(232,66,10,0.08) 0%, #0A0A0B 60%)' }}>
