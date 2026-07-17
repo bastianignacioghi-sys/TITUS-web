@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
+import { CONTACT } from '../lib/siteConfig';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, Quote, Printer, Layers, Wrench, Lightbulb } from 'lucide-react';
 import { SiInstagram, SiBehance } from 'react-icons/si';
@@ -90,9 +91,6 @@ export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [, navigate] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [contactForm, setContactForm] = useState({ name: '', email: '', phone: '', message: '' });
-  const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const heroImgMainRef = useRef<HTMLImageElement>(null);
   const heroImgSecRef = useRef<HTMLImageElement>(null);
 
@@ -989,95 +987,103 @@ export default function Home() {
             ¿Hablamos?
           </motion.h2>
           
-          <div className="grid md:grid-cols-2 gap-10">
-            <div className="flex flex-col gap-8">
-              <div className="space-y-4">
-                <a href="mailto:titus@titus.cl" className="block text-[18px] text-[#888] hover:text-white transition-colors">titus@titus.cl</a>
-                <p className="text-[18px] text-[#888]">+56 9 9228 5863</p>
-              </div>
-              <p className="font-[Playfair_Display] italic text-[#666] text-[20px]">
-                Diseñamos con intención, construimos con propósito.
-              </p>
-            </div>
-            
-            <form
-              className="space-y-6"
-              onSubmit={async e => {
-                e.preventDefault();
-                if (!contactForm.name || !contactForm.email || !contactForm.message) return;
-                setFormStatus('idle');
-                setIsSubmitting(true);
-                try {
-                  const res = await fetch('/api/contact', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ ...contactForm }),
-                  });
-                  if (!res.ok) throw new Error();
-                  setFormStatus('success');
-                  setContactForm({ name: '', email: '', phone: '', message: '' });
-                } catch {
-                  setFormStatus('error');
-                } finally {
-                  setIsSubmitting(false);
-                }
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Nombre"
-                value={contactForm.name}
-                onChange={e => setContactForm(f => ({ ...f, name: e.target.value }))}
-                required
-                data-testid="input-contact-name"
-                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors"
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                value={contactForm.email}
-                onChange={e => setContactForm(f => ({ ...f, email: e.target.value }))}
-                required
-                data-testid="input-contact-email"
-                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors"
-              />
-              <input
-                type="tel"
-                placeholder="Teléfono"
-                value={contactForm.phone}
-                onChange={e => setContactForm(f => ({ ...f, phone: e.target.value }))}
-                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors"
-              />
-              <textarea
-                placeholder="Mensaje"
-                rows={4}
-                value={contactForm.message}
-                onChange={e => setContactForm(f => ({ ...f, message: e.target.value }))}
-                required
-                data-testid="input-contact-message"
-                className="w-full bg-transparent border-b border-[rgba(255,255,255,0.15)] py-4 text-white placeholder:text-[#333] focus:outline-none focus:border-[#ff5a1f] transition-colors resize-none"
-              />
+          <p className="font-[Playfair_Display] italic text-[#666] text-[20px] mb-12">
+            Diseñamos con intención, construimos con propósito.
+          </p>
 
-              {formStatus === 'success' && (
-                <p className="text-[#ff5a1f] text-[13px] tracking-[0.1em] uppercase">
-                  Mensaje enviado — te contactaremos pronto.
-                </p>
-              )}
-              {formStatus === 'error' && (
-                <p className="text-red-400 text-[13px] tracking-[0.1em] uppercase">
-                  Error al enviar. Por favor intenta de nuevo.
-                </p>
-              )}
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                data-testid="button-contact-submit"
-                className="mt-8 border border-[#ff5a1f] text-[#ff5a1f] bg-transparent px-8 py-4 uppercase tracking-[0.2em] text-[12px] hover:bg-[#ff5a1f] hover:text-[#000] transition-all duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer rounded-[8px]"
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              {
+                label: 'WhatsApp',
+                info: 'Cotización rápida',
+                href: CONTACT.whatsapp,
+                accent: '#25D366',
+                icon: (
+                  <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                ),
+              },
+              {
+                label: 'Teléfono',
+                info: CONTACT.phone,
+                href: CONTACT.phoneTel,
+                accent: '#ff5a1f',
+                icon: (
+                  <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.43 19.79 19.79 0 01.0 1.82 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
+                  </svg>
+                ),
+              },
+              {
+                label: 'Correo',
+                info: CONTACT.email,
+                href: CONTACT.emailHref,
+                accent: '#a855f7',
+                icon: (
+                  <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                ),
+              },
+            ].map((method, idx) => (
+              <motion.a
+                key={idx}
+                href={method.href}
+                target={method.href.startsWith('http') ? '_blank' : undefined}
+                rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                whileHover={{ y: -4 }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 20,
+                  padding: '40px 28px',
+                  background: '#111',
+                  border: `1.5px solid rgba(255,255,255,0.1)`,
+                  borderRadius: 4,
+                  textDecoration: 'none',
+                  cursor: 'pointer',
+                  transition: 'border-color 0.3s, background 0.3s',
+                  textAlign: 'center',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = method.accent;
+                  (e.currentTarget as HTMLElement).style.background = `${method.accent}10`;
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)';
+                  (e.currentTarget as HTMLElement).style.background = '#111';
+                }}
               >
-                {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
-              </button>
-            </form>
+                <div style={{
+                  width: 72, height: 72, borderRadius: '50%',
+                  background: `${method.accent}18`,
+                  border: `1.5px solid ${method.accent}55`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: method.accent, flexShrink: 0,
+                }}>
+                  {method.icon}
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.25em] mb-2" style={{ color: method.accent }}>
+                    {method.label}
+                  </p>
+                  <p className="text-white text-[15px] font-light leading-snug">
+                    {method.info}
+                  </p>
+                </div>
+                <span className="text-[11px] uppercase tracking-[0.2em] font-semibold" style={{ color: method.accent }}>
+                  Contactar →
+                </span>
+              </motion.a>
+            ))}
           </div>
         </div>
       </section>

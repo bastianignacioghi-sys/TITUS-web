@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Link, useParams } from 'wouter';
+import { CONTACT } from '../lib/siteConfig';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Printer, Layers, Wrench, Lightbulb } from 'lucide-react';
 import SafeImage from '../components/SafeImage';
@@ -85,32 +85,6 @@ export default function ServicePage() {
   const { slug } = useParams<{ slug: string }>();
   const service = serviceData[slug as ServiceSlug];
 
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.email) return;
-    setFormStatus('sending');
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name || formData.email,
-          email: formData.email,
-          phone: formData.phone,
-          message: `Servicio: ${service?.title}\n\n${formData.message}`,
-        }),
-      });
-      if (!res.ok) throw new Error();
-      setFormStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
-    } catch {
-      setFormStatus('error');
-      setTimeout(() => setFormStatus('idle'), 3000);
-    }
-  };
 
   if (!service) {
     return (
@@ -201,78 +175,50 @@ export default function ServicePage() {
               </ul>
             </div>
 
-            {/* Cotización form */}
+            {/* Contacto directo */}
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 32 }}>
-              {formStatus === 'success' ? (
-                <div className="py-6 text-center">
-                  <p className="font-display text-white text-2xl mb-2">¡Mensaje enviado!</p>
-                  <p style={{ color: '#666', fontSize: 14 }}>Te contactaremos muy pronto.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                  <h3 className="font-display text-white" style={{ fontSize: 28 }}>Solicitar cotización</h3>
-
-                  {[
-                    { label: 'Nombre', key: 'name', type: 'text', placeholder: 'Tu nombre' },
-                    { label: 'Email', key: 'email', type: 'email', placeholder: 'tu@correo.cl' },
-                    { label: 'Teléfono', key: 'phone', type: 'tel', placeholder: '+56 9 XXXX XXXX' },
-                  ].map(({ label, key, type, placeholder }) => (
-                    <div key={key}>
-                      <label style={{ display: 'block', fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>{label}</label>
-                      <input
-                        type={type}
-                        placeholder={placeholder}
-                        value={formData[key as keyof typeof formData]}
-                        onChange={e => setFormData(f => ({ ...f, [key]: e.target.value }))}
-                        required={key === 'email'}
-                        className="w-full pb-2 text-white text-sm outline-none transition-colors"
-                        style={{ background: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.12)', color: '#fff' }}
-                        onFocus={e => (e.currentTarget.style.borderBottomColor = accent)}
-                        onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)')}
-                      />
+              <h3 className="font-display text-white mb-6" style={{ fontSize: 28 }}>Solicitar cotización</h3>
+              <div className="flex flex-col gap-3">
+                {[
+                  {
+                    label: 'WhatsApp',
+                    info: 'Cotización rápida',
+                    href: CONTACT.whatsapp,
+                    bg: '#25D366',
+                    icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>,
+                  },
+                  {
+                    label: 'Llamar ahora',
+                    info: CONTACT.phone,
+                    href: CONTACT.phoneTel,
+                    bg: accent,
+                    icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.43 19.79 19.79 0 01.0 1.82 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>,
+                  },
+                  {
+                    label: 'Enviar correo',
+                    info: CONTACT.email,
+                    href: CONTACT.emailHref,
+                    bg: '#555',
+                    icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>,
+                  },
+                ].map((m, i) => (
+                  <a
+                    key={i}
+                    href={m.href}
+                    target={m.href.startsWith('http') ? '_blank' : undefined}
+                    rel={m.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="flex items-center gap-4 px-5 py-4 transition-opacity hover:opacity-85"
+                    style={{ background: m.bg, color: 'white', textDecoration: 'none', borderRadius: 4 }}
+                  >
+                    {m.icon}
+                    <div>
+                      <p style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600 }}>{m.label}</p>
+                      <p style={{ fontSize: 13, opacity: 0.8, marginTop: 1 }}>{m.info}</p>
                     </div>
-                  ))}
-
-                  <div>
-                    <label style={{ display: 'block', fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>Descripción del proyecto</label>
-                    <textarea
-                      placeholder="Cuéntanos qué necesitas..."
-                      rows={3}
-                      value={formData.message}
-                      onChange={e => setFormData(f => ({ ...f, message: e.target.value }))}
-                      className="w-full text-sm outline-none transition-colors resize-none"
-                      style={{ background: 'transparent', borderBottom: '1px solid rgba(255,255,255,0.12)', color: '#fff', paddingBottom: 8 }}
-                      onFocus={e => (e.currentTarget.style.borderBottomColor = accent)}
-                      onBlur={e => (e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.12)')}
-                    />
-                  </div>
-
-                  <div className="flex gap-3 flex-wrap">
-                    <button
-                      type="submit"
-                      disabled={formStatus === 'sending'}
-                      className="flex items-center gap-2 px-6 py-3 text-[13px] uppercase tracking-[0.18em] font-semibold transition-opacity hover:opacity-85 disabled:opacity-50"
-                      style={{ background: accent, color: 'white' }}
-                    >
-                      {formStatus === 'sending' ? 'Enviando…' : <>Enviar solicitud <ArrowRight size={14} /></>}
-                    </button>
-                    <a
-                      href={`https://wa.me/56992285863?text=${waMessage}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-6 py-3 text-[13px] uppercase tracking-[0.15em] font-semibold transition-opacity hover:opacity-85"
-                      style={{ background: '#25D366', color: 'white' }}
-                    >
-                      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                      WhatsApp
-                    </a>
-                  </div>
-
-                  {formStatus === 'error' && (
-                    <p style={{ fontSize: 13, color: '#f87171' }}>Error al enviar. Intenta por WhatsApp.</p>
-                  )}
-                </form>
-              )}
+                    <ArrowRight size={14} style={{ marginLeft: 'auto' }} />
+                  </a>
+                ))}
+              </div>
             </div>
           </motion.div>
 
