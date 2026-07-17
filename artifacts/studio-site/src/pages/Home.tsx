@@ -818,9 +818,59 @@ export default function Home() {
         </div>
       </section>
       {/* Contact */}
-      <section id="contacto" className="py-16 border-t border-[rgba(255,255,255,0.06)]"
-        style={{ background: 'radial-gradient(ellipse 50% 60% at 85% 15%, rgba(232,66,10,0.08) 0%, #0A0A0B 60%)' }}>
-        <div className="max-w-[1280px] mx-auto px-6 md:px-12">
+      <section id="contacto" className="py-16 border-t border-[rgba(255,255,255,0.06)] relative overflow-hidden"
+        style={{ background: '#0A0A0B' }}>
+
+        {/* Blob background — organic red glow inspired */}
+        <div aria-hidden="true" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
+          {/* Top-right large blob */}
+          <div style={{
+            position: 'absolute', top: '-18%', right: '-12%',
+            width: 560, height: 440,
+            background: 'radial-gradient(ellipse at 40% 50%, #a10000 0%, #5a0000 45%, transparent 75%)',
+            borderRadius: '62% 38% 55% 45% / 48% 60% 40% 52%',
+            filter: 'blur(72px)',
+            opacity: 0.22,
+          }} />
+          {/* Top-right accent blob (slightly offset) */}
+          <div style={{
+            position: 'absolute', top: '-8%', right: '5%',
+            width: 280, height: 200,
+            background: 'radial-gradient(ellipse at 50% 50%, #e8420a 0%, #8B0000 55%, transparent 80%)',
+            borderRadius: '40% 60% 35% 65% / 55% 45% 60% 40%',
+            filter: 'blur(55px)',
+            opacity: 0.18,
+          }} />
+          {/* Bottom-left medium blob */}
+          <div style={{
+            position: 'absolute', bottom: '-10%', left: '-8%',
+            width: 420, height: 320,
+            background: 'radial-gradient(ellipse at 55% 45%, #990000 0%, #4a0000 50%, transparent 78%)',
+            borderRadius: '55% 45% 40% 60% / 60% 40% 55% 45%',
+            filter: 'blur(68px)',
+            opacity: 0.2,
+          }} />
+          {/* Bottom-right small blob */}
+          <div style={{
+            position: 'absolute', bottom: '8%', right: '-4%',
+            width: 200, height: 180,
+            background: 'radial-gradient(ellipse at 50% 50%, #cc2200 0%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(50px)',
+            opacity: 0.15,
+          }} />
+          {/* Center floating small orb */}
+          <div style={{
+            position: 'absolute', top: '42%', left: '18%',
+            width: 100, height: 100,
+            background: 'radial-gradient(circle, #c01010 0%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(38px)',
+            opacity: 0.12,
+          }} />
+        </div>
+
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 relative z-10">
           <motion.h2 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
